@@ -4,7 +4,6 @@ import random
 
 from referee.game import PlayerColor, Action, PlaceAction, Coord
 from .board import Board, BOARD_N
-from .habp import alpha_beta_cutoff_search
 
 class Agent:
     """
@@ -55,16 +54,10 @@ class Agent:
         #             Coord(2, 6)
         #         )
 
-         # If the board is relatively empty, play randomly 
-        if len(self._board._empty_coords()) > self.THRESHOLD: 
-            legal_actions = self._board.get_legal_actions()
-            return legal_actions[random.randint(0, len(legal_actions)-1)]
-
-        # If the board is relatively full, play using alpha-beta pruning 
-        return alpha_beta_cutoff_search(self._board)
-        
-
-
+        legal_actions = self._board.get_legal_actions()
+        return legal_actions[random.randint(0, len(legal_actions)-1)]
+    
+    
     def update(self, color: PlayerColor, action: Action, **referee: dict):
         """
         This method is called by the referee after an agent has taken their
