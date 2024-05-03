@@ -96,8 +96,6 @@ class Board:
         explored_coord = set()
         # first action for each agent
         if self.turn_count < 2:
-            # for coord in self._empty_coords():
-            #     legal_actions.update(self.get_legal_actions_at_cell(coord))
             if self.turn_color == PlayerColor.RED:
                 return [PlaceAction(Coord(3, 3), Coord(3, 4), Coord(4, 3), Coord(4, 4))]
             elif self.turn_color == PlayerColor.BLUE:
@@ -134,15 +132,6 @@ class Board:
         if not self._within_bounds(cell):
             raise IndexError(f"Cell position '{cell}' is invalid.")
         return self._state[cell]
-    
-
-    def apply_action_to_state(self, action: Action) -> dict[Coord, CellState]:
-        new_state = self._state.copy()
-        for coord in action.coords:
-            new_state[coord] = CellState(self._turn_color)
-        
-        return Board(new_state, self.turn_color.opponent)
-
 
     def apply_action(self, action: Action) -> BoardMutation:
         """

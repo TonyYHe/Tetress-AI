@@ -46,11 +46,16 @@ class MCTSNode():
         current_rollout_state = self.state
         
         while not current_rollout_state.game_over:
-            
-            possible_moves = current_rollout_state.get_legal_actions()            
+            possible_moves = current_rollout_state.get_legal_actions()    
             action = self.rollout_policy(possible_moves)
             current_rollout_state = copy.deepcopy(self.state)
             current_rollout_state.apply_action(action)
+
+            # print("action:", action)
+            # print("player:", current_rollout_state._turn_color)
+            # print("turn_count:", current_rollout_state.turn_count)
+            # print(self.state.render(use_color=True))
+
         return current_rollout_state.game_result
 
     def backpropagate(self, result):
