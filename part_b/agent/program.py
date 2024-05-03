@@ -61,6 +61,7 @@ class Agent:
             return legal_actions[random.randint(0, len(legal_actions)-1)]
 
         # If the board is relatively full, play using alpha-beta pruning 
+        print("Start the search")
         return alpha_beta_cutoff_search(self._board)
         
 

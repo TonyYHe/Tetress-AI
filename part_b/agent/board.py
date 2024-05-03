@@ -103,8 +103,7 @@ class Board:
         # not the first action for each agent
         else:
             for coord in self._player_occupied_coords(self.turn_color):
-                adjacent_coords = \
-                    [coord.down(), coord.up(), coord.left(), coord.right()] 
+                adjacent_coords = [coord.down(), coord.up(), coord.left(), coord.right()] 
                 empty_adjacent_coords = \
                     [adj_coord for adj_coord in adjacent_coords \
                         if self._cell_empty(adj_coord) and \
@@ -324,7 +323,7 @@ class Board:
     def _assert_coord_empty(self, coord: Coord):
         if self._cell_occupied(coord):
             raise IllegalActionException(
-                f"Coord {coord} is already occupied.", self._turn_color)
+                f"Coord {coord} is already occupied with {self._state[coord].player}.", self._turn_color)
         
     def _assert_has_attr(self, action: Action, attr: str):
         if not hasattr(action, attr):
@@ -376,19 +375,28 @@ class Board:
         min_c = min(c.c for c in piece.coords)
         max_c = max(c.c for c in piece.coords)
         
-        remove_r_coords = [
-            Coord(r, c)
-            for r in range(min_r, max_r + 1)
-            for c in range(BOARD_N)
-            if all(Coord(r, c) in coords_with_piece for c in range(BOARD_N))
-        ]
+        # remove_r_coords = [
+        #     Coord(r, c)
+        #     for r in range(min_r, max_r + 1)
+        #     for c in range(BOARD_N)
+        #     if all(Coord(r, c) in coords_with_piece for c in range(BOARD_N))
+        # ]
 
-        remove_c_coords = [
-            Coord(r, c)
-            for r in range(BOARD_N)
-            for c in range(min_c, max_c + 1)
-            if all(Coord(r, c) in coords_with_piece for r in range(BOARD_N))
-        ]
+        # remove_c_coords = [
+        #     Coord(r, c)
+        #     for r in range(BOARD_N)
+        #     for c in range(min_c, max_c + 1)
+        #     if all(Coord(r, c) in coords_with_piece for r in range(BOARD_N))
+        # ]
+
+        remove_coords = []
+        for r in range(min_r, max_r + 1): 
+            if all(Coord(r, c) in coords_with_piece for c in range(BOARD_N)): 
+                remove_coords += [Coord(r, c) for c in range(BOARD_N)]
+
+        for c in range(min_c, max_c + 1): 
+            if all(Coord(r, c) in coords_with_piece for r in range(BOARD_N)): 
+                remove_coords += [Coord(r, c) for r in range(BOARD_N)]
 
         cell_mutations = {
             cell: CellMutation(
@@ -398,7 +406,8 @@ class Board:
             ) for cell in piece.coords
         }
 
-        for cell in remove_r_coords + remove_c_coords:
+        for cell in remove_coords: # remove_r_coords + remove_c_coords
+            #print(f"remove cell {cell} for action {action}")
             cell_mutations[cell] = CellMutation(
                 cell, 
                 self._state[cell], 

@@ -21,10 +21,10 @@ def alpha_beta_cutoff_search(board:Board):
 
     player: PlayerColor = board._turn_color
 
-    def cutoff_test(board:Board, depth, cutoff_depth=4):
-        return depth > cutoff_depth or board.game_over
+    def cutoff_test(board:Board, depth):
+        return depth > 4 or board.game_over
 
-    def eval_fn(board:Board) -> int: 
+    def eval_fn(board:Board) -> int: # TODO - implement a better evaluation function of the state of the board
         if board.winner_color == player:
             return 1
         elif board.winner_color == player.opponent:
@@ -38,9 +38,11 @@ def alpha_beta_cutoff_search(board:Board):
             return eval_fn(board)
         v = -np.inf
         for a in board.get_legal_actions(): # TODO - the legal actions need to be ordered to increase the efficiency 
+            #print(f"apply action {a} in max_value() with depth {depth}")
             board.apply_action(a) 
             v = max(v, min_value(board, alpha, beta, depth + 1))
             if v >= beta:
+                board.undo_action()
                 return v
             alpha = max(alpha, v)
             board.undo_action()
@@ -51,9 +53,11 @@ def alpha_beta_cutoff_search(board:Board):
             return eval_fn(board)
         v = np.inf
         for a in board.get_legal_actions():
+            #print(f"apply action {a} in min_value() with depth {depth}")
             board.apply_action(a)
             v = min(v, max_value(board, alpha, beta, depth + 1))
             if v <= alpha:
+                board.undo_action()
                 return v
             beta = min(beta, v)
             board.undo_action()
