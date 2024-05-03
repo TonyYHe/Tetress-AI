@@ -2,13 +2,16 @@
 # Project Part B: Game Playing Agent
 
 from referee.game import PlayerColor, Action, PlaceAction, Coord
+from .board import Board
 
+import habp
 
 class Agent:
     """
     This class is the "entry point" for your agent, providing an interface to
     respond to various Tetress game events.
     """
+    generate_next_action = habp.alpha_beta_cutoff_search
 
     def __init__(self, color: PlayerColor, **referee: dict):
         """
@@ -21,6 +24,8 @@ class Agent:
                 print("Testing: I am playing as RED")
             case PlayerColor.BLUE:
                 print("Testing: I am playing as BLUE")
+        
+        self._board = Board()
 
     def action(self, **referee: dict) -> Action:
         """
@@ -39,7 +44,7 @@ class Agent:
                     Coord(3, 3), 
                     Coord(3, 4), 
                     Coord(4, 3), 
-                    Coord(4, 4)
+                    Coord(4, 2)
                 )
             case PlayerColor.BLUE:
                 print("Testing: BLUE is playing a PLACE action")
@@ -49,6 +54,8 @@ class Agent:
                     Coord(2, 5), 
                     Coord(2, 6)
                 )
+
+        return self.generate_next_action(self._color)
 
     def update(self, color: PlayerColor, action: Action, **referee: dict):
         """
@@ -63,4 +70,9 @@ class Agent:
         # Here we are just printing out the PlaceAction coordinates for
         # demonstration purposes. You should replace this with your own logic
         # to update your agent's internal game state representation.
-        print(f"Testing: {color} played PLACE action: {c1}, {c2}, {c3}, {c4}")
+        print(f"Update state for {self._color}: {color} played PLACE action: {c1}, {c2}, {c3}, {c4}")
+
+        self._board.apply_action(place_action)
+
+
+

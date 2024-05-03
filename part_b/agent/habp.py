@@ -7,54 +7,69 @@ from collections import namedtuple
 
 import numpy as np
 
-from utils import vector_add
+from .board import Board
+from referee.game import PlayerColor
 
 GameState = namedtuple('GameState', 'to_move, utility, board, moves')
 StochasticGameState = namedtuple('StochasticGameState', 'to_move, utility, board, moves, chance')
 
 # ______________________________________________________________________________
 
-def alpha_beta_cutoff_search(state, game, d=4, cutoff_test=None, eval_fn=None):
+def alpha_beta_cutoff_search(board:Board):
     """Search game to determine best action; use alpha-beta pruning.
     This version cuts off search and uses an evaluation function."""
 
-    player = game.to_move(state)
+    player: PlayerColor = board._turn_color
+
+    def cutoff_test(board:Board, depth, cutoff_depth=4):
+        return depth > cutoff_depth or board.game_over()
+
+    def eval_fn(board:Board) -> int: 
+        if board.winner_color == player:
+            return 1
+        elif board.winner_color == player.opponent:
+            return -1
+        else:
+            return 0
 
     # Functions used by alpha_beta
-    def max_value(state, alpha, beta, depth):
-        if cutoff_test(state, depth):
-            return eval_fn(state)
+    def max_value(board:Board, alpha, beta, depth):
+        if cutoff_test(board, depth):
+            return eval_fn(board, player)
         v = -np.inf
-        for a in game.actions(state):
-            v = max(v, min_value(game.result(state, a), alpha, beta, depth + 1))
+        for a in board.get_legal_actions(): # TODO - the legal actions need to be ordered to increase the efficiency 
+            board.apply_action(a) 
+            v = max(v, min_value(board, alpha, beta, depth + 1))
             if v >= beta:
                 return v
             alpha = max(alpha, v)
+            board.undo_action()
         return v
 
-    def min_value(state, alpha, beta, depth):
-        if cutoff_test(state, depth):
-            return eval_fn(state)
+    def min_value(board:Board, alpha, beta, depth):
+        if cutoff_test(board, depth):
+            return eval_fn(board, player)
         v = np.inf
-        for a in game.actions(state):
-            v = min(v, max_value(game.result(state, a), alpha, beta, depth + 1))
+        for a in board.get_legal_actions():
+            board.apply_action(a)
+            v = min(v, max_value(board, alpha, beta, depth + 1))
             if v <= alpha:
                 return v
             beta = min(beta, v)
+            board.undo_action()
         return v
 
     # Body of alpha_beta_cutoff_search starts here:
-    # The default test cuts off at depth d or at a terminal state
-    cutoff_test = (cutoff_test or (lambda state, depth: depth > d or game.terminal_test(state)))
-    eval_fn = eval_fn or (lambda state: game.utility(state, player))
     best_score = -np.inf
     beta = np.inf
     best_action = None
-    for a in game.actions(state):
-        v = min_value(game.result(state, a), best_score, beta, 1)
+    for a in board.get_legal_actions():
+        board.apply_action(a)
+        v = min_value(board, best_score, beta, 1)
         if v > best_score:
             best_score = v
             best_action = a
+        board.undo_action()
     return best_action
 
 
