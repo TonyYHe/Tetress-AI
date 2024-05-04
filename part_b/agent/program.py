@@ -33,6 +33,16 @@ class Agent:
         to take an action. It must always return an action object. 
         """
 
+        # If the board is relatively empty, play randomly 
+        if len(self._board._empty_coords()) > self.THRESHOLD: 
+            legal_actions = self._board.get_legal_actions()
+            return legal_actions[random.randint(0, len(legal_actions)-1)]
+
+        # If the board is relatively full, play using alpha-beta pruning 
+        print("Start the search")
+        return alpha_beta_cutoff_search(self._board)
+    
+
         # Below we have hardcoded two actions to be played depending on whether
         # the agent is playing as BLUE or RED. Obviously this won't work beyond
         # the initial moves of the game, so you should use some game playing
@@ -54,15 +64,6 @@ class Agent:
         #             Coord(2, 5), 
         #             Coord(2, 6)
         #         )
-
-         # If the board is relatively empty, play randomly 
-        if len(self._board._empty_coords()) > self.THRESHOLD: 
-            legal_actions = self._board.get_legal_actions()
-            return legal_actions[random.randint(0, len(legal_actions)-1)]
-
-        # If the board is relatively full, play using alpha-beta pruning 
-        print("Start the search")
-        return alpha_beta_cutoff_search(self._board)
         
 
 
