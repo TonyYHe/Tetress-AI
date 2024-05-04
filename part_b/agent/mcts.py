@@ -51,12 +51,12 @@ class MCTSNode():
             current_rollout_state.apply_action(action)
 
             # print("possible_moves", possible_moves)
-            # print("action:", action)
+            # print("action:", action)               
             # print("player:", current_rollout_state._turn_color)
             # print("turn_count:", current_rollout_state.turn_count)
             # print(current_rollout_state.render(use_color=True))
         
-        return current_rollout_state.game_result
+        return current_rollout_state.game_result             
 
     def backpropagate(self, result):
         self._number_of_visits += 1.
@@ -72,10 +72,7 @@ class MCTSNode():
         return self.children[np.argmax(choices_weights)]
     
     def rollout_policy(self, possible_moves):
-        # return possible_moves[np.random.randint(len(possible_moves))]
-        for action in possible_moves:
-            break
-        return action
+        return possible_moves[np.random.randint(len(possible_moves))]
     
     def _tree_policy(self):
         current_node = self
@@ -88,7 +85,7 @@ class MCTSNode():
         return current_node
     
     def best_action(self):
-        simulation_no = 5
+        simulation_no = 10
         
         for i in range(simulation_no):
             v = self._tree_policy()
@@ -97,6 +94,7 @@ class MCTSNode():
 
             print("simulation no:", i, "game result:", reward)
         
+        # sqrt(2)=1.414, this is the theoretical value of C
         return self.best_child(c_param=1.414)
     
 

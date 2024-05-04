@@ -92,30 +92,30 @@ class Board:
         """
         Return the legal actions based on current state of board and player
         """
-        legal_actions = set()
+        legal_actions = []
         # first action for each agent
         if self.turn_count < 2:
             if self.turn_color == PlayerColor.RED:
-                return [PlaceAction(Coord(3, 3), Coord(3, 4), Coord(4, 3), Coord(4, 4))]
+                return [PlaceAction(Coord(5, 5), Coord(5, 6), Coord(6, 5), Coord(6, 6))]
             elif self.turn_color == PlayerColor.BLUE:
                 return [PlaceAction(Coord(2, 3), Coord(2, 4), Coord(2, 5), Coord(2, 6))]
         # not the first action for each agent
         else:
             for coord in self._empty_coords():
-                legal_actions.update(self.get_legal_actions_at_cell(coord))
+                legal_actions += self.get_legal_actions_at_cell(coord)
         return legal_actions
     
     def get_legal_actions_at_cell(self, cell: Coord) -> list[PlaceAction]:
         """
         Return the legal tetromino placements with origina at the input cell
         """
-        legal_actions = set()
+        legal_actions = []
         for piecetype in PieceType:
             piece_coords = set(create_piece(piecetype, cell).coords)
             all_empty = all([self._cell_empty(coord) for coord in piece_coords])
             has_neighbour = any([self._has_neighbour(coord, self._turn_color) for coord in piece_coords])
             if all_empty and has_neighbour:
-                legal_actions.add(PlaceAction(*piece_coords))
+                legal_actions.append(PlaceAction(*piece_coords))
         return legal_actions
 
     def __getitem__(self, cell: Coord) -> CellState:
@@ -146,7 +146,7 @@ class Board:
 
         return mutation
     
-    def apply_action_to_state(self, action: Action, color: PlayerColor):
+    def update(self, action: Action, color: PlayerColor):
         self._turn_color = color
         self.apply_action(action)
 
