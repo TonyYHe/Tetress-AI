@@ -93,7 +93,6 @@ class Board:
         Return the legal actions based on current state of board and player
         """
         legal_actions = set()
-        explored_coord = set()
         # first action for each agent
         if self.turn_count < 2:
             if self.turn_color == PlayerColor.RED:
@@ -102,27 +101,21 @@ class Board:
                 return [PlaceAction(Coord(2, 3), Coord(2, 4), Coord(2, 5), Coord(2, 6))]
         # not the first action for each agent
         else:
-            for coord in self._player_occupied_coords(self.turn_color):
-                adjacent_coords = \
-                    [coord.down(), coord.up(), coord.left(), coord.right()] 
-                empty_adjacent_coords = \
-                    [adj_coord for adj_coord in adjacent_coords \
-                        if self._cell_empty(adj_coord) and \
-                        adj_coord not in explored_coord]
-                for adj_coord in empty_adjacent_coords:
-                    legal_actions.update(self.get_legal_actions_at_cell(adj_coord))
-        return list(legal_actions)
+            for coord in self._empty_coords():
+                legal_actions.update(self.get_legal_actions_at_cell(coord))
+        return legal_actions
     
     def get_legal_actions_at_cell(self, cell: Coord) -> list[PlaceAction]:
         """
         Return the legal tetromino placements with origina at the input cell
         """
-        legal_actions = []
+        legal_actions = set()
         for piecetype in PieceType:
             piece_coords = set(create_piece(piecetype, cell).coords)
-            is_legal = all([self._cell_empty(coord) for coord in piece_coords])
-            if is_legal:
-                legal_actions.append(PlaceAction(*piece_coords))
+            all_empty = all([self._cell_empty(coord) for coord in piece_coords])
+            has_neighbour = any([self._has_neighbour(coord, self._turn_color) for coord in piece_coords])
+            if all_empty and has_neighbour:
+                legal_actions.add(PlaceAction(*piece_coords))
         return legal_actions
 
     def __getitem__(self, cell: Coord) -> CellState:
@@ -152,6 +145,10 @@ class Board:
         self._turn_color = self._turn_color.opponent
 
         return mutation
+    
+    def apply_action_to_state(self, action: Action, color: PlayerColor):
+        self._turn_color = color
+        self.apply_action(action)
 
     def undo_action(self) -> BoardMutation:
         """

@@ -4,6 +4,8 @@
 from referee.game import PlayerColor, Action, PlaceAction, Coord
 from agent.mcts import MCTSNode
 from agent.board import Board
+import copy
+
 
 class Agent:
     """
@@ -16,8 +18,9 @@ class Agent:
         This constructor method runs when the referee instantiates the agent.
         Any setup and/or precomputation should be done here.
         """
-        self.board = Board(initial_player=color)
-        self.root = MCTSNode(board=self.board)
+        initial_board = Board(initial_player=color)
+        print("player color:", color)
+        self.root = MCTSNode(initial_board)
 
 
     def action(self, **referee: dict) -> Action:
@@ -25,8 +28,8 @@ class Agent:
         This method is called by the referee each time it is the agent's turn
         to take an action. It must always return an action object. 
         """
-        selected_node = self.root.best_action()
-        return selected_node
+        best_child = self.root.best_action()
+        return best_child.parent_action
        
 
     def update(self, color: PlayerColor, action: Action, **referee: dict):
@@ -34,6 +37,13 @@ class Agent:
         This method is called by the referee after an agent has taken their
         turn. You should use it to update the agent's internal game state. 
         """
-        self.board.apply_action(action)
+        self.root.state.apply_action_to_state(action, color)
+        self.root = MCTSNode(self.root.state)
 
-        
+        # initial_color = self.root.state.turn_color
+        # initial_turn_count = self.root.state.turn_count
+        # print("initial color:", initial_color, "initial turn_count:", initial_turn_count)
+        # print("input color:", color, "input action:", action)
+        # print("current color:", self.root.state.turn_color, "turn_count:", self.root.state.turn_count)
+        # print(self.root.state.render(use_color=True))
+    
