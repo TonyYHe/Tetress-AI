@@ -15,22 +15,35 @@ StochasticGameState = namedtuple('StochasticGameState', 'to_move, utility, board
 
 # ______________________________________________________________________________
 
+MAX_TURN = 150 
+TURN_THRESHOLD = MAX_TURN * 0.8 
+
 def alpha_beta_cutoff_search(board:Board):
     """Search game to determine best action; use alpha-beta pruning.
     This version cuts off search and uses an evaluation function."""
 
-    player: PlayerColor = board._turn_color
-
     def cutoff_test(board:Board, depth):
-        return depth > 4 or board.game_over
+        # TODO - If the board is relatively empty, shallower 
+
+        # TODO - if there is a row removed, then we need to go deeper? 
+        return depth > 1 or board.game_over
 
     def eval_fn(board:Board) -> int: # TODO - implement a better evaluation function of the state of the board
-        if board.winner_color == player:
-            return 1
-        elif board.winner_color == player.opponent:
-            return -1
-        else:
-            return 0
+    
+        # If about to reach turns limit, change the evaluation function 
+        if board.turn_count < TURN_THRESHOLD: 
+            return len(board.get_legal_actions())
+        else: 
+            return len(board._player_occupied_coords(board._turn_color)) \
+                - len(board._player_occupied_coords(board._turn_color.opponent))
+
+        # If win, return 1; if lose, return -1; else return 0
+        # if board.winner_color == player:
+        #     return 1
+        # elif board.winner_color == player.opponent:
+        #     return -1
+        # else:
+        #     return 0
 
     # Functions used by alpha_beta
     def max_value(board:Board, alpha, beta, depth):

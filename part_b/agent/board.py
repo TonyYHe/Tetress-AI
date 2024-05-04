@@ -2,6 +2,7 @@
 # Project Part B: Game Playing Agent
 
 from dataclasses import dataclass
+import random
 
 from referee.game.pieces import Piece, PieceType, create_piece
 from referee.game.coord import Coord, Direction
@@ -88,21 +89,27 @@ class Board:
         self._turn_color: PlayerColor = initial_player
         self._history: list[BoardMutation] = []
     
-    def get_legal_actions(self) -> list[PlaceAction]:
+    def get_legal_actions(self, player:PlayerColor|None=None) -> list[PlaceAction]:
         """
         Return the legal actions based on current state of board and player
         """
         legal_actions = set()
         explored_coord = set()
         # first action for each agent
-        if self.turn_count < 2:
-            if self.turn_color == PlayerColor.RED:
-                return [PlaceAction(Coord(3, 3), Coord(3, 4), Coord(4, 3), Coord(4, 4))]
-            elif self.turn_color == PlayerColor.BLUE:
-                return [PlaceAction(Coord(2, 3), Coord(2, 4), Coord(2, 5), Coord(2, 6))]
+        if self.turn_count < 2: # TODO - implement a random actions for the first action 
+            empty:set[Coord] = self._empty_coords()
+            return [random.choice(list(self.get_legal_actions_at_cell(random.choice(list(empty)))))]
+
+            # if self.turn_color == PlayerColor.RED:
+            #     return [PlaceAction(Coord(3, 3), Coord(3, 4), Coord(4, 3), Coord(4, 4))]
+            # elif self.turn_color == PlayerColor.BLUE:
+            #     return [PlaceAction(Coord(2, 3), Coord(2, 4), Coord(2, 5), Coord(2, 6))]
+        
         # not the first action for each agent
         else:
-            for coord in self._player_occupied_coords(self.turn_color):
+            if not player: 
+                player = self.turn_color
+            for coord in self._player_occupied_coords(player):
                 adjacent_coords = [coord.down(), coord.up(), coord.left(), coord.right()] 
                 empty_adjacent_coords = \
                     [adj_coord for adj_coord in adjacent_coords \

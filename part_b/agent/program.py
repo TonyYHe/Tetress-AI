@@ -11,7 +11,6 @@ class Agent:
     This class is the "entry point" for your agent, providing an interface to
     respond to various Tetress game events.
     """
-    THRESHOLD = BOARD_N * BOARD_N // 3
 
     def __init__(self, color: PlayerColor, **referee: dict):
         """
@@ -32,11 +31,11 @@ class Agent:
         This method is called by the referee each time it is the agent's turn
         to take an action. It must always return an action object. 
         """
-
-        # If the board is relatively empty, play randomly 
-        if len(self._board._empty_coords()) > self.THRESHOLD: 
+        # If the board is relatively empty, play randomly  
+        FILLED_THRESHOLD = BOARD_N * BOARD_N // 3
+        if len(self._board._empty_coords()) > FILLED_THRESHOLD: 
             legal_actions = self._board.get_legal_actions()
-            return legal_actions[random.randint(0, len(legal_actions)-1)]
+            return random.choice(legal_actions)
 
         # If the board is relatively full, play using alpha-beta pruning 
         print("Start the search")
