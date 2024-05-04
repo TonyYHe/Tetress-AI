@@ -7,8 +7,8 @@ from collections import namedtuple
 
 import numpy as np
 
-from .board import Board
-from referee.game import PlayerColor
+from .board import Board, BOARD_N
+from referee.game import PlaceAction
 
 GameState = namedtuple('GameState', 'to_move, utility, board, moves')
 StochasticGameState = namedtuple('StochasticGameState', 'to_move, utility, board, moves, chance')
@@ -18,39 +18,63 @@ StochasticGameState = namedtuple('StochasticGameState', 'to_move, utility, board
 MAX_TURN = 150 
 TURN_THRESHOLD = MAX_TURN * 0.8 
 
+def action_utility(board:Board, action:PlaceAction) -> int: 
+    '''Find the utility of an action for sorting the action for maximize pruning 
+    '''
+    board.apply_action(action) 
+    player_occupied = (board._player_occupied_coords(board.turn_color.opponent)) # the colour of the action
+    opponent_occupied = (board._player_occupied_coords(board.turn_color)) # the opponent colour of the action 
+    board.undo_action()
+
+    player_occupied_row = set(map(lambda coord: coord.r, player_occupied))
+    player_occupied_col = set(map(lambda coord: coord.c, player_occupied))
+    opponent_occupied_row = set(map(lambda coord: coord.r, opponent_occupied))
+    opponent_occupied_col = set(map(lambda coord: coord.c, opponent_occupied))
+
+    return len(player_occupied_row) + len(player_occupied_col) - len(opponent_occupied_row) - len(opponent_occupied_col)
+
+
 def alpha_beta_cutoff_search(board:Board):
     """Search game to determine best action; use alpha-beta pruning.
     This version cuts off search and uses an evaluation function."""
 
     def cutoff_test(board:Board, depth):
-        # TODO - If the board is relatively empty, shallower 
+        # If the board is relatively empty, simply check until a certain depth  
+        SPARSE_THREASHOLD = BOARD_N * BOARD_N / 3
+        if len(board._empty_coords()) > SPARSE_THREASHOLD: 
+            return depth > 2
 
-        # TODO - if there is a row removed, then we need to go deeper? 
-        return depth > 1 or board.game_over
+        # TODO - if the state of the game is unstable, go deeper? 
+        # if board.is_stable(): 
+        #     return depth > 5
+        # else: 
+        return depth > 4 or board.game_over
 
-    def eval_fn(board:Board) -> int: # TODO - implement a better evaluation function of the state of the board
-    
-        # If about to reach turns limit, change the evaluation function 
+    def eval_fn(board:Board) -> int: 
+        # If there is a winner, give the result straight away 
+        if board.winner_color == board.turn_color.opponent: 
+            return -1 
+        elif board.winner_color == board.turn_color: 
+            return 1,000,000,000,000
+
+        # Otherwise, evaluate the game state 
+        num_actions = len(board.get_legal_actions())
+        player_occupied = board._player_occupied_coords(board._turn_color)
+        opponent_occupied = board._player_occupied_coords(board._turn_color.opponent)
         if board.turn_count < TURN_THRESHOLD: 
-            return len(board.get_legal_actions())
+            return num_actions + 0.1 * (len(player_occupied) - len(opponent_occupied))
         else: 
-            return len(board._player_occupied_coords(board._turn_color)) \
-                - len(board._player_occupied_coords(board._turn_color.opponent))
-
-        # If win, return 1; if lose, return -1; else return 0
-        # if board.winner_color == player:
-        #     return 1
-        # elif board.winner_color == player.opponent:
-        #     return -1
-        # else:
-        #     return 0
+            # If about to reach turns limit, evalution also include the number of cells occupied 
+            return num_actions + \
+                (board.turn_count - TURN_THRESHOLD) * 0.5 * (len(player_occupied) - len(opponent_occupied))
+        
 
     # Functions used by alpha_beta
     def max_value(board:Board, alpha, beta, depth):
         if cutoff_test(board, depth):
             return eval_fn(board)
         v = -np.inf
-        for a in board.get_legal_actions(): # TODO - the legal actions need to be ordered to increase the efficiency 
+        for a in sorted(board.get_legal_actions(), key=lambda action: action_utility(board, action), reverse=True): # TODO - the legal actions need to be ordered to increase the efficiency 
             #print(f"apply action {a} in max_value() with depth {depth}")
             board.apply_action(a) 
             v = max(v, min_value(board, alpha, beta, depth + 1))
@@ -65,7 +89,7 @@ def alpha_beta_cutoff_search(board:Board):
         if cutoff_test(board, depth):
             return eval_fn(board)
         v = np.inf
-        for a in board.get_legal_actions():
+        for a in sorted(board.get_legal_actions(), key=lambda action: action_utility(board, action), reverse=True):
             #print(f"apply action {a} in min_value() with depth {depth}")
             board.apply_action(a)
             v = min(v, max_value(board, alpha, beta, depth + 1))

@@ -32,8 +32,8 @@ class Agent:
         to take an action. It must always return an action object. 
         """
         # If the board is relatively empty, play randomly  
-        FILLED_THRESHOLD = BOARD_N * BOARD_N // 3
-        if len(self._board._empty_coords()) > FILLED_THRESHOLD: 
+        EMPTY_THRESHOLD = BOARD_N * BOARD_N * 3 / 5
+        if len(self._board._empty_coords()) > EMPTY_THRESHOLD: 
             legal_actions = self._board.get_legal_actions()
             return random.choice(legal_actions)
 
