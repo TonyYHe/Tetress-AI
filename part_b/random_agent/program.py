@@ -34,5 +34,13 @@ class Agent:
         This method is called by the referee after an agent has taken their
         turn. You should use it to update the agent's internal game state. 
         """
+        # initial_color = self.board.turn_color
+        # initial_turn_count = self.board.turn_count
+
         self.board.update(action, color)
+
+        # print("initial color:", initial_color, "| initial turn_count:", initial_turn_count)
+        # print("input color:", color, "| input action:", action)
+        # print("current color:", self.board.turn_color, "| turn_count:", self.board.turn_count)
+        # print(self.board.render(use_color=True))
     

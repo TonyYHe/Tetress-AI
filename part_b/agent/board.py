@@ -147,8 +147,10 @@ class Board:
         return mutation
     
     def update(self, action: Action, color: PlayerColor):
+        player_color = self._turn_color
         self._turn_color = color
         self.apply_action(action)
+        self._turn_color = player_color
 
     def undo_action(self) -> BoardMutation:
         """
