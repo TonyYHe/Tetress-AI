@@ -17,9 +17,10 @@ class Agent:
         This constructor method runs when the referee instantiates the agent.
         Any setup and/or precomputation should be done here.
         """
-        initial_board = Board(initial_player=color)
+        initial_board = Board(initial_player=PlayerColor.RED)
         self.root = MCTSNode(initial_board)
-        print("I am", color)
+        self.next = None
+        self.color = color
 
 
     def action(self, **referee: dict) -> Action:
@@ -28,6 +29,7 @@ class Agent:
         to take an action. It must always return an action object. 
         """
         best_child = self.root.best_action()
+        self.next = best_child
         return best_child.parent_action
        
 
@@ -39,9 +41,19 @@ class Agent:
 
         # initial_color = self.root.state.turn_color
         # initial_turn_count = self.root.state.turn_count
-
-        self.root.state.update(action, color)
-        self.root = MCTSNode(self.root.state)
+        
+        if color == self.color:
+            self.root = self.next
+        else:
+            is_child = False
+            for child_node in self.root.children:
+                if child_node.parent_action == action:
+                    self.root = child_node
+                    is_child = True
+                    break
+            if not is_child:
+                self.root.state.apply_action(action)
+                self.root = MCTSNode(self.root.state)
 
         # print("initial color:", initial_color, "| initial turn_count:", initial_turn_count)
         # print("input color:", color, "| input action:", action)

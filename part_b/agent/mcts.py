@@ -16,6 +16,7 @@ class MCTSNode():
         self._results[-1] = 0
         self._untried_actions = None
         self._untried_actions = self.untried_actions()
+        self._legal_actions = self._untried_actions
         return
     
     def untried_actions(self):
@@ -44,11 +45,11 @@ class MCTSNode():
     
     def rollout(self):
         current_rollout_state = copy.deepcopy(self.state)
-        
+        possible_moves = self._legal_actions
         while not current_rollout_state.game_over:
-            possible_moves = current_rollout_state.get_legal_actions()  
             action = self.rollout_policy(possible_moves)
             current_rollout_state.apply_action(action)
+            possible_moves = current_rollout_state.get_legal_actions()
 
             # print("possible_moves", possible_moves)
             # print("action:", action)               
@@ -85,7 +86,7 @@ class MCTSNode():
         return current_node
     
     def best_action(self):
-        simulation_no = 10
+        simulation_no = 30
         
         for i in range(simulation_no):
             v = self._tree_policy()

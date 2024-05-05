@@ -17,7 +17,7 @@ class Agent:
         This constructor method runs when the referee instantiates the agent.
         Any setup and/or precomputation should be done here.
         """
-        self.board = Board(initial_player=color)
+        self.board = Board(initial_player=PlayerColor.RED)
 
 
     def action(self, **referee: dict) -> Action:
@@ -37,7 +37,7 @@ class Agent:
         # initial_color = self.board.turn_color
         # initial_turn_count = self.board.turn_count
 
-        self.board.update(action, color)
+        self.board.apply_action(action)
 
         # print("initial color:", initial_color, "| initial turn_count:", initial_turn_count)
         # print("input color:", color, "| input action:", action)
