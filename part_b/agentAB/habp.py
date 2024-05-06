@@ -64,14 +64,18 @@ def alpha_beta_cutoff_search(board:Board):
 
         # Otherwise, evaluate the game state 
         num_actions = len(board.get_legal_actions(player))
-        player_occupied = board._player_occupied_coords(player)
-        opponent_occupied = board._player_occupied_coords(player.opponent)
-        extra_num_occupied = len(player_occupied) - len(opponent_occupied)
+        num_opponent_actions = len(board.get_legal_actions(player.opponent))
+        extra_num_actions = num_actions - num_opponent_actions
+
+        num_player_occupied = len(board._player_occupied_coords(player))
+        num_opponent_occupied = len(board._player_occupied_coords(player.opponent))
+        extra_num_occupied = num_player_occupied - num_opponent_occupied
+
         if board.turn_count < TURN_THRESHOLD: 
-            utility = num_actions + 0.1 * extra_num_occupied
+            utility = extra_num_actions + 0.1 * extra_num_occupied
         else: 
             # If about to reach turns limit, evalution also include the number of cells occupied 
-            utility = num_actions + \
+            utility = extra_num_actions + \
                 (board.turn_count - TURN_THRESHOLD) * 0.5 * extra_num_occupied
         
         timer.__exit__(None, None, None)
