@@ -1,12 +1,10 @@
 # Use "make run" to run "python3 -m referee agent (red) agent (blue)"
-a1 = agent 
-a2 = agent
-a3 = agentRandom
-a4 = agentRandom
-smart_agents = $(a1) $(a2) 
-dumb_agents = $(a3) $(a4) 
-test_agents_red = $(a1) $(a3) 
-test_agents_blue = $(a3) $(a1) 
+a1 = agentAB
+a2 = agentRandom
+smart_agents = $(a1) $(a1) 
+dumb_agents = $(a2) $(a2) 
+test_agents_red = $(a1) $(a2) 
+test_agents_blue = $(a2) $(a1) 
 
 run_smart: 
 	python3 -m referee $(smart_agents)
