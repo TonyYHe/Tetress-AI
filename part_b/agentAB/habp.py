@@ -8,7 +8,8 @@ from collections import namedtuple
 import numpy as np
 
 from .board import Board, BOARD_N
-from referee.game import PlaceAction
+from referee.game import PlaceAction, PlayerColor
+from referee.agent.resources import CountdownTimer
 
 GameState = namedtuple('GameState', 'to_move, utility, board, moves')
 StochasticGameState = namedtuple('StochasticGameState', 'to_move, utility, board, moves, chance')
@@ -37,12 +38,13 @@ def action_utility(board:Board, action:PlaceAction) -> int:
 def alpha_beta_cutoff_search(board:Board):
     """Search game to determine best action; use alpha-beta pruning.
     This version cuts off search and uses an evaluation function."""
+    player = board.turn_color
 
     def cutoff_test(board:Board, depth):
         # If the board is relatively empty, simply check until a certain depth  
         SPARSE_THREASHOLD = BOARD_N * BOARD_N / 3
         if len(board._empty_coords()) > SPARSE_THREASHOLD: 
-            return depth > 2
+            return depth > 1
 
         # TODO - if the state of the game is unstable, go deeper? 
         # if board.is_stable(): 
@@ -50,31 +52,48 @@ def alpha_beta_cutoff_search(board:Board):
         # else: 
         return depth > 4 or board.game_over
 
-    def eval_fn(board:Board) -> int: 
+    def eval_fn(board:Board, player:PlayerColor) -> int: 
+        timer = CountdownTimer(time_limit=2)
+        timer.__enter__()
+
         # If there is a winner, give the result straight away 
-        if board.winner_color == board.turn_color.opponent: 
+        if board.winner_color == player.opponent: 
             return -1 
-        elif board.winner_color == board.turn_color: 
+        elif board.winner_color == player: 
             return 1,000,000,000,000
 
         # Otherwise, evaluate the game state 
-        num_actions = len(board.get_legal_actions())
-        player_occupied = board._player_occupied_coords(board._turn_color)
-        opponent_occupied = board._player_occupied_coords(board._turn_color.opponent)
+        num_actions = len(board.get_legal_actions(player))
+        player_occupied = board._player_occupied_coords(player)
+        opponent_occupied = board._player_occupied_coords(player.opponent)
+        extra_num_occupied = len(player_occupied) - len(opponent_occupied)
         if board.turn_count < TURN_THRESHOLD: 
-            return num_actions + 0.1 * (len(player_occupied) - len(opponent_occupied))
+            utility = num_actions + 0.1 * extra_num_occupied
         else: 
             # If about to reach turns limit, evalution also include the number of cells occupied 
-            return num_actions + \
-                (board.turn_count - TURN_THRESHOLD) * 0.5 * (len(player_occupied) - len(opponent_occupied))
+            utility = num_actions + \
+                (board.turn_count - TURN_THRESHOLD) * 0.5 * extra_num_occupied
         
+        timer.__exit__(None, None, None)
+        return utility
+
+    def _action_utility(board, action) -> int: 
+        print("action_utility")
+        timer = CountdownTimer(time_limit=2)
+        timer.__enter__()
+        board.apply_action(action) 
+        utility = eval_fn(board)
+        board.undo_action()
+        timer.__exit__(None, None, None)
+        return utility 
 
     # Functions used by alpha_beta
     def max_value(board:Board, alpha, beta, depth):
         if cutoff_test(board, depth):
-            return eval_fn(board)
+            return eval_fn(board, player)
         v = -np.inf
-        for a in sorted(board.get_legal_actions(), key=lambda action: action_utility(board, action), reverse=True): # TODO - the legal actions need to be ordered to increase the efficiency 
+        #for a in board.get_legal_actions():
+        for a in sorted(board.get_legal_actions(), key=lambda action: action_utility(board, action), reverse=True): 
             #print(f"apply action {a} in max_value() with depth {depth}")
             board.apply_action(a) 
             v = max(v, min_value(board, alpha, beta, depth + 1))
@@ -87,8 +106,9 @@ def alpha_beta_cutoff_search(board:Board):
 
     def min_value(board:Board, alpha, beta, depth):
         if cutoff_test(board, depth):
-            return eval_fn(board)
+            return eval_fn(board, player)
         v = np.inf
+        # for a in board.get_legal_actions():
         for a in sorted(board.get_legal_actions(), key=lambda action: action_utility(board, action), reverse=True):
             #print(f"apply action {a} in min_value() with depth {depth}")
             board.apply_action(a)

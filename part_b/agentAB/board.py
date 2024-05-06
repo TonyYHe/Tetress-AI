@@ -4,7 +4,7 @@
 from dataclasses import dataclass
 import random
 
-from referee.game.pieces import Piece, PieceType, create_piece
+from referee.game.pieces import Piece, PieceType, create_piece, _TEMPLATES
 from referee.game.coord import Coord, Direction
 from referee.game.player import PlayerColor
 from referee.game.actions import Action, PlaceAction
@@ -94,7 +94,7 @@ class Board:
         Return the legal actions based on current state of board and player
         """
         legal_actions = set()
-        explored_coord = set()
+        visited_coords = set()
         # first action for each agent
         if self.turn_count < 2: # TODO - implement a random actions for the first action 
             empty:set[Coord] = self._empty_coords()
@@ -107,16 +107,44 @@ class Board:
         
         # not the first action for each agent
         else:
-            if not player: 
+            # for coord in self._player_occupied_coords(player):
+            #     adjacent_coords = [coord.down(), coord.up(), coord.left(), coord.right()] 
+            #     empty_adjacent_coords = \
+            #         [adj_coord for adj_coord in adjacent_coords \
+            #             if self._cell_empty(adj_coord) and adj_coord not in visited_coords]
+            #     for adj_coord in empty_adjacent_coords:
+            #         legal_actions.update(self.get_legal_actions_at_cell(adj_coord))
+            if player == None: 
                 player = self.turn_color
+
             for coord in self._player_occupied_coords(player):
-                adjacent_coords = [coord.down(), coord.up(), coord.left(), coord.right()] 
-                empty_adjacent_coords = \
-                    [adj_coord for adj_coord in adjacent_coords \
-                        if self._cell_empty(adj_coord) and \
-                        adj_coord not in explored_coord]
-                for adj_coord in empty_adjacent_coords:
-                    legal_actions.update(self.get_legal_actions_at_cell(adj_coord))
+                adj_coords = [coord.down(), coord.up(), coord.left(), coord.right()]
+                for adj_coord in adj_coords:
+                    if not self._cell_empty(adj_coord) or \
+                          adj_coord in visited_coords:
+                        continue
+                    visited_coords.add(adj_coord)
+                    for piecetype in PieceType:
+                        piece = _TEMPLATES[piecetype]
+                        for rela_coord in piece:
+                            real_piece = []
+                            occupied = False
+                            for target_rela_coord in piece:
+                                if target_rela_coord == rela_coord:
+                                    real_coord = adj_coord
+                                else:
+                                    real_coord = adj_coord.\
+                                    __add__(target_rela_coord).__sub__(rela_coord)
+                                if not self._cell_empty(real_coord):
+                                    occupied = True
+                                    break
+                                real_piece.append(real_coord)
+                            if not occupied:
+                                real_piece = PlaceAction(real_piece[0],
+                                                         real_piece[1], 
+                                                         real_piece[2], 
+                                                         real_piece[3])
+                                legal_actions.add(real_piece)
         return list(legal_actions)
     
     def get_legal_actions_at_cell(self, cell: Coord) -> list[PlaceAction]:
