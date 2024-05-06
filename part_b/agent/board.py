@@ -98,18 +98,21 @@ class Board:
                         continue
                     visited_coords.add(adj_coord)
                     for piecetype in PieceType:
-                        for rela_coord in _TEMPLATES[piecetype]:
+                        piece = _TEMPLATES[piecetype]
+                        for rela_coord in piece:
                             real_piece = []
                             occupied = False
-                            for target_rela_coord in _TEMPLATES[piecetype]:
-                                real_coord = adj_coord.\
-                                __add__(target_rela_coord).__sub__(rela_coord)
+                            for target_rela_coord in piece:
+                                if target_rela_coord == rela_coord:
+                                    real_coord = adj_coord
+                                else:
+                                    real_coord = adj_coord.\
+                                    __add__(target_rela_coord).__sub__(rela_coord)
                                 if not self._cell_empty(real_coord):
                                     occupied = True
                                     break
                                 real_piece.append(real_coord)
                             if not occupied:
-                                real_piece.sort()
                                 real_piece = PlaceAction(real_piece[0],
                                                          real_piece[1], 
                                                          real_piece[2], 
@@ -208,19 +211,20 @@ class Board:
             if empty_coord in visited:
                 continue
             frontier = deque([empty_coord])
-            empty_coord_clusters[empty_coord] = []
+            empty_coord_clusters[empty_coord] = [[], 0]
             while frontier:
                 coord = frontier.popleft()
                 visited.add(coord)
-                empty_coord_clusters[empty_coord].append(coord)
+                empty_coord_clusters[empty_coord][0].append(coord)
+                empty_coord_clusters[empty_coord][1] += 1
                 adj_coords = \
                     [coord.down(), coord.up(), coord.left(), coord.right()]
                 for adj_coord in adj_coords:
                     if adj_coord not in visited and self._cell_empty(adj_coord):
                         frontier.append(adj_coord)
         
-        for _, coords in empty_coord_clusters.items():
-            if len(coords) < 4:
+        for _, (coords, length) in empty_coord_clusters.items():
+            if length < 4:
                 continue
             for coord in coords:
                 if self._has_neighbour(coord, self._turn_color):
