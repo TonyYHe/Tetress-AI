@@ -45,15 +45,12 @@ class Agent:
         if color == self.color:
             self.root = self.next
         else:
-            is_child = False
-            for child_node in self.root.children:
-                if child_node.parent_action == action:
-                    self.root = child_node
-                    is_child = True
-                    break
-            if not is_child:
+            child_node = self.root.children.get(action)
+            if child_node is None:
                 self.root.state.apply_action(action)
                 self.root = MCTSNode(self.root.state)
+            else:
+                self.root = child_node
 
         # print("initial color:", initial_color, "| initial turn_count:", initial_turn_count)
         # print("input color:", color, "| input action:", action)

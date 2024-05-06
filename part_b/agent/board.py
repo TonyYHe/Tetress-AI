@@ -130,16 +130,9 @@ class Board:
 
     def apply_action(self, action: Action):
         """
-        Apply an action to a board, mutating the board state. Throws an
-        IllegalActionException if the action is invalid.
+        Apply an action to a board, mutating the board state.
         """
-        match action:
-            case PlaceAction():
-                self._resolve_place_action(action)
-            case _:
-                raise IllegalActionException(
-                    f"Unknown action {action}", self._turn_color)
-        
+        self._resolve_place_action(action)
         self._turn_color = self._turn_color.opponent
         self._turn_count += 1
 
@@ -223,7 +216,7 @@ class Board:
                     if adj_coord not in visited and self._cell_empty(adj_coord):
                         frontier.append(adj_coord)
         
-        for _, (coords, length) in empty_coord_clusters.items():
+        for _, [coords, length] in empty_coord_clusters.items():
             if length < 4:
                 continue
             for coord in coords:
@@ -314,61 +307,43 @@ class Board:
                 return True
         return False
 
-    def _parse_place_action(self, action: PlaceAction) -> Piece:
-        if type(action) != PlaceAction:
-            raise IllegalActionException(
-                f"Action '{action}' is not a PLACE action object.", 
-                    self._turn_color)
-        
-        self._assert_has_attr(action, "c1")
-        self._assert_has_attr(action, "c2")
-        self._assert_has_attr(action, "c3")
-        self._assert_has_attr(action, "c4")
-
-        has_neighbour = False
-        for coord in [action.c1, action.c2, action.c3, action.c4]:
-            self._assert_coord_valid(coord)
-            self._assert_coord_empty(coord)
-            if self._has_neighbour(coord, self._turn_color):
-                has_neighbour = True
-
-        if self._turn_count >= 2 and not has_neighbour:
-            raise IllegalActionException(
-                f"No coords in {action} neighbour a {self._turn_color} piece.",
-                    self._turn_color)
-
-        try:
-            return Piece(action.coords)
-        except ValueError as e:
-            raise IllegalActionException(str(e), self._turn_color)
-
     def _resolve_place_action(self, action: PlaceAction):
-        piece = self._parse_place_action(action)
-        coords_with_piece = self._occupied_coords() | set(piece.coords)
-
-        min_r = min(c.r for c in piece.coords)
-        max_r = max(c.r for c in piece.coords)
-        min_c = min(c.c for c in piece.coords)
-        max_c = max(c.c for c in piece.coords)
-        
-        remove_r_coords = [
-            Coord(r, c)
-            for r in range(min_r, max_r + 1)
-            for c in range(BOARD_N)
-            if all(Coord(r, c) in coords_with_piece for c in range(BOARD_N))
-        ]
-
-        remove_c_coords = [
-            Coord(r, c)
-            for r in range(BOARD_N)
-            for c in range(min_c, max_c + 1)
-            if all(Coord(r, c) in coords_with_piece for r in range(BOARD_N))
-        ]
+        row_nums = set(c.r for c in action.coords)
+        col_nums = set(c.c for c in action.coords)
 
         for cell in action.coords:
             self._state[cell] = CellState(self._turn_color)
-        
-        removed_coords = remove_r_coords + remove_c_coords
 
-        for cell in removed_coords:
+        remove_coords = []
+
+        # scan all the coordinates in the same row as the input piece (action)
+        for r in row_nums:
+            remove_r_coords = []
+            filled = True
+            for c in range(BOARD_N):
+                cell = Coord(r, c)
+                if not self._cell_occupied(cell):
+                    filled = False
+                    break
+                remove_r_coords.append(cell)
+            if not filled:
+                continue
+            remove_coords += remove_r_coords
+        
+        # scan all the coordinates in the same col as the input piece (action)
+        for c in col_nums:
+            remove_c_coords = []
+            filled = True
+            for r in range(BOARD_N):
+                cell = Coord(r, c)
+                if not self._cell_occupied(cell):
+                    filled = False
+                    break
+                remove_c_coords.append(cell)
+            if not filled:
+                continue
+            remove_coords += remove_c_coords
+
+        for cell in remove_coords:
             self._state[cell] = CellState(None)    
+            

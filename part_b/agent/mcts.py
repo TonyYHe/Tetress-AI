@@ -9,7 +9,7 @@ class MCTSNode():
         self.state = board
         self.parent = parent
         self.parent_action = parent_action
-        self.children = []
+        self.children = dict()
         self._number_of_visits = 0
         self._results = defaultdict(int)
         self._results[1] = 0
@@ -37,7 +37,7 @@ class MCTSNode():
         next_board.apply_action(action)
         child_node = MCTSNode(
             next_board, parent=self, parent_action=action)
-        self.children.append(child_node)
+        self.children[action] = child_node
         return child_node 
     
     def is_terminal_node(self):
@@ -56,7 +56,6 @@ class MCTSNode():
             # print("player:", current_rollout_state._turn_color)
             # print("turn_count:", current_rollout_state.turn_count)
             # print(current_rollout_state.render(use_color=True))
-        
         return current_rollout_state.game_result             
 
     def backpropagate(self, result):
@@ -68,9 +67,16 @@ class MCTSNode():
     def is_fully_expanded(self):
         return len(self._untried_actions) == 0
     
-    def best_child(self, c_param=0.1):
-        choices_weights = [(c.q() / c.n()) + c_param * np.sqrt((2 * np.log(self.n()) / c.n())) for c in self.children]
-        return self.children[np.argmax(choices_weights)]
+    def choice_weight(self, c, c_param=1.414):
+        return (c.q() / c.n()) + c_param * np.sqrt((2 * np.log(self.n()) / c.n()))
+    
+    def best_child(self, c_param=1.414):
+        choice_weights = []
+        children = []
+        for c in self.children.values():
+            choice_weights.append(self.choice_weight(c, c_param))
+            children.append(c)
+        return children[np.argmax(choice_weights)]
     
     def rollout_policy(self, possible_moves):
         return possible_moves[np.random.randint(len(possible_moves))]
@@ -86,7 +92,7 @@ class MCTSNode():
         return current_node
     
     def best_action(self):
-        simulation_no = 50
+        simulation_no = 40
         
         for i in range(simulation_no):
             v = self._tree_policy()
