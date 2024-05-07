@@ -60,7 +60,7 @@ def alpha_beta_cutoff_search(board:Board):
         # else: 
         return depth > 4 or board.game_over
 
-    def eval_fn(board:Board, player:PlayerColor) -> int: 
+    def eval_fn(board:Board, player:PlayerColor) -> float: 
         # If there is a winner, give the result straight away 
         if board.winner_color == player.opponent: 
             return -1 
@@ -96,7 +96,7 @@ def alpha_beta_cutoff_search(board:Board):
     #     return utility 
 
     # Functions used by alpha_beta
-    def max_value(board:Board, alpha, beta, depth):
+    def max_value(board:Board, alpha, beta, depth) -> float:
         if cutoff_test(board, depth):
             return eval_fn(board, player)
         v = -np.inf
@@ -112,7 +112,7 @@ def alpha_beta_cutoff_search(board:Board):
             board.undo_action()
         return v
 
-    def min_value(board:Board, alpha, beta, depth):
+    def min_value(board:Board, alpha, beta, depth) -> float:
         if cutoff_test(board, depth):
             return eval_fn(board, player)
         v = np.inf
@@ -133,9 +133,10 @@ def alpha_beta_cutoff_search(board:Board):
     beta = np.inf
     best_action = None
     for a in board.get_legal_actions():
-        timer = CountdownTimer(time_limit=1,tolerance=20)
+        timer = CountdownTimer(time_limit=1,tolerance=10)
         timer.__enter__()
 
+        # Apply the action, evaluate alpha and beta, then undo the action 
         board.apply_action(a)
         v = min_value(board, best_score, beta, 1)
         if v > best_score:
