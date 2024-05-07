@@ -35,8 +35,8 @@ def action_utility(board:Board, action:PlaceAction, player:PlayerColor) -> int:
     
     board.apply_action(action) 
 
-    # Calculate the weighted sum fo the new action played 
-    utility = diff_row_col_occupied(player)
+    # Calculate the weighted sum of the utility components for `player` (i.e. the agent using the habp) of the new action played 
+    utility = diff_row_col_occupied(player) # TODO - add more component to make the weighted sum more accurate 
 
     board.undo_action()
 
@@ -61,9 +61,6 @@ def alpha_beta_cutoff_search(board:Board):
         return depth > 4 or board.game_over
 
     def eval_fn(board:Board, player:PlayerColor) -> int: 
-        timer = CountdownTimer(time_limit=2)
-        timer.__enter__()
-
         # If there is a winner, give the result straight away 
         if board.winner_color == player.opponent: 
             return -1 
@@ -86,7 +83,6 @@ def alpha_beta_cutoff_search(board:Board):
             utility = extra_num_actions + \
                 (board.turn_count - TURN_THRESHOLD) * 0.5 * extra_num_occupied
         
-        timer.__exit__(None, None, None)
         return utility
 
     # def ___DISCARD_action_utility(board, action) -> int: 
@@ -137,12 +133,17 @@ def alpha_beta_cutoff_search(board:Board):
     beta = np.inf
     best_action = None
     for a in board.get_legal_actions():
+        timer = CountdownTimer(time_limit=1,tolerance=20)
+        timer.__enter__()
+
         board.apply_action(a)
         v = min_value(board, best_score, beta, 1)
         if v > best_score:
             best_score = v
             best_action = a
         board.undo_action()
+
+        timer.__exit__(None, None, None)
     return best_action
 
 
