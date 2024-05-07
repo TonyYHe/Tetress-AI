@@ -2,7 +2,6 @@
 # Project Part B: Game Playing Agent
 
 from dataclasses import dataclass
-import random
 
 from referee.game.pieces import Piece, PieceType, create_piece, _TEMPLATES
 from referee.game.coord import Coord, Direction
@@ -10,6 +9,8 @@ from referee.game.player import PlayerColor
 from referee.game.actions import Action, PlaceAction
 from referee.game.exceptions import IllegalActionException
 from referee.game.constants import *
+
+from collections import deque
 
 
 
@@ -32,33 +33,6 @@ class CellState:
         yield self.player
 
 
-@dataclass(frozen=True, slots=True)
-class CellMutation:
-    """
-    A structure representing a change in the state of a single cell on the game
-    board after an action has been played.
-    """
-    cell: Coord
-    prev: CellState
-    next: CellState
-
-    def __str__(self):
-        return f"CellMutation({self.cell}, {self.prev}, {self.next})"
-
-
-@dataclass(frozen=True, slots=True)
-class BoardMutation:
-    """
-    A structure representing a change in the state of the game board after an
-    action has been played. Each mutation consists of a set of cell mutations.
-    """
-    action: Action
-    cell_mutations: set[CellMutation]
-
-    def __str__(self):
-        return f"BoardMutation({self.cell_mutations})"
-
-
 class Board:
     """
     A class representing the game board for internal use in the referee. 
@@ -71,7 +45,7 @@ class Board:
     def __init__(
         self, 
         initial_state: dict[Coord, CellState] = {},
-        initial_player: PlayerColor = PlayerColor.RED
+        initial_player: PlayerColor = PlayerColor.RED,
     ):
         """
         Create a new board. It is optionally possible to specify an initial
@@ -87,26 +61,35 @@ class Board:
             self._state = initial_state
 
         self._turn_color: PlayerColor = initial_player
-        self._history: list[BoardMutation] = []
+        self._turn_count = 0
     
-    def get_legal_actions(self, player:PlayerColor|None=None) -> list[PlaceAction]:
+    def get_legal_actions(self) -> list[PlaceAction]:
         """
         Return the legal actions based on current state of board and player
         """
         legal_actions = set()
         visited_coords = set()
         # first action for each agent
-        if self.turn_count < 2: # TODO - implement a random actions for the first action 
-            empty:set[Coord] = self._empty_coords()
-            return [random.choice(list(self.get_legal_actions_at_cell(random.choice(list(empty)))))]
-
-            # if self.turn_color == PlayerColor.RED:
-            #     return [PlaceAction(Coord(3, 3), Coord(3, 4), Coord(4, 3), Coord(4, 4))]
-            # elif self.turn_color == PlayerColor.BLUE:
-            #     return [PlaceAction(Coord(2, 3), Coord(2, 4), Coord(2, 5), Coord(2, 6))]
-        
+        if self._turn_count < 2:
+            if self.turn_color == PlayerColor.RED:
+                return [PlaceAction(Coord(4, 4), 
+                                    Coord(4, 5), 
+                                    Coord(4, 6), 
+                                    Coord(5, 5))]
+            elif self.turn_color == PlayerColor.BLUE:
+                for r in range(BOARD_N):
+                    piece_coords = [Coord(r, 4), 
+                             Coord(r, 5), 
+                             Coord(r, 6), 
+                             Coord(r + 1, 5)]
+                    if all([self._cell_empty(coord) for coord in piece_coords]):
+                        return [PlaceAction(Coord(r, 4), 
+                                            Coord(r, 5), 
+                                            Coord(r, 6), 
+                                            Coord(r + 1, 5))]
         # not the first action for each agent
         else:
+<<<<<<< Updated upstream:part_b/agentAB/board.py
             # for coord in self._player_occupied_coords(player):
             #     adjacent_coords = [coord.down(), coord.up(), coord.left(), coord.right()] 
             #     empty_adjacent_coords = \
@@ -119,6 +102,11 @@ class Board:
 
             for coord in self._player_occupied_coords(player):
                 adj_coords = [coord.down(), coord.up(), coord.left(), coord.right()]
+=======
+            for coord in self._player_occupied_coords(self._turn_color):
+                adj_coords = \
+                    [coord.down(), coord.up(), coord.left(), coord.right()]
+>>>>>>> Stashed changes:part_b/agent/board.py
                 for adj_coord in adj_coords:
                     if not self._cell_empty(adj_coord) or \
                           adj_coord in visited_coords:
@@ -146,18 +134,6 @@ class Board:
                                                          real_piece[3])
                                 legal_actions.add(real_piece)
         return list(legal_actions)
-    
-    def get_legal_actions_at_cell(self, cell: Coord) -> list[PlaceAction]:
-        """
-        Return the legal tetromino placements with origina at the input cell
-        """
-        legal_actions = []
-        for piecetype in PieceType:
-            piece_coords = set(create_piece(piecetype, cell).coords)
-            is_legal = all([self._cell_empty(coord) for coord in piece_coords])
-            if is_legal:
-                legal_actions.append(PlaceAction(*piece_coords))
-        return legal_actions
 
     def __getitem__(self, cell: Coord) -> CellState:
         """
@@ -167,42 +143,13 @@ class Board:
             raise IndexError(f"Cell position '{cell}' is invalid.")
         return self._state[cell]
 
-    def apply_action(self, action: Action) -> BoardMutation:
+    def apply_action(self, action: Action):
         """
-        Apply an action to a board, mutating the board state. Throws an
-        IllegalActionException if the action is invalid.
+        Apply an action to a board, mutating the board state.
         """
-        match action:
-            case PlaceAction():
-                mutation = self._resolve_place_action(action)
-            case _:
-                raise IllegalActionException(
-                    f"Unknown action {action}", self._turn_color)
-
-        for cell_mutation in mutation.cell_mutations:
-            self._state[cell_mutation.cell] = cell_mutation.next
-        
-        self._history.append(mutation)
+        self._resolve_place_action(action)
         self._turn_color = self._turn_color.opponent
-
-        return mutation
-
-    def undo_action(self) -> BoardMutation:
-        """
-        Undo the last action played, mutating the board state. Throws an
-        IndexError if no actions have been played.
-        """
-        if len(self._history) == 0:
-            raise IndexError("No actions to undo.")
-
-        mutation: BoardMutation = self._history.pop()
-
-        self._turn_color = self._turn_color.opponent
-
-        for cell_mutation in mutation.cell_mutations:
-            self._state[cell_mutation.cell] = cell_mutation.prev
-
-        return mutation
+        self._turn_count += 1
 
     def render(self, use_color: bool=False, use_unicode: bool=False) -> str:
         """
@@ -240,14 +187,14 @@ class Board:
         """
         The number of actions that have been played so far.
         """
-        return len(self._history)
+        return self._turn_count
     
     @property
     def turn_limit_reached(self) -> bool:
         """
         True iff the maximum number of turns has been reached.
         """
-        return self.turn_count >= MAX_TURNS
+        return self._turn_count >= MAX_TURNS
 
     @property
     def turn_color(self) -> PlayerColor:
@@ -261,29 +208,36 @@ class Board:
         """
         True iff the game is over.
         """
-        empty_coords = set(filter(self._cell_empty, self._state.keys()))
-
         if self.turn_limit_reached:
             return True
+        if self._turn_count < 2:
+            return False
 
-        # Try all possible piece types at all empty coordinates to see if there
-        # are any legal moves remaining. This is quite inefficient, but good
-        # enough for the referee's purposes.
-        for piece_type in PieceType: 
-            for coord in empty_coords:
-                try:
-                    piece_coords = set(create_piece(piece_type, coord).coords)
-
-                    self.apply_action(PlaceAction(*piece_coords))
-                    self.undo_action()
-
-                    # If we got here, there's at least one legal move left.
+        visited = set()
+        empty_coord_clusters = dict()
+        for empty_coord in self._empty_coords():
+            if empty_coord in visited:
+                continue
+            frontier = deque([empty_coord])
+            empty_coord_clusters[empty_coord] = [[], 0]
+            while frontier:
+                coord = frontier.popleft()
+                visited.add(coord)
+                empty_coord_clusters[empty_coord][0].append(coord)
+                empty_coord_clusters[empty_coord][1] += 1
+                adj_coords = \
+                    [coord.down(), coord.up(), coord.left(), coord.right()]
+                for adj_coord in adj_coords:
+                    if adj_coord not in visited and self._cell_empty(adj_coord):
+                        frontier.append(adj_coord)
+        
+        for _, [coords, length] in empty_coord_clusters.items():
+            if length < 4:
+                continue
+            for coord in coords:
+                if self._has_neighbour(coord, self._turn_color):
                     return False
-                
-                except (ValueError, IllegalActionException):
-                    pass
-
-        # Tried all possible moves and none were legal.
+    
         return True
     
     @property
@@ -328,11 +282,6 @@ class Board:
         return self._state[coord].player != None
     
     def _cell_empty(self, coord: Coord) -> bool:
-        # print("coord:", coord, "colour:", self._state[coord])
-        # try:
-        #     print(self._state[coord].player == None)
-        # except:
-        #     print(self._state)
         return self._state[coord].player == None
     
     def _player_token_count(self, color: PlayerColor) -> int:
@@ -358,7 +307,7 @@ class Board:
     def _assert_coord_empty(self, coord: Coord):
         if self._cell_occupied(coord):
             raise IllegalActionException(
-                f"Coord {coord} is already occupied with {self._state[coord].player}.", self._turn_color)
+                f"Coord {coord} is already occupied.", self._turn_color)
         
     def _assert_has_attr(self, action: Action, attr: str):
         if not hasattr(action, attr):
@@ -373,83 +322,43 @@ class Board:
                 return True
         return False
 
-    def _parse_place_action(self, action: PlaceAction) -> Piece:
-        if type(action) != PlaceAction:
-            raise IllegalActionException(
-                f"Action '{action}' is not a PLACE action object.", 
-                    self._turn_color)
-        
-        self._assert_has_attr(action, "c1")
-        self._assert_has_attr(action, "c2")
-        self._assert_has_attr(action, "c3")
-        self._assert_has_attr(action, "c4")
+    def _resolve_place_action(self, action: PlaceAction):
+        row_nums = set(c.r for c in action.coords)
+        col_nums = set(c.c for c in action.coords)
 
-        has_neighbour = False
-        for coord in [action.c1, action.c2, action.c3, action.c4]:
-            self._assert_coord_valid(coord)
-            self._assert_coord_empty(coord)
-            if self._has_neighbour(coord, self._turn_color):
-                has_neighbour = True
-
-        if self.turn_count >= 2 and not has_neighbour:
-            raise IllegalActionException(
-                f"No coords in {action} neighbour a {self._turn_color} piece.",
-                    self._turn_color)
-
-        try:
-            return Piece(action.coords)
-        except ValueError as e:
-            raise IllegalActionException(str(e), self._turn_color)
-
-    def _resolve_place_action(self, action: PlaceAction) -> BoardMutation:
-        piece = self._parse_place_action(action)
-        coords_with_piece = self._occupied_coords() | set(piece.coords)
-
-        min_r = min(c.r for c in piece.coords)
-        max_r = max(c.r for c in piece.coords)
-        min_c = min(c.c for c in piece.coords)
-        max_c = max(c.c for c in piece.coords)
-        
-        # remove_r_coords = [
-        #     Coord(r, c)
-        #     for r in range(min_r, max_r + 1)
-        #     for c in range(BOARD_N)
-        #     if all(Coord(r, c) in coords_with_piece for c in range(BOARD_N))
-        # ]
-
-        # remove_c_coords = [
-        #     Coord(r, c)
-        #     for r in range(BOARD_N)
-        #     for c in range(min_c, max_c + 1)
-        #     if all(Coord(r, c) in coords_with_piece for r in range(BOARD_N))
-        # ]
+        for cell in action.coords:
+            self._state[cell] = CellState(self._turn_color)
 
         remove_coords = []
-        for r in range(min_r, max_r + 1): 
-            if all(Coord(r, c) in coords_with_piece for c in range(BOARD_N)): 
-                remove_coords += [Coord(r, c) for c in range(BOARD_N)]
 
-        for c in range(min_c, max_c + 1): 
-            if all(Coord(r, c) in coords_with_piece for r in range(BOARD_N)): 
-                remove_coords += [Coord(r, c) for r in range(BOARD_N)]
+        # scan all the coordinates in the same row as the input piece (action)
+        for r in row_nums:
+            remove_r_coords = []
+            filled = True
+            for c in range(BOARD_N):
+                cell = Coord(r, c)
+                if not self._cell_occupied(cell):
+                    filled = False
+                    break
+                remove_r_coords.append(cell)
+            if not filled:
+                continue
+            remove_coords += remove_r_coords
+        
+        # scan all the coordinates in the same col as the input piece (action)
+        for c in col_nums:
+            remove_c_coords = []
+            filled = True
+            for r in range(BOARD_N):
+                cell = Coord(r, c)
+                if not self._cell_occupied(cell):
+                    filled = False
+                    break
+                remove_c_coords.append(cell)
+            if not filled:
+                continue
+            remove_coords += remove_c_coords
 
-        cell_mutations = {
-            cell: CellMutation(
-                cell, 
-                self._state[cell], 
-                CellState(self._turn_color)
-            ) for cell in piece.coords
-        }
-
-        for cell in remove_coords: # remove_r_coords + remove_c_coords
-            #print(f"remove cell {cell} for action {action}")
-            cell_mutations[cell] = CellMutation(
-                cell, 
-                self._state[cell], 
-                CellState(None)
-            )
-
-        return BoardMutation(
-            action,
-            cell_mutations=set(cell_mutations.values())
-        )
+        for cell in remove_coords:
+            self._state[cell] = CellState(None)    
+            
