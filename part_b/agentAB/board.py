@@ -89,7 +89,6 @@ class Board:
                                             Coord(r + 1, 5))]
         # not the first action for each agent
         else:
-<<<<<<< Updated upstream:part_b/agentAB/board.py
             # for coord in self._player_occupied_coords(player):
             #     adjacent_coords = [coord.down(), coord.up(), coord.left(), coord.right()] 
             #     empty_adjacent_coords = \
@@ -102,11 +101,6 @@ class Board:
 
             for coord in self._player_occupied_coords(player):
                 adj_coords = [coord.down(), coord.up(), coord.left(), coord.right()]
-=======
-            for coord in self._player_occupied_coords(self._turn_color):
-                adj_coords = \
-                    [coord.down(), coord.up(), coord.left(), coord.right()]
->>>>>>> Stashed changes:part_b/agent/board.py
                 for adj_coord in adj_coords:
                     if not self._cell_empty(adj_coord) or \
                           adj_coord in visited_coords:
