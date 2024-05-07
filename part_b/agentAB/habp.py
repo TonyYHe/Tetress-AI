@@ -19,20 +19,28 @@ StochasticGameState = namedtuple('StochasticGameState', 'to_move, utility, board
 MAX_TURN = 150 
 TURN_THRESHOLD = MAX_TURN * 0.8 
 
-def action_utility(board:Board, action:PlaceAction) -> int: 
+def action_utility(board:Board, action:PlaceAction, player:PlayerColor) -> int: 
     '''Find the utility of an action for sorting the action for maximize pruning 
     '''
+
+    def diff_row_col_occupied(player:PlayerColor) -> int: 
+        player_occupied = (board._player_occupied_coords(player)) 
+        opponent_occupied = (board._player_occupied_coords(player.opponent)) 
+        player_occupied_row = set(map(lambda coord: coord.r, player_occupied))
+        player_occupied_col = set(map(lambda coord: coord.c, player_occupied))
+        opponent_occupied_row = set(map(lambda coord: coord.r, opponent_occupied))
+        opponent_occupied_col = set(map(lambda coord: coord.c, opponent_occupied))
+        return len(player_occupied_row) + len(player_occupied_col) \
+            - len(opponent_occupied_row) - len(opponent_occupied_col)
+    
     board.apply_action(action) 
-    player_occupied = (board._player_occupied_coords(board.turn_color.opponent)) # the colour of the action
-    opponent_occupied = (board._player_occupied_coords(board.turn_color)) # the opponent colour of the action 
+
+    # Calculate the weighted sum fo the new action played 
+    utility = diff_row_col_occupied(player)
+
     board.undo_action()
 
-    player_occupied_row = set(map(lambda coord: coord.r, player_occupied))
-    player_occupied_col = set(map(lambda coord: coord.c, player_occupied))
-    opponent_occupied_row = set(map(lambda coord: coord.r, opponent_occupied))
-    opponent_occupied_col = set(map(lambda coord: coord.c, opponent_occupied))
-
-    return len(player_occupied_row) + len(player_occupied_col) - len(opponent_occupied_row) - len(opponent_occupied_col)
+    return utility
 
 
 def alpha_beta_cutoff_search(board:Board):
@@ -81,15 +89,15 @@ def alpha_beta_cutoff_search(board:Board):
         timer.__exit__(None, None, None)
         return utility
 
-    def _action_utility(board, action) -> int: 
-        print("action_utility")
-        timer = CountdownTimer(time_limit=2)
-        timer.__enter__()
-        board.apply_action(action) 
-        utility = eval_fn(board)
-        board.undo_action()
-        timer.__exit__(None, None, None)
-        return utility 
+    # def ___DISCARD_action_utility(board, action) -> int: 
+    #     print("action_utility")
+    #     timer = CountdownTimer(time_limit=2)
+    #     timer.__enter__()
+    #     board.apply_action(action) 
+    #     utility = eval_fn(board)
+    #     board.undo_action()
+    #     timer.__exit__(None, None, None)
+    #     return utility 
 
     # Functions used by alpha_beta
     def max_value(board:Board, alpha, beta, depth):
@@ -97,7 +105,7 @@ def alpha_beta_cutoff_search(board:Board):
             return eval_fn(board, player)
         v = -np.inf
         #for a in board.get_legal_actions():
-        for a in sorted(board.get_legal_actions(), key=lambda action: action_utility(board, action), reverse=True): 
+        for a in sorted(board.get_legal_actions(), key=lambda action: action_utility(board, action, player), reverse=True): 
             #print(f"apply action {a} in max_value() with depth {depth}")
             board.apply_action(a) 
             v = max(v, min_value(board, alpha, beta, depth + 1))
@@ -113,7 +121,7 @@ def alpha_beta_cutoff_search(board:Board):
             return eval_fn(board, player)
         v = np.inf
         # for a in board.get_legal_actions():
-        for a in sorted(board.get_legal_actions(), key=lambda action: action_utility(board, action), reverse=True):
+        for a in sorted(board.get_legal_actions(), key=lambda action: action_utility(board, action, player), reverse=True):
             #print(f"apply action {a} in min_value() with depth {depth}")
             board.apply_action(a)
             v = min(v, max_value(board, alpha, beta, depth + 1))
