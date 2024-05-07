@@ -11,6 +11,7 @@ from referee.game.exceptions import IllegalActionException
 from referee.game.constants import *
 
 from collections import deque
+import random
 
 
 
@@ -62,31 +63,29 @@ class Board:
 
         self._turn_color: PlayerColor = initial_player
         self._turn_count = 0
+
     
-    def get_legal_actions(self) -> list[PlaceAction]:
+    def get_legal_actions(self, player:PlayerColor|None=None) -> list[PlaceAction]:
         """
         Return the legal actions based on current state of board and player
         """
         legal_actions = set()
         visited_coords = set()
-        # first action for each agent
+        # first action for each agent, generate a random first action 
         if self._turn_count < 2:
-            if self.turn_color == PlayerColor.RED:
-                return [PlaceAction(Coord(4, 4), 
-                                    Coord(4, 5), 
-                                    Coord(4, 6), 
-                                    Coord(5, 5))]
-            elif self.turn_color == PlayerColor.BLUE:
-                for r in range(BOARD_N):
-                    piece_coords = [Coord(r, 4), 
-                             Coord(r, 5), 
-                             Coord(r, 6), 
-                             Coord(r + 1, 5)]
-                    if all([self._cell_empty(coord) for coord in piece_coords]):
-                        return [PlaceAction(Coord(r, 4), 
-                                            Coord(r, 5), 
-                                            Coord(r, 6), 
-                                            Coord(r + 1, 5))]
+            empty:Coord = random.choice(list(self._empty_coords()))
+            action_cells = [empty]
+            while (len(action_cells) < 4): 
+                base = random.choice(action_cells)
+                directions = list(Direction)
+                random.shuffle(directions) 
+                for move in directions:
+                    new = base.__add__(move)
+                    if self._cell_empty(new) and (new not in action_cells): 
+                        action_cells.append(new)
+                        break 
+            return [PlaceAction(action_cells[0], action_cells[1], action_cells[2], action_cells[3])]
+              
         # not the first action for each agent
         else:
             # for coord in self._player_occupied_coords(player):

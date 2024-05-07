@@ -38,7 +38,7 @@ class Agent:
             return random.choice(legal_actions)
 
         # If the board is relatively full, play using alpha-beta pruning 
-        print("3/5 of the board is filled, stop playing randomly, start applying searching")
+        print("START ALPHA_BETA - 3/5 of the board is filled, stop playing randomly, start applying strategy")
         return alpha_beta_cutoff_search(self._board)
     
 

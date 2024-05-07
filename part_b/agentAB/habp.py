@@ -23,22 +23,21 @@ def action_utility(board:Board, action:PlaceAction, player:PlayerColor) -> int:
     '''Find the utility of an action for sorting the action for maximize pruning 
     '''
 
+    new_board = copy.deepcopy(board)
+    new_board.apply_action(action)
+
     def diff_row_col_occupied(player:PlayerColor) -> int: 
-        player_occupied = (board._player_occupied_coords(player)) 
-        opponent_occupied = (board._player_occupied_coords(player.opponent)) 
+        player_occupied = (new_board._player_occupied_coords(player)) 
+        opponent_occupied = (new_board._player_occupied_coords(player.opponent)) 
         player_occupied_row = set(map(lambda coord: coord.r, player_occupied))
         player_occupied_col = set(map(lambda coord: coord.c, player_occupied))
         opponent_occupied_row = set(map(lambda coord: coord.r, opponent_occupied))
         opponent_occupied_col = set(map(lambda coord: coord.c, opponent_occupied))
         return len(player_occupied_row) + len(player_occupied_col) \
             - len(opponent_occupied_row) - len(opponent_occupied_col)
-    
-    board.apply_action(action) 
 
     # Calculate the weighted sum of the utility components for `player` (i.e. the agent using the habp) of the new action played 
     utility = diff_row_col_occupied(player) # TODO - add more component to make the weighted sum more accurate 
-
-    board.undo_action()
 
     return utility
 
@@ -101,15 +100,14 @@ def alpha_beta_cutoff_search(board:Board):
             return eval_fn(board, player)
         v = -np.inf
         #for a in board.get_legal_actions():
-        for a in sorted(board.get_legal_actions(), key=lambda action: action_utility(board, action, player), reverse=True): 
+        for action in sorted(board.get_legal_actions(), key=lambda action: action_utility(board, action, player), reverse=True): 
             #print(f"apply action {a} in max_value() with depth {depth}")
-            board.apply_action(a) 
-            v = max(v, min_value(board, alpha, beta, depth + 1))
+            new_board = copy.deepcopy(board)
+            new_board.apply_action(action)
+            v = max(v, min_value(new_board, alpha, beta, depth + 1))
             if v >= beta:
-                board.undo_action()
                 return v
             alpha = max(alpha, v)
-            board.undo_action()
         return v
 
     def min_value(board:Board, alpha, beta, depth) -> float:
@@ -117,32 +115,31 @@ def alpha_beta_cutoff_search(board:Board):
             return eval_fn(board, player)
         v = np.inf
         # for a in board.get_legal_actions():
-        for a in sorted(board.get_legal_actions(), key=lambda action: action_utility(board, action, player), reverse=True):
+        for action in sorted(board.get_legal_actions(), key=lambda action: action_utility(board, action, player), reverse=True):
             #print(f"apply action {a} in min_value() with depth {depth}")
-            board.apply_action(a)
+            new_board = copy.deepcopy(board)
+            new_board.apply_action(action)
             v = min(v, max_value(board, alpha, beta, depth + 1))
             if v <= alpha:
-                board.undo_action()
                 return v
             beta = min(beta, v)
-            board.undo_action()
         return v
 
     # Body of alpha_beta_cutoff_search starts here:
     best_score = -np.inf
     beta = np.inf
     best_action = None
-    for a in board.get_legal_actions():
+    for action in board.get_legal_actions():
         timer = CountdownTimer(time_limit=1,tolerance=10)
         timer.__enter__()
 
         # Apply the action, evaluate alpha and beta, then undo the action 
-        board.apply_action(a)
-        v = min_value(board, best_score, beta, 1)
+        new_board = copy.deepcopy(board)   
+        new_board.apply_action(action)     
+        v = min_value(new_board, best_score, beta, 1)
         if v > best_score:
             best_score = v
-            best_action = a
-        board.undo_action()
+            best_action = action
 
         timer.__exit__(None, None, None)
     return best_action
