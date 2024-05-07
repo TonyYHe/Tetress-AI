@@ -52,10 +52,10 @@ def alpha_beta_cutoff_search(board:Board):
         # If the board is relatively empty, simply check until a certain depth  
         SPARSE_THREASHOLD = BOARD_N * BOARD_N / 3
         if len(board._empty_coords()) > SPARSE_THREASHOLD: 
-            return depth > 1
+            return depth > 3
 
         # TODO - if the state of the game is unstable, go deeper? 
-        # if board.is_stable(): 
+        # if not board.is_stable(): 
         #     return depth > 5
         # else: 
         return depth > 4 or board.game_over
