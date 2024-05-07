@@ -87,7 +87,7 @@ class Board:
                                             Coord(r, 5), 
                                             Coord(r, 6), 
                                             Coord(r + 1, 5))]
-        # not the first action for each agent
+        # subsequent actions for each agent
         else:
             for coord in self._player_occupied_coords(self._turn_color):
                 adj_coords = \
@@ -197,7 +197,8 @@ class Board:
             return True
         if self._turn_count < 2:
             return False
-
+        
+        # find clusters of empty cells using BFS
         visited = set()
         empty_coord_clusters = dict()
         for empty_coord in self._empty_coords():
@@ -216,6 +217,8 @@ class Board:
                     if adj_coord not in visited and self._cell_empty(adj_coord):
                         frontier.append(adj_coord)
         
+        # check if clusters of size >= 4 has neighbouring red/blue cells, if so
+        # then a piece can be placed in this cluster
         for _, [coords, length] in empty_coord_clusters.items():
             if length < 4:
                 continue
@@ -308,6 +311,9 @@ class Board:
         return False
 
     def _resolve_place_action(self, action: PlaceAction):
+        """
+        Add piece to board and remove filled rows and columns.
+        """
         row_nums = set(c.r for c in action.coords)
         col_nums = set(c.c for c in action.coords)
 
