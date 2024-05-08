@@ -3,19 +3,32 @@ a1 = agent
 a2 = agent
 a3 = random_agent
 a4 = random_agent
-smart_agents = $(a1) $(a2) 
-dumb_agents = $(a3) $(a4) 
-test_agents_red = $(a1) $(a3) 
-test_agents_blue = $(a3) $(a1) 
+a5 = habp_agent
+a6 = habp_agent
+mcts_mcts = $(a1) $(a2) 
+random_random = $(a3) $(a4) 
+habp_habp = $(a5) $(a6) 
+random_mcts_red = $(a1) $(a3) 
+random_mcts_blue = $(a3) $(a1) 
+random_habp_red = $(a5) $(a3) 
+random_habp_blue = $(a3) $(a5) 
 
-run_smart: 
-	python3 -m referee $(smart_agents)
-run_dumb:
-	python3 -m referee $(dumb_agents)
-run_test_red:
-	python3 -m referee $(test_agents_red)
-run_test_blue:
-	python3 -m referee $(test_agents_blue)
+
+run_mcts_mct: 
+	python3 -m referee $(mcts_mcts)
+run_random_random:
+	python3 -m referee $(random_random)
+run_habp_habp:
+	python3 -m referee $(habp_habp)
+run_random_mcts_red:
+	python3 -m referee $(random_mcts_red)
+run_random_mcts_blue:
+	python3 -m referee $(random_mcts_blue)
+run_random_habp_red:
+	python3 -m referee $(random_habp_red)
+run_random_habp_blue:
+	python3 -m referee $(random_habp_blue)
+
 
 # Use "make clean" to clean all the cache files in current and the next 3 layers of subdirectories 
 clean: 
