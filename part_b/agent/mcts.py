@@ -1,8 +1,13 @@
 import numpy as np
-from collections import defaultdict
 
 from agent.board import Board
 import copy
+
+WIN = 1
+LOSE = -1
+DRAW = 0
+
+state_legal_actions = dict()
 
 class MCTSNode():
     def __init__(self, board: Board, parent=None, parent_action=None):
@@ -11,27 +16,29 @@ class MCTSNode():
         self.parent_action = parent_action
         self.children = dict()
         self._number_of_visits = 0
-        self._results = defaultdict(int)
-        self._results[1] = 0
-        self._results[-1] = 0
-        self._untried_actions = None
-        self._untried_actions = self.untried_actions()
+        self._results = {WIN: 0, LOSE: 0, DRAW: 0}
+        self._untried_actions = self.state.get_legal_actions()
         self._legal_actions = self._untried_actions
         return
     
-    def untried_actions(self):
-        self._untried_actions = self.state.get_legal_actions()
-        return self._untried_actions
-    
     def q(self):
-        wins = self._results[1]
-        loses = self._results[-1]
-        return wins - loses
+        """
+        Return the total utility of the current node, which is #wins
+        """
+        wins = self._results[WIN]
+        return wins
     
     def n(self):
+        """
+        Return the total number of playouts through the current node
+        """
         return self._number_of_visits
     
     def expand(self):
+        """
+        Expand the current node by adding to the tree a single new child of the
+        current node
+        """
         action = self._untried_actions.pop()
         next_board = copy.deepcopy(self.state)
         next_board.apply_action(action)
@@ -41,22 +48,27 @@ class MCTSNode():
         return child_node 
     
     def is_terminal_node(self):
+        """
+        Returns true if current board represented by the current node fulfils a
+        winning condition.
+        """
         return self.state.game_over
     
-    def rollout(self):
-        current_rollout_state = copy.deepcopy(self.state)
-        possible_moves = self._legal_actions
-        while not current_rollout_state.game_over:
-            action = self.rollout_policy(possible_moves)
-            current_rollout_state.apply_action(action)
-            possible_moves = current_rollout_state.get_legal_actions()
+    def playout(self):
+        current_playout_state = self.state
+        player_possible_moves = self._legal_actions
+        while not current_playout_state.game_over:
+            action_info = self.playout_policy(player_possible_moves)
+            current_playout_state = action_info[1]
+            player_possible_moves = action_info[2]
 
             # print("possible_moves", possible_moves)
             # print("action:", action)               
-            # print("player:", current_rollout_state._turn_color)
-            # print("turn_count:", current_rollout_state.turn_count)
-            # print(current_rollout_state.render(use_color=True))
-        return current_rollout_state.game_result             
+            # print("player:", current_playout_state._turn_color)
+            # print("turn_count:", current_playout_state.turn_count)
+            # print(current_playout_state.render(use_color=True))
+
+        return current_playout_state.game_result             
 
     def backpropagate(self, result):
         self._number_of_visits += 1.
@@ -78,9 +90,55 @@ class MCTSNode():
             children.append(c)
         return children[np.argmax(choice_weights)]
     
-    def rollout_policy(self, possible_moves):
+    # =========================================================================
+    # Simulation Phase
+
+    def playout_policy(self, possible_moves):
+        # return self.random_playout(possible_moves)
+        return self.heuristic_playout(possible_moves)
+    
+    def random_playout(self, possible_moves):
         return possible_moves[np.random.randint(len(possible_moves))]
     
+    def heuristic_playout(self, possible_moves):
+        utilities = []
+        action_infos = []
+        for move in possible_moves:
+            action_info = self.eval_fn(move)
+            utilities.append(action_info[0])
+            action_infos.append(action_info)
+        index = np.argmax(utilities)
+        return action_infos[index]
+    
+    def eval_fn(self, action):
+        """
+        Return the utility, board state and legal actions of the opponent for
+        a given action
+        """
+        # board after applying the input action
+        board = copy.deepcopy(self.state)
+        board.apply_action(action)
+
+        # calculate how many more legal actions can the player take compared
+        # to the opponent
+        opponent_actions = board.get_legal_actions()
+        num_opponent_actions = len(opponent_actions)
+        board.modify_turn_color
+        player_actions = board.get_legal_actions()
+        num_player_actions = len(player_actions)
+        num_extra_actions = num_player_actions - num_opponent_actions
+
+        # calculate how many more tokens the player has compared to the opponent
+        player_color = self.state._turn_color
+        opponent_color = player_color.opponent
+        num_player_tokens = board._player_token_count(player_color)
+        num_opponent_tokens = board._player_token_count(opponent_color)
+        num_extra_tokens = num_player_tokens - num_opponent_tokens
+
+        utility = 0.5*num_extra_tokens + 0.5*num_extra_actions
+        # print("num_extra_actions:", num_extra_actions, "num_extra_tokens:", num_extra_actions, "utility:", utility)
+        return utility, board, opponent_actions
+    # =========================================================================
     def _tree_policy(self):
         current_node = self
         while not current_node.is_terminal_node():
@@ -96,12 +154,13 @@ class MCTSNode():
         
         for i in range(simulation_no):
             v = self._tree_policy()
-            reward = v.rollout()
+            reward = v.playout()
             v.backpropagate(reward)
 
             print("simulation no:", i, "game result:", reward)
         
         # sqrt(2)=1.414, this is the theoretical value of C
         return self.best_child(c_param=1.414)
+    
     
 

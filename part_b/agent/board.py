@@ -71,12 +71,12 @@ class Board:
         visited_coords = set()
         # first action for each agent
         if self._turn_count < 2:
-            if self.turn_color == PlayerColor.RED:
-                return [PlaceAction(Coord(4, 4), 
-                                    Coord(4, 5), 
-                                    Coord(4, 6), 
-                                    Coord(5, 5))]
-            elif self.turn_color == PlayerColor.BLUE:
+            if self._turn_color == PlayerColor.RED:
+                # there are 19 distinct moves in an empty board due to the 
+                # toroidal nature of the game board
+                return [PlaceAction(*create_piece(piecetype, Coord(4,4))) 
+                        for piecetype in PieceType]
+            elif self._turn_color == PlayerColor.BLUE:
                 for r in range(BOARD_N):
                     piece_coords = [Coord(r, 4), 
                              Coord(r, 5), 
@@ -186,6 +186,10 @@ class Board:
         """
         The player whose turn it is (represented as a colour).
         """
+        return self._turn_color
+    
+    def modify_turn_color(self) -> PlayerColor:
+        self._turn_color = self._turn_color.opponent
         return self._turn_color
     
     @property
