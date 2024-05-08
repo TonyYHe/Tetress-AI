@@ -149,7 +149,8 @@ class MCTSNode():
         return current_node
     
     def best_action(self):
-        simulation_no = 40
+        simulation_no = 20
+        simulation_no += self.state.turn_count*2
         
         for i in range(simulation_no):
             v = self._tree_policy()

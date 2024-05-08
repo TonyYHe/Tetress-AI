@@ -71,10 +71,15 @@ class Board:
         # first action for each agent
         if self._turn_count < 2:
             if self._turn_color == PlayerColor.RED:
-                # there are 19 distinct moves in an empty board due to the 
-                # toroidal nature of the game board
-                return [PlaceAction(*create_piece(piecetype, Coord(4,4)).coords) 
-                        for piecetype in PieceType]
+                # there are only 5 distinct moves in an empty board due to the 
+                # toroidal nature of the game board, and accounting for symmetry
+                return [
+                    PlaceAction(Coord(4,5), Coord(5,4), Coord(5,5), Coord(5,6)),
+                    PlaceAction(Coord(4,4), Coord(4,5), Coord(4,6), Coord(5,6)),
+                    PlaceAction(Coord(4,4), Coord(4,5), Coord(5,5), Coord(5,6)),
+                    PlaceAction(Coord(5,4), Coord(5,5), Coord(5,6), Coord(5,7)),
+                    PlaceAction(Coord(4,5), Coord(4,6), Coord(5,5), Coord(5,6))
+                ]
             elif self._turn_color == PlayerColor.BLUE:
                 for r in range(BOARD_N):
                     piece_coords = [Coord(r, 4), 
