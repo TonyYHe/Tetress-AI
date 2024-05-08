@@ -18,10 +18,8 @@ class Agent:
         Any setup and/or precomputation should be done here.
         """
         initial_board = Board(initial_player=PlayerColor.RED)
-        self.root = MCTSNode(initial_board)
+        self.root = MCTSNode(initial_board, color)
         self.next = None
-        self.color = color
-
 
     def action(self, **referee: dict) -> Action:
         """
@@ -38,17 +36,14 @@ class Agent:
         This method is called by the referee after an agent has taken their
         turn. You should use it to update the agent's internal game state. 
         """
-
-        # initial_color = self.root.state.turn_color
-        # initial_turn_count = self.root.state.turn_count
         
-        if color == self.color:
+        if color == self.root.color:
             self.root = self.next
         else:
             child_node = self.root.children.get(action)
             if child_node is None:
                 self.root.state.apply_action(action)
-                self.root = MCTSNode(self.root.state)
+                self.root = MCTSNode(self.root.state, self.root.color)
             else:
                 self.root = child_node
 

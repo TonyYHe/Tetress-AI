@@ -11,8 +11,7 @@ from referee.game.exceptions import IllegalActionException
 from referee.game.constants import *
 
 from collections import deque
-
-
+from agent.constants import WIN, LOSS, DRAW
 
 @dataclass(frozen=True, slots=True)
 class CellState:
@@ -74,7 +73,7 @@ class Board:
             if self._turn_color == PlayerColor.RED:
                 # there are 19 distinct moves in an empty board due to the 
                 # toroidal nature of the game board
-                return [PlaceAction(*create_piece(piecetype, Coord(4,4))) 
+                return [PlaceAction(*create_piece(piecetype, Coord(4,4)).coords) 
                         for piecetype in PieceType]
             elif self._turn_color == PlayerColor.BLUE:
                 for r in range(BOARD_N):
@@ -232,6 +231,15 @@ class Board:
     
         return True
     
+    def game_result(self, player_color: PlayerColor):
+        """Returns the utility value of the terminal node."""
+        if self.winner_color == player_color:
+            return WIN
+        elif self.winner_color == player_color.opponent:
+            return LOSS
+        else:
+            return DRAW
+        
     @property
     def winner_color(self) -> PlayerColor | None:
         """
@@ -255,17 +263,7 @@ class Board:
         else:
             # Current player cannot place any more pieces. Opponent wins.
             return self._turn_color.opponent
-    
-    @property
-    def game_result(self):
-        """Returns the utility value of the terminal node."""
-        if self.winner_color == PlayerColor.RED:
-            return 1
-        elif self.winner_color == PlayerColor.BLUE:
-            return -1
-        else:
-            return 0
-        
+            
     def _within_bounds(self, coord: Coord) -> bool:
         r, c = coord
         return 0 <= r < BOARD_N and 0 <= c < BOARD_N
