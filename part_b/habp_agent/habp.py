@@ -35,7 +35,7 @@ class HABPNode():
     
     # Functions used by alpha_beta
     def max_value(self, alpha, beta, depth):
-        print("max, alpha:", alpha, "beta:", beta, "depth:", depth)
+        # print("max, alpha:", alpha, "beta:", beta, "depth:", depth)
         if self.cutoff_test(depth):
             return self.eval_fn()
         v = -np.inf
@@ -51,7 +51,7 @@ class HABPNode():
         return v
 
     def min_value(self, alpha, beta, depth):
-        print("min, alpha:", alpha, "beta:", beta, "depth:", depth)
+        # print("min, alpha:", alpha, "beta:", beta, "depth:", depth)
         if self.cutoff_test(depth):
             return self.eval_fn()
         v = np.inf

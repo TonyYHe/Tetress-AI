@@ -122,12 +122,22 @@ class Board:
         """
 
         def offensive_strategy():
+            """
+            Return placements adjacent to the only red piece on the board.
+            """
+            curr_turn_count = self._turn_count
             self.modify_turn_color()
+            self._turn_count = 10
             legal_actions = self.get_legal_actions()
             self.modify_turn_color()
+            self._turn_count = curr_turn_count
             return legal_actions
             
         def defensive_strategy():
+            """
+            Return a random placement far away from the only red piece on the 
+            board.
+            """
             red_coords = self._occupied_coords()
             row_nums = [coord.r for coord in red_coords]
             col_nums = [coord.r for coord in red_coords]
@@ -152,7 +162,7 @@ class Board:
                 i += 1
             return [PlaceAction(*action_coords)]
         
-        return defensive_strategy()
+        return offensive_strategy()
 
     def __getitem__(self, cell: Coord) -> CellState:
         """

@@ -26,7 +26,6 @@ class Agent:
         to take an action. It must always return an action object. 
         """
         legal_actions = self.board.get_legal_actions()
-        print(legal_actions)
         return legal_actions[np.random.randint(len(legal_actions))]
        
 

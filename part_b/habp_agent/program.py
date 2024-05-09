@@ -31,6 +31,7 @@ class Agent:
         if self.root.state._turn_count < 2:
             legal_actions = self.root.state.get_legal_actions()
             best_action = legal_actions[np.random.randint(len(legal_actions))]
+            self.root.state.apply_action(best_action)
             best_child = HABPNode(self.root.state, self.root.color, self.root, best_action)
         else:
             best_child = self.root.alpha_beta_cutoff_search()
