@@ -22,7 +22,9 @@ class HABPNode():
         best_score = -np.inf
         beta = np.inf
         best_child = None
-        for a in self.state.get_legal_actions():
+        legal_actions = self.state.get_legal_actions()
+        print("ab number of legal actions:", len(legal_actions))
+        for a in legal_actions:
             new_board = deepcopy(self.state)
             new_board.apply_action(a)
             child_node = HABPNode(new_board, self.color, self, a)
@@ -39,7 +41,9 @@ class HABPNode():
         if self.cutoff_test(depth):
             return self.eval_fn()
         v = -np.inf
-        for a in self.state.get_legal_actions():
+        legal_actions = self.state.get_legal_actions()
+        print("max, depth:", depth, "number of legal actions:", len(legal_actions))
+        for a in legal_actions:
             new_board = deepcopy(self.state)
             new_board.apply_action(a)
             child_node = HABPNode(new_board, self.color, self, a)
@@ -55,7 +59,9 @@ class HABPNode():
         if self.cutoff_test(depth):
             return self.eval_fn()
         v = np.inf
-        for a in self.state.get_legal_actions():
+        legal_actions = self.state.get_legal_actions()
+        print("min, depth:", depth, "number of legal actions:", len(legal_actions))
+        for a in legal_actions:
             new_board = deepcopy(self.state)
             new_board.apply_action(a)
             child_node = HABPNode(new_board, self.color, self, a)
