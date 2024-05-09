@@ -12,6 +12,7 @@ from referee.game.constants import *
 
 from collections import deque
 from agent.constants import WIN, LOSS, DRAW
+import numpy as np
 
 @dataclass(frozen=True, slots=True)
 class CellState:
@@ -81,16 +82,7 @@ class Board:
                     PlaceAction(Coord(4,5), Coord(4,6), Coord(5,5), Coord(5,6))
                 ]
             elif self._turn_color == PlayerColor.BLUE:
-                for r in range(BOARD_N):
-                    piece_coords = [Coord(r, 4), 
-                             Coord(r, 5), 
-                             Coord(r, 6), 
-                             Coord(r + 1, 5)]
-                    if all([self._cell_empty(coord) for coord in piece_coords]):
-                        return [PlaceAction(Coord(r, 4), 
-                                            Coord(r, 5), 
-                                            Coord(r, 6), 
-                                            Coord(r + 1, 5))]
+                return self.get_blue_first_action()
         # subsequent actions for each agent
         else:
             for coord in self._player_occupied_coords(self._turn_color):
@@ -123,6 +115,44 @@ class Board:
                                                          real_piece[3])
                                 legal_actions.add(real_piece)
         return list(legal_actions)
+        
+    def get_blue_first_action(self):
+        """
+        Return a randomly generated action based on the chosen strategy.
+        """
+
+        def offensive_strategy():
+            self.modify_turn_color()
+            legal_actions = self.get_legal_actions()
+            self.modify_turn_color()
+            return legal_actions
+            
+        def defensive_strategy():
+            red_coords = self._occupied_coords()
+            row_nums = [coord.r for coord in red_coords]
+            col_nums = [coord.r for coord in red_coords]
+            max_r = max(row_nums)
+            max_c = max(col_nums)
+            sc_r = (max_r + 5 + BOARD_N) % BOARD_N
+            sc_c = (max_c + 5 + BOARD_N) % BOARD_N
+            action_coords = [Coord(sc_r, sc_c)]
+            visited_coords = set(Coord(sc_r, sc_c))
+            i = 0
+            while i < 3:
+                coord = action_coords[i]
+                adj_coords = \
+                    [coord.down(), coord.up(), coord.left(), coord.right()]
+                empty_adj_coords = [coord for coord in adj_coords 
+                                    if self._cell_empty(coord) and 
+                                    coord not in visited_coords]
+                next_coord = \
+                    empty_adj_coords[np.random.randint(len(empty_adj_coords))]
+                visited_coords.add(next_coord)
+                action_coords.append(next_coord)
+                i += 1
+            return [PlaceAction(*action_coords)]
+        
+        return defensive_strategy()
 
     def __getitem__(self, cell: Coord) -> CellState:
         """
