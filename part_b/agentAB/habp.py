@@ -11,6 +11,7 @@ from .board import Board, BOARD_N, Direction, Coord, CellState
 from referee.game import PlaceAction, PlayerColor
 from referee.agent.resources import CountdownTimer
 from . import _testing
+from referee.run import game_delay
 
 GameState = namedtuple('GameState', 'to_move, utility, board, moves')
 StochasticGameState = namedtuple('StochasticGameState', 'to_move, utility, board, moves, chance')
@@ -20,6 +21,8 @@ StochasticGameState = namedtuple('StochasticGameState', 'to_move, utility, board
 MAX_TURN = 150 
 TURN_THRESHOLD = MAX_TURN * 0.8 
 
+def print(*values): 
+    pass 
 
 def alpha_beta_cutoff_search(board:Board):
     """Search game to determine best action; use alpha-beta pruning.
@@ -30,7 +33,7 @@ def alpha_beta_cutoff_search(board:Board):
         # If the board is relatively empty, simply check until a certain depth  
         SPARSE_THREASHOLD = BOARD_N * BOARD_N / 3
         if len(board._empty_coords()) > SPARSE_THREASHOLD: 
-            return depth > 1
+            return depth > 2
 
         # TODO - if the state of the game is unstable, go deeper? 
         # if not board.is_stable(): 
@@ -79,8 +82,8 @@ def alpha_beta_cutoff_search(board:Board):
             return eval_fn(board, player)
         v = -np.inf
         #for a in board.get_legal_actions():
-        for action in sorted(board.get_legal_actions(), key=lambda action: action_utility(board, action, player), reverse=True): 
-            #print(f"apply action {a} in max_value() with depth {depth}")
+        for action in sorted(board.get_legal_actions(), key=lambda action: action_utility(board, action, player), reverse=True)[:10]: 
+            print(_testing.prefix(27), f"max-val apply action {action} in max_value() with depth {depth}")
             new_board = copy.deepcopy(board)
             new_board.apply_action(action)
             v = max(v, min_value(new_board, alpha, beta, depth + 1))
@@ -94,8 +97,8 @@ def alpha_beta_cutoff_search(board:Board):
             return eval_fn(board, player)
         v = np.inf
         # for a in board.get_legal_actions():
-        for action in sorted(board.get_legal_actions(), key=lambda action: action_utility(board, action, player), reverse=True):
-            #print(f"apply action {a} in min_value() with depth {depth}")
+        for action in sorted(board.get_legal_actions(), key=lambda action: action_utility(board, action, player))[:10]:
+            print(_testing.prefix(27), f"min-val apply action {action} in max_value() with depth {depth}")
             new_board = copy.deepcopy(board)
             new_board.apply_action(action)
             v = min(v, max_value(board, alpha, beta, depth + 1))
@@ -108,10 +111,19 @@ def alpha_beta_cutoff_search(board:Board):
     best_score = -np.inf
     beta = np.inf
     best_action = None
+
     legal_actions = board.get_legal_actions()
-    random_index:set[int] = set([random.randint(0, len(legal_actions)-1) for _ in range(10)])
+    print(_testing.prefix(17), f"number of legal actions = {len(legal_actions)}")
+
+    MIN_ACTIONS_TEST = 30
+    if len(legal_actions) < MIN_ACTIONS_TEST: 
+        random_index = range(len(legal_actions))
+    else: 
+        random_index:set[int] = set([random.randint(0, len(legal_actions)-1) for _ in range(MIN_ACTIONS_TEST)])
+    print(_testing.prefix(17), random_index) 
+
     for action in [legal_actions[i] for i in random_index]:
-        print(_testing.prefix(17), f"number of legal actions = {len(legal_actions)}")
+        game_delay(1000)
         # timer = CountdownTimer(time_limit=1,tolerance=10)
         # timer.__enter__()
 
