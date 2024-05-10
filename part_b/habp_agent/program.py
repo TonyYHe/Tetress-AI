@@ -4,8 +4,11 @@
 from referee.game import PlayerColor, Action, PlaceAction, Coord
 from habp_agent.habp import HABPNode
 from agent.board import Board
-import numpy as np
+import random
+from referee.game.constants import BOARD_N
 
+OPENING_STAGE = BOARD_N * BOARD_N * 0.7
+MIDGAME_STAGE = BOARD_N * BOARD_N * 0.5
 
 class Agent:
     """
@@ -28,15 +31,17 @@ class Agent:
         This method is called by the referee each time it is the agent's turn
         to take an action. It must always return an action object. 
         """
-        if self.root.state._turn_count < 2:
+
+        num_empty_cells = len(self.root.state._empty_coords())
+        if num_empty_cells > OPENING_STAGE:
+        # if self.root.state._turn_count < OPENING_STAGE:
             legal_actions = self.root.state.get_legal_actions()
-            best_action = legal_actions[np.random.randint(len(legal_actions))]
-            self.root.state.apply_action(best_action)
-            best_child = HABPNode(self.root.state, self.root.color, self.root, best_action)
+            best_action = random.choice(legal_actions)
         else:
             best_child = self.root.alpha_beta_cutoff_search()
-        self.next = best_child
-        return best_child.parent_action
+            self.next = best_child
+            best_action = best_child.parent_action
+        return best_action
        
 
     def update(self, color: PlayerColor, action: Action, **referee: dict):
@@ -44,21 +49,20 @@ class Agent:
         This method is called by the referee after an agent has taken their
         turn. You should use it to update the agent's internal game state. 
         """
-        # initial_color = self.board.turn_color
-        # initial_turn_count = self.board.turn_count
 
-        if color == self.root.color:
-            self.root = self.next
+        num_empty_cells = len(self.root.state._empty_coords())
+        if num_empty_cells > OPENING_STAGE:
+            self.root.state.apply_action(action)
         else:
-            child_node = self.root.children.get(action)
-            if child_node is None:
-                self.root.state.apply_action(action)
-                self.root = HABPNode(self.root.state, self.root.color)
+            if color == self.root.color:
+                self.root = self.next
             else:
-                self.root = child_node
-
-        # print("initial color:", initial_color, "| initial turn_count:", initial_turn_count)
-        # print("input color:", color, "| input action:", action)
-        # print("current color:", self.board.turn_color, "| turn_count:", self.board.turn_count)
-        # print(self.board.render(use_color=True))
+                child_node = self.root.children.get(action)
+                # this is more to do with mcts, because not all child nodes are 
+                # generated in mcts
+                if child_node is None:
+                    self.root.state.apply_action(action)
+                    self.root = HABPNode(self.root.state, self.root.color)
+                else:
+                    self.root = child_node
     

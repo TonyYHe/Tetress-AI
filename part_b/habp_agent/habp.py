@@ -2,6 +2,10 @@ import numpy as np
 
 from agent.board import Board
 from copy import deepcopy
+from habp_agent.utility import *
+from referee.game.constants import MAX_TURNS
+
+TURN_THRESHOLD = MAX_TURNS * 0.8 
 
 transposition_table = dict()
 
@@ -61,7 +65,6 @@ class HABPNode():
     
     # Functions used by alpha_beta
     def max_value(self, alpha, beta, depth):
-        # print("max, alpha:", alpha, "beta:", beta, "depth:", depth)
         if self.cutoff_test(depth):
             return self.eval_fn()
         v = -np.inf
@@ -78,7 +81,6 @@ class HABPNode():
         return v
 
     def min_value(self, alpha, beta, depth):
-        # print("min, alpha:", alpha, "beta:", beta, "depth:", depth)
         if self.cutoff_test(depth):
             return self.eval_fn()
         v = np.inf
@@ -101,9 +103,11 @@ class HABPNode():
     def eval_fn(self, game_over=False):
         """
         This is problematic.
+        Return a positive utility value for the player, and a negative utility 
+        value for the opponent.
         """
         if game_over == True:
-            return self.state.game_result() # returns -1 or 0 or 1
+            return self.state.game_result() * 1000
         
         board = self.state
         curr_color = board._turn_color
@@ -115,37 +119,35 @@ class HABPNode():
         if utility is not None:
             return utility
 
-        # calculate how many more legal actions can the player take compared
-        # to the opponent
-        board.modify_turn_color(self.color)
-        player_actions = board.get_legal_actions()
-        board.modify_turn_color(self.color.opponent)
-        opponent_actions = board.get_legal_actions()
-        board.modify_turn_color(curr_color)
+        # Find the difference in the number of actions 
+        extra_num_actions = diff_legal_actions(board, self.color)
+        # Find the difference in the number of empty cells reachable that can be used as an action 
+        extra_num_reachable = diff_reachable_valid_empty_cell(board, self.color)
+        # Find the difference in the number of cells occupied 
 
-        num_player_actions = len(player_actions)
-        num_opponent_actions = len(opponent_actions)
-        num_extra_actions = num_player_actions - num_opponent_actions
-
-        # calculate how many more tokens the player has compared to the opponent
-        num_player_tokens = board._player_token_count(self.color)
-        num_opponent_tokens = board._player_token_count(self.color.opponent)
-        num_extra_tokens = num_player_tokens - num_opponent_tokens
-
-        # it's best to normalise this result to [-1, 1]
-        utility = 0.5*num_extra_tokens + 0.5*num_extra_actions
+        extra_num_occupied = diff_cells_occupied(board, self.color)
+         # it's best to normalise this result to [-1, 1]
+        if board.turn_count < TURN_THRESHOLD: 
+            # Far away from turns limitation 
+            utility = (
+                extra_num_actions +         \
+                extra_num_reachable +       \
+                extra_num_occupied * 0.1 
+            )
+        else: 
+            # If about to reach turns limit, evalution also include the number of cells occupied 
+            turns_exceed_threshold = board.turn_count - TURN_THRESHOLD
+            utility = (
+                extra_num_actions +                                 \
+                extra_num_reachable +                               \
+                extra_num_occupied * turns_exceed_threshold * 0.5 
+            )
         transposition_table[key] = utility
-
-        # need to double check this expression, self.color == curr_color or 
-        # self.color != curr_color? Since Tetress is a zero-sum game, we can 
-        # take the negative of the utility value for the opponent
+        # since Tetress is a zero-sum game, we can take the negative of the 
+        # utility value for the opponent
         return utility if self.color == curr_color else -utility
 
 
-
-
-
-    
 
 
     

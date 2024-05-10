@@ -67,19 +67,16 @@ class Board:
             if self._turn_color == PlayerColor.RED:
                 # there are only 5 distinct moves in an empty board due to the 
                 # toroidal nature of the game board, and accounting for symmetry
-
-                # return [
-                #     PlaceAction(Coord(4,5), Coord(5,4), Coord(5,5), Coord(5,6)),
-                #     PlaceAction(Coord(4,4), Coord(4,5), Coord(4,6), Coord(5,6)),
-                #     PlaceAction(Coord(4,4), Coord(4,5), Coord(5,5), Coord(5,6)),
-                #     PlaceAction(Coord(5,4), Coord(5,5), Coord(5,6), Coord(5,7)),
-                #     PlaceAction(Coord(4,5), Coord(4,6), Coord(5,5), Coord(5,6))
-                # ]
+                return [
+                    PlaceAction(Coord(4,5), Coord(5,4), Coord(5,5), Coord(5,6)),
+                    PlaceAction(Coord(4,4), Coord(4,5), Coord(4,6), Coord(5,6)),
+                    PlaceAction(Coord(4,4), Coord(4,5), Coord(5,5), Coord(5,6)),
+                    PlaceAction(Coord(5,4), Coord(5,5), Coord(5,6), Coord(5,7)),
+                    PlaceAction(Coord(4,5), Coord(4,6), Coord(5,5), Coord(5,6))
+                ]
                 
-                return [PlaceAction(Coord(4,5), Coord(5,4), Coord(5,5), Coord(5,6))]
             elif self._turn_color == PlayerColor.BLUE:
-                # return self.get_blue_first_action()
-                return [PlaceAction(Coord(8,4), Coord(8,5), Coord(8,6), Coord(8,7))]
+                return self.get_blue_first_action()
         # subsequent actions for each agent
         else:
             for coord in self._player_occupied_coords(self._turn_color):
