@@ -3,7 +3,7 @@
 
 from dataclasses import dataclass
 
-from referee.game.pieces import Piece, PieceType, create_piece, _TEMPLATES
+from referee.game.pieces import PieceType, _TEMPLATES
 from referee.game.coord import Coord, Direction
 from referee.game.player import PlayerColor
 from referee.game.actions import Action, PlaceAction
@@ -152,10 +152,18 @@ class Board:
         def apply_ansi(str, bold=True, color=None):
             bold_code = "\033[1m" if bold else ""
             color_code = ""
+
+            # if color == "r":
+            #     color_code = "\033[31m"
+            # if color == "b":
+            #     color_code = "\033[34m"
             if color == "r":
                 color_code = "\033[31m"
-            if color == "b":
+            elif color == "b":
                 color_code = "\033[34m"
+            else: 
+                color_code = "\033[32m"
+
             return f"{bold_code}{color_code}{str}\033[0m"
 
         output = ""
@@ -163,7 +171,15 @@ class Board:
             for c in range(BOARD_N):
                 if self._cell_occupied(Coord(r, c)):
                     color = self._state[Coord(r, c)].player
-                    color = "r" if color == PlayerColor.RED else "b"
+
+                    # color = "r" if color == PlayerColor.RED else "b"
+                    if color == PlayerColor.RED:
+                        color = "r" 
+                    elif color == PlayerColor.BLUE:
+                        color = "b"
+                    else: 
+                        color = "@"
+
                     text = f"{color}"
                     if use_color:
                         output += apply_ansi(text, color=color, bold=False)

@@ -15,6 +15,9 @@ red:
 blue:
 	python3 -m referee $(test_blue)
 
+help: 
+	python3 -m referee --$@
+
 # Use "make clean" to clean all the cache files in current and the next 3 layers of subdirectories 
 clean: 
 	rm -r __pycache__ */__pycache__ */*/__pycache__ */*/*/__pycache__

@@ -7,9 +7,10 @@ from collections import namedtuple
 
 import numpy as np
 
-from .board import Board, BOARD_N
+from .board import Board, BOARD_N, Direction, Coord, CellState
 from referee.game import PlaceAction, PlayerColor
 from referee.agent.resources import CountdownTimer
+from . import _testing
 
 GameState = namedtuple('GameState', 'to_move, utility, board, moves')
 StochasticGameState = namedtuple('StochasticGameState', 'to_move, utility, board, moves, chance')
@@ -18,28 +19,6 @@ StochasticGameState = namedtuple('StochasticGameState', 'to_move, utility, board
 
 MAX_TURN = 150 
 TURN_THRESHOLD = MAX_TURN * 0.8 
-
-def action_utility(board:Board, action:PlaceAction, player:PlayerColor) -> int: 
-    '''Find the utility of an action for sorting the action for maximize pruning 
-    '''
-
-    new_board = copy.deepcopy(board)
-    new_board.apply_action(action)
-
-    def diff_row_col_occupied(player:PlayerColor) -> int: 
-        player_occupied = (new_board._player_occupied_coords(player)) 
-        opponent_occupied = (new_board._player_occupied_coords(player.opponent)) 
-        player_occupied_row = set(map(lambda coord: coord.r, player_occupied))
-        player_occupied_col = set(map(lambda coord: coord.c, player_occupied))
-        opponent_occupied_row = set(map(lambda coord: coord.r, opponent_occupied))
-        opponent_occupied_col = set(map(lambda coord: coord.c, opponent_occupied))
-        return len(player_occupied_row) + len(player_occupied_col) \
-            - len(opponent_occupied_row) - len(opponent_occupied_col)
-
-    # Calculate the weighted sum of the utility components for `player` (i.e. the agent using the habp) of the new action played 
-    utility = diff_row_col_occupied(player) # TODO - add more component to make the weighted sum more accurate 
-
-    return utility
 
 
 def alpha_beta_cutoff_search(board:Board):
@@ -60,7 +39,7 @@ def alpha_beta_cutoff_search(board:Board):
         return depth > 4 or board.game_over
 
     def eval_fn(board:Board, player:PlayerColor) -> float: 
-        print(" ======== evaluate start")
+        print(_testing.prefix(), "evaluate start")
         # If there is a winner, give the result straight away 
         if board.winner_color == player.opponent: 
             return -1 
@@ -68,33 +47,31 @@ def alpha_beta_cutoff_search(board:Board):
             return 1,000,000,000,000
 
         # Otherwise, evaluate the game state 
-        num_actions = len(board.get_legal_actions(player))
-        num_opponent_actions = len(board.get_legal_actions(player.opponent))
-        extra_num_actions = num_actions - num_opponent_actions
 
-        num_player_occupied = len(board._player_occupied_coords(player))
-        num_opponent_occupied = len(board._player_occupied_coords(player.opponent))
+        # Find the difference in the number of actions 
+        # num_actions = len(board.get_legal_actions(player))
+        # num_opponent_actions = len(board.get_legal_actions(player.opponent))
+        # extra_num_actions = num_actions - num_opponent_actions
+
+        # Find the difference in the number of empty cells reachable that can be used as an action 
+        num_empty_player_reachable = num_valid_reachable_cells(board, player)
+        num_empty_opponent_reachable = num_valid_reachable_cells(board, player.opponent)
+        extra_num_reachable = num_empty_player_reachable - num_empty_opponent_reachable
+
+        # Find the difference in the number of cells occupied 
+        num_player_occupied = board._player_token_count(player)
+        num_opponent_occupied = board._player_token_count(player.opponent)
         extra_num_occupied = num_player_occupied - num_opponent_occupied
 
         if board.turn_count < TURN_THRESHOLD: 
-            utility = extra_num_actions + 0.1 * extra_num_occupied
+            utility = extra_num_reachable + 0.1 * extra_num_occupied
         else: 
             # If about to reach turns limit, evalution also include the number of cells occupied 
-            utility = extra_num_actions + \
+            utility = extra_num_reachable + \
                 (board.turn_count - TURN_THRESHOLD) * 0.5 * extra_num_occupied
         
-        print(" ======== evaluate end")
+        print(_testing.prefix(), "evaluate end")
         return utility
-
-    # def ___DISCARD_action_utility(board, action) -> int: 
-    #     print("action_utility")
-    #     timer = CountdownTimer(time_limit=2)
-    #     timer.__enter__()
-    #     board.apply_action(action) 
-    #     utility = eval_fn(board)
-    #     board.undo_action()
-    #     timer.__exit__(None, None, None)
-    #     return utility 
 
     # Functions used by alpha_beta
     def max_value(board:Board, alpha, beta, depth) -> float:
@@ -131,9 +108,12 @@ def alpha_beta_cutoff_search(board:Board):
     best_score = -np.inf
     beta = np.inf
     best_action = None
-    for action in board.get_legal_actions():
-        timer = CountdownTimer(time_limit=1,tolerance=10)
-        timer.__enter__()
+    legal_actions = board.get_legal_actions()
+    random_index:set[int] = set([random.randint(0, len(legal_actions)-1) for _ in range(10)])
+    for action in [legal_actions[i] for i in random_index]:
+        print(_testing.prefix(17), f"number of legal actions = {len(legal_actions)}")
+        # timer = CountdownTimer(time_limit=1,tolerance=10)
+        # timer.__enter__()
 
         # Apply the action, evaluate alpha and beta, then undo the action 
         new_board = copy.deepcopy(board)   
@@ -143,9 +123,80 @@ def alpha_beta_cutoff_search(board:Board):
             best_score = v
             best_action = action
 
-        timer.__exit__(None, None, None)
+        # timer.__exit__(None, None, None)
     return best_action
 
+
+def action_utility(board:Board, action:PlaceAction, player:PlayerColor) -> int: 
+    '''Find the utility of an action for sorting the action for maximize pruning 
+    '''
+
+    new_board = copy.deepcopy(board)
+    new_board.apply_action(action)
+
+    def diff_row_col_occupied(player:PlayerColor) -> int: 
+        '''Find the differences in the sum of the number of rows and columns occupied
+        '''
+        player_occupied = (new_board._player_occupied_coords(player)) 
+        opponent_occupied = (new_board._player_occupied_coords(player.opponent)) 
+        player_occupied_row = set(map(lambda coord: coord.r, player_occupied))
+        player_occupied_col = set(map(lambda coord: coord.c, player_occupied))
+        opponent_occupied_row = set(map(lambda coord: coord.r, opponent_occupied))
+        opponent_occupied_col = set(map(lambda coord: coord.c, opponent_occupied))
+        return len(player_occupied_row) + len(player_occupied_col) \
+            - len(opponent_occupied_row) - len(opponent_occupied_col)
+
+    # Calculate the weighted sum of the utility components for `player` (i.e. the agent using the habp) of the new action played 
+    utility = diff_row_col_occupied(player) # TODO - add more component to make the weighted sum more accurate 
+
+    return utility
+
+
+def num_valid_reachable_cells(board:Board, player:PlayerColor) -> int: 
+    '''Get the number of cells that is connected to at least 3 other empty cells 
+        that the player can reach (i.e. connected to a red cell without blocking by blue)
+    '''
+    reachable = 0
+    visited = set()
+    occupied = board._player_occupied_coords(player)
+    for cell in occupied: 
+
+        # Get all empty cells around the occupied cell 
+        # empty_adjacent: set[Coord] = set()
+        for direction in Direction: 
+            adjacent = cell.__add__(direction)
+            if board._cell_empty(adjacent) and adjacent not in visited: 
+                # empty_adjacent.add(adjacent)
+
+        # for empty in empty_adjacent: 
+        #     if empty in visited: 
+        #         continue 
+
+                # Find the number of cells in the empty region 
+                connected = empty_connected(board, adjacent)
+                # _testing.show(connected, description="new empty region connected")
+                # _testing.show(visited, description="previously visited empty region")
+                assert(len(visited.intersection(connected)) == 0)  # make sure `connected` is completely a new region that has not been visited 
+                visited.update(connected)
+                
+                if len(connected) >= 4: 
+                    reachable += len(connected)
+    
+    return reachable
+
+
+def empty_connected(board:Board, empty:Coord) -> set[Coord]:
+    '''Return the empty cells connected to the `empty` cell
+    '''
+    frontier = [empty]
+    visited = {empty}
+    while frontier: 
+        visiting = frontier.pop()
+        for adjacent in [visiting.__add__(direction) for direction in Direction]: 
+            if board._cell_empty(adjacent) and adjacent not in visited: 
+                frontier.append(adjacent)
+                visited.add(adjacent)
+    return visited
 
 # ______________________________________________________________________________
 # Players for Games
@@ -222,9 +273,6 @@ class Game:
                 if self.terminal_test(state):
                     self.display(state)
                     return self.utility(state, self.to_move(self.initial))
-
-
-
 
 
 

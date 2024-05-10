@@ -6,6 +6,8 @@ from referee.game import PlayerColor, Action, PlaceAction, Coord
 from .board import Board, BOARD_N
 from .habp import alpha_beta_cutoff_search
 
+from . import _testing
+
 class Agent:
     """
     This class is the "entry point" for your agent, providing an interface to
@@ -38,7 +40,7 @@ class Agent:
             return random.choice(legal_actions)
 
         # If the board is relatively full, play using alpha-beta pruning 
-        print("START ALPHA_BETA - 3/5 of the board is filled, stop playing randomly, start applying strategy")
+        print(_testing.prefix(), "START ALPHA_BETA - 3/5 of the board is filled, stop playing randomly, start applying strategy")
         return alpha_beta_cutoff_search(self._board)
     
 
@@ -82,6 +84,5 @@ class Agent:
         print(f"Update state for {self._color}: {color} played PLACE action: {c1}, {c2}, {c3}, {c4}")
 
         self._board.apply_action(place_action)
-
 
 
