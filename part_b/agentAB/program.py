@@ -33,7 +33,7 @@ class Agent:
         This method is called by the referee each time it is the agent's turn
         to take an action. It must always return an action object. 
         """
-        # If the board is relatively empty, play randomly  
+        # If the board is relatively empty, play randomly  TODO - potentially add some "safe guard" to the random moves 
         EMPTY_THRESHOLD = BOARD_N * BOARD_N * 3 / 5
         if len(self._board._empty_coords()) > EMPTY_THRESHOLD: 
             legal_actions = self._board.get_legal_actions()
