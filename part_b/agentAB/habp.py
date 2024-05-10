@@ -13,8 +13,6 @@ from referee.agent.resources import CountdownTimer
 from . import _testing
 from referee.run import game_delay
 
-GameState = namedtuple('GameState', 'to_move, utility, board, moves')
-StochasticGameState = namedtuple('StochasticGameState', 'to_move, utility, board, moves, chance')
 
 # ______________________________________________________________________________
 
@@ -53,9 +51,7 @@ def alpha_beta_cutoff_search(board:Board):
         # Otherwise, evaluate the game state 
 
         # Find the difference in the number of actions 
-        # num_actions = len(board.get_legal_actions(player))
-        # num_opponent_actions = len(board.get_legal_actions(player.opponent))
-        # extra_num_actions = num_actions - num_opponent_actions
+        extra_num_actions = diff_legal_actions(board, player)
 
         # Find the difference in the number of empty cells reachable that can be used as an action 
         extra_num_reachable = diff_reachable_valid_empty_cell(board, player)
@@ -64,11 +60,20 @@ def alpha_beta_cutoff_search(board:Board):
         extra_num_occupied = diff_cells_occupied(board, player)
 
         if board.turn_count < TURN_THRESHOLD: 
-            utility = extra_num_reachable + 0.1 * extra_num_occupied
+            # Far away from turns limitation 
+            utility = (
+                extra_num_actions +         \
+                extra_num_reachable +       \
+                extra_num_occupied * 0.1 
+            )
         else: 
             # If about to reach turns limit, evalution also include the number of cells occupied 
-            utility = extra_num_reachable + \
-                (board.turn_count - TURN_THRESHOLD) * 0.5 * extra_num_occupied
+            turns_exceed_threshold = board.turn_count - TURN_THRESHOLD
+            utility = (
+                extra_num_actions +                                 \
+                extra_num_reachable +                               \
+                extra_num_occupied * turns_exceed_threshold * 0.5 
+            )
         
         print(_testing.prefix(), "evaluate end")
         return utility
@@ -156,6 +161,15 @@ def diff_cells_occupied(board:Board, player:PlayerColor) -> int:
     return num_player_occupied - num_opponent_occupied
 
 
+def diff_legal_actions(board:Board, player:PlayerColor) -> int: 
+    ''' Find the difference in the number of legal actions 
+        between the player and the opponent. 
+    '''
+    num_actions = len(board.get_legal_actions(player))
+    num_opponent_actions = len(board.get_legal_actions(player.opponent))
+    return num_actions - num_opponent_actions
+
+
 def diff_reachable_valid_empty_cell(board:Board, player:PlayerColor) -> int: 
     ''' Find the difference in the number of valid empty cells reachable 
         between the player and the opponent. 
@@ -209,32 +223,6 @@ def diff_row_col_occupied(board:Board, player:PlayerColor) -> int:
     opponent_occupied_col = set(map(lambda coord: coord.c, opponent_occupied))
     return len(player_occupied_row) + len(player_occupied_col) \
         - len(opponent_occupied_row) - len(opponent_occupied_col)
-
-
-
-# ______________________________________________________________________________
-# Players for Games
-
-def query_player(game, state):
-    """Make a move by querying standard input."""
-    print("current state:")
-    game.display(state)
-    print("available moves: {}".format(game.actions(state)))
-    print("")
-    move = None
-    if game.actions(state):
-        move_string = input('Your move? ')
-        try:
-            move = eval(move_string)
-        except NameError:
-            move = move_string
-    else:
-        print('no legal moves: passing turn to next player')
-    return move
-
-
-def alpha_beta_player(game, state):
-    return alpha_beta_cutoff_search(state, game)
 
 
 # ______________________________________________________________________________
