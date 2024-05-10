@@ -3,7 +3,6 @@
 import copy
 import itertools
 import random
-from collections import namedtuple
 
 import numpy as np
 
@@ -30,15 +29,19 @@ def alpha_beta_cutoff_search(board:Board):
 
     def cutoff_test(board:Board, depth):
         # If the board is relatively empty, simply check until a certain depth  
-        SPARSE_THREASHOLD = BOARD_N * BOARD_N / 3
-        if len(board._empty_coords()) > SPARSE_THREASHOLD: 
+        if board.game_over: 
+            return True
+        
+        if len(board._empty_coords()) > BOARD_N * BOARD_N / 3: 
+            return depth > 1
+        if len(board._empty_coords()) > BOARD_N * BOARD_N / 4:
             return depth > 2
 
         # TODO - if the state of the game is unstable, go deeper? 
         # if not board.is_stable(): 
         #     return depth > 5
         # else: 
-        return depth > 4 or board.game_over
+        return depth > 4 
 
     def eval_fn(board:Board, player:PlayerColor) -> float: 
         print(_testing.prefix(), "evaluate start")
@@ -148,8 +151,12 @@ def action_utility(board:Board, action:PlaceAction, player:PlayerColor) -> int:
     new_board = copy.deepcopy(board)
     new_board.apply_action(action)
 
-    # Calculate the weighted sum of the utility components for `player` (i.e. the agent using the habp) of the new action played 
-    utility = diff_row_col_occupied(new_board, player) # TODO - add more component to make the weighted sum more accurate 
+    # Calculate the weighted sum of the utility components for `player` (i.e. the agent using the habp) 
+    utility = (
+        diff_row_col_occupied(new_board, player) * 0.8 +    \
+        #diff_cells_occupied(new_board, player) * 0.5 +      \
+        diff_reachable_valid_empty_cell(new_board, player)
+    )
     return utility
 
 
