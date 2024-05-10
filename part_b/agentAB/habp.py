@@ -22,6 +22,7 @@ MAX_TURN = 150
 TURN_THRESHOLD = MAX_TURN * 0.8 
 
 def print(*values): 
+    ''' Change this function name to `_print` if want to print out debug messages '''
     pass 
 
 def alpha_beta_cutoff_search(board:Board):
@@ -57,14 +58,10 @@ def alpha_beta_cutoff_search(board:Board):
         # extra_num_actions = num_actions - num_opponent_actions
 
         # Find the difference in the number of empty cells reachable that can be used as an action 
-        num_empty_player_reachable = num_valid_reachable_cells(board, player)
-        num_empty_opponent_reachable = num_valid_reachable_cells(board, player.opponent)
-        extra_num_reachable = num_empty_player_reachable - num_empty_opponent_reachable
+        extra_num_reachable = diff_reachable_valid_empty_cell(board, player)
 
         # Find the difference in the number of cells occupied 
-        num_player_occupied = board._player_token_count(player)
-        num_opponent_occupied = board._player_token_count(player.opponent)
-        extra_num_occupied = num_player_occupied - num_opponent_occupied
+        extra_num_occupied = diff_cells_occupied(board, player)
 
         if board.turn_count < TURN_THRESHOLD: 
             utility = extra_num_reachable + 0.1 * extra_num_occupied
@@ -146,69 +143,74 @@ def action_utility(board:Board, action:PlaceAction, player:PlayerColor) -> int:
     new_board = copy.deepcopy(board)
     new_board.apply_action(action)
 
-    def diff_row_col_occupied(player:PlayerColor) -> int: 
-        '''Find the differences in the sum of the number of rows and columns occupied
-        '''
-        player_occupied = (new_board._player_occupied_coords(player)) 
-        opponent_occupied = (new_board._player_occupied_coords(player.opponent)) 
-        player_occupied_row = set(map(lambda coord: coord.r, player_occupied))
-        player_occupied_col = set(map(lambda coord: coord.c, player_occupied))
-        opponent_occupied_row = set(map(lambda coord: coord.r, opponent_occupied))
-        opponent_occupied_col = set(map(lambda coord: coord.c, opponent_occupied))
-        return len(player_occupied_row) + len(player_occupied_col) \
-            - len(opponent_occupied_row) - len(opponent_occupied_col)
-
     # Calculate the weighted sum of the utility components for `player` (i.e. the agent using the habp) of the new action played 
-    utility = diff_row_col_occupied(player) # TODO - add more component to make the weighted sum more accurate 
-
+    utility = diff_row_col_occupied(new_board, player) # TODO - add more component to make the weighted sum more accurate 
     return utility
 
 
-def num_valid_reachable_cells(board:Board, player:PlayerColor) -> int: 
-    '''Get the number of cells that is connected to at least 3 other empty cells 
-        that the player can reach (i.e. connected to a red cell without blocking by blue)
+# =============== Utility Evaluation Fundctions ==================== 
+
+def diff_cells_occupied(board:Board, player:PlayerColor) -> int:
+    num_player_occupied = board._player_token_count(player)
+    num_opponent_occupied = board._player_token_count(player.opponent)
+    return num_player_occupied - num_opponent_occupied
+
+
+def diff_reachable_valid_empty_cell(board:Board, player:PlayerColor) -> int: 
+    ''' Find the difference in the number of valid empty cells reachable 
+        between the player and the opponent. 
+        A cell is valid if it is connected to at least 3 other empty cells. 
     '''
-    reachable = 0
-    visited = set()
-    occupied = board._player_occupied_coords(player)
-    for cell in occupied: 
-
-        # Get all empty cells around the occupied cell 
-        # empty_adjacent: set[Coord] = set()
-        for direction in Direction: 
-            adjacent = cell.__add__(direction)
-            if board._cell_empty(adjacent) and adjacent not in visited: 
-                # empty_adjacent.add(adjacent)
-
-        # for empty in empty_adjacent: 
-        #     if empty in visited: 
-        #         continue 
-
-                # Find the number of cells in the empty region 
-                connected = empty_connected(board, adjacent)
-                # _testing.show(connected, description="new empty region connected")
-                # _testing.show(visited, description="previously visited empty region")
-                assert(len(visited.intersection(connected)) == 0)  # make sure `connected` is completely a new region that has not been visited 
-                visited.update(connected)
-                
-                if len(connected) >= 4: 
-                    reachable += len(connected)
+    def empty_connected(board:Board, empty:Coord) -> set[Coord]:
+        ''' Return the empty cells connected to the `empty` cell
+        '''
+        frontier = [empty]
+        connected = {empty}
+        while frontier: 
+            visiting = frontier.pop()
+            for adjacent in [visiting.__add__(direction) for direction in Direction]: 
+                if board._cell_empty(adjacent) and adjacent not in connected: 
+                    frontier.append(adjacent)
+                    connected.add(adjacent)
+        return connected
     
-    return reachable
+    def num_valid_reachable_cells(board:Board, player:PlayerColor) -> int: 
+        reachable = 0
+        visited = set()
+        occupied = board._player_occupied_coords(player)
+        for cell in occupied: 
+            for adjacent in [cell.__add__(direction) for direction in Direction]: 
+                if board._cell_empty(adjacent) and adjacent not in visited: 
+                    connected = empty_connected(board, adjacent)
+                    # _testing.show(connected, description="new empty region connected")
+                    # _testing.show(visited, description="previously visited empty region")
+                    assert(len(visited.intersection(connected)) == 0)  # `connected` should be a new region that has not been visited 
+                    visited.update(connected)
+                    
+                    # Only add valid cell count to the output 
+                    if len(connected) >= 4: 
+                        reachable += len(connected)
+        return reachable
+    
+    num_empty_player_reachable = num_valid_reachable_cells(board, player)
+    num_empty_opponent_reachable = num_valid_reachable_cells(board, player.opponent)
+    return num_empty_player_reachable - num_empty_opponent_reachable
 
 
-def empty_connected(board:Board, empty:Coord) -> set[Coord]:
-    '''Return the empty cells connected to the `empty` cell
+def diff_row_col_occupied(board:Board, player:PlayerColor) -> int: 
+    ''' Find the difference in the sum of the number of rows and columns occupied
+        between the player and the opponent. 
     '''
-    frontier = [empty]
-    visited = {empty}
-    while frontier: 
-        visiting = frontier.pop()
-        for adjacent in [visiting.__add__(direction) for direction in Direction]: 
-            if board._cell_empty(adjacent) and adjacent not in visited: 
-                frontier.append(adjacent)
-                visited.add(adjacent)
-    return visited
+    player_occupied = (board._player_occupied_coords(player)) 
+    opponent_occupied = (board._player_occupied_coords(player.opponent)) 
+    player_occupied_row = set(map(lambda coord: coord.r, player_occupied))
+    player_occupied_col = set(map(lambda coord: coord.c, player_occupied))
+    opponent_occupied_row = set(map(lambda coord: coord.r, opponent_occupied))
+    opponent_occupied_col = set(map(lambda coord: coord.c, opponent_occupied))
+    return len(player_occupied_row) + len(player_occupied_col) \
+        - len(opponent_occupied_row) - len(opponent_occupied_col)
+
+
 
 # ______________________________________________________________________________
 # Players for Games
