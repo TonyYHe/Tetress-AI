@@ -13,11 +13,15 @@ class HABPNode():
         self.parent = parent
         self.parent_action = parent_action
         self.children = dict()
+        self.children_utilities = []
         return
     
     def sort_children(self, legal_actions, max=True):
         """Move ordering."""
-        children_utilities = []
+
+        # Check if children_utilities has been calculated before
+        if self.children_utilities != []:
+            return self.children_utilities
 
         for a in legal_actions:
             new_board = deepcopy(self.state)
@@ -25,10 +29,11 @@ class HABPNode():
             child_node = HABPNode(new_board, self.color, self, a)
             self.children[a] = child_node
             utility = child_node.eval_fn()
-            children_utilities.append((child_node, utility))
+            self.children_utilities.append((child_node, utility))
 
-        children_utilities.sort(key=lambda x:x[1], reverse=max)
-        return children_utilities
+        self.children_utilities.sort(key=lambda x:x[1], reverse=max)
+                
+        return self.children_utilities
 
 
     def alpha_beta_cutoff_search(self):
@@ -90,17 +95,20 @@ class HABPNode():
         return v        
     
     def cutoff_test(self, depth):
-        d = 2
+        d = 4
         return depth > d or self.state.game_over
     
-    def eval_fn(self):
+    def eval_fn(self, game_over=False):
         """
-        This is problematic. Maybe evaluation function of opponent can be the 
-        negative?
+        This is problematic.
         """
+        if game_over == True:
+            return self.state.game_result() # returns -1 or 0 or 1
+        
         board = self.state
         curr_color = board._turn_color
 
+        # check if the utility of the current state has been calculated already
         board_dict = board._state
         key = board_dict
         utility = transposition_table.get(key)
@@ -124,10 +132,14 @@ class HABPNode():
         num_opponent_tokens = board._player_token_count(self.color.opponent)
         num_extra_tokens = num_player_tokens - num_opponent_tokens
 
+        # it's best to normalise this result to [-1, 1]
         utility = 0.5*num_extra_tokens + 0.5*num_extra_actions
         transposition_table[key] = utility
 
-        return utility if self.color != curr_color else -utility
+        # need to double check this expression, self.color == curr_color or 
+        # self.color != curr_color? Since Tetress is a zero-sum game, we can 
+        # take the negative of the utility value for the opponent
+        return utility if self.color == curr_color else -utility
 
 
 
