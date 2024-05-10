@@ -6,7 +6,7 @@ from agent.constants import WIN, LOSS, DRAW
 
 board_legal_actions = dict()
 
-class MCTSNode():
+class MCTSNode:
     def __init__(self, board: Board, color, parent=None, parent_action=None):
         self.state = board
         self.color = color

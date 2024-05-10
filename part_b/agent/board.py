@@ -22,16 +22,9 @@ class CellState:
     """
     player: PlayerColor | None = None
 
-    def __post_init__(self):
-        if self.player is None:
-            object.__setattr__(self, "player", None)
-
-    def __str__(self):
-        return f"CellState({self.player})"
-    
-    def __iter__(self):
-        yield self.player
-
+class BoardState(dict):
+    def __hash__(self):
+        return hash(tuple(self.items()))
 
 class Board:
     """
@@ -44,7 +37,7 @@ class Board:
     """
     def __init__(
         self, 
-        initial_state: dict[Coord, CellState] = {},
+        initial_state: BoardState = {},
         initial_player: PlayerColor = PlayerColor.RED,
     ):
         """
@@ -52,11 +45,11 @@ class Board:
         board state (in practice this is only used for testing).
         """
         if initial_state == {}:
-            self._state: dict[Coord, CellState] = {
+            self._state: BoardState = BoardState({
                 Coord(r, c): CellState() 
                 for r in range(BOARD_N) 
                 for c in range(BOARD_N)
-            }
+            })
         else:
             self._state = initial_state
 
@@ -74,15 +67,19 @@ class Board:
             if self._turn_color == PlayerColor.RED:
                 # there are only 5 distinct moves in an empty board due to the 
                 # toroidal nature of the game board, and accounting for symmetry
-                return [
-                    PlaceAction(Coord(4,5), Coord(5,4), Coord(5,5), Coord(5,6)),
-                    PlaceAction(Coord(4,4), Coord(4,5), Coord(4,6), Coord(5,6)),
-                    PlaceAction(Coord(4,4), Coord(4,5), Coord(5,5), Coord(5,6)),
-                    PlaceAction(Coord(5,4), Coord(5,5), Coord(5,6), Coord(5,7)),
-                    PlaceAction(Coord(4,5), Coord(4,6), Coord(5,5), Coord(5,6))
-                ]
+
+                # return [
+                #     PlaceAction(Coord(4,5), Coord(5,4), Coord(5,5), Coord(5,6)),
+                #     PlaceAction(Coord(4,4), Coord(4,5), Coord(4,6), Coord(5,6)),
+                #     PlaceAction(Coord(4,4), Coord(4,5), Coord(5,5), Coord(5,6)),
+                #     PlaceAction(Coord(5,4), Coord(5,5), Coord(5,6), Coord(5,7)),
+                #     PlaceAction(Coord(4,5), Coord(4,6), Coord(5,5), Coord(5,6))
+                # ]
+                
+                return [PlaceAction(Coord(4,5), Coord(5,4), Coord(5,5), Coord(5,6))]
             elif self._turn_color == PlayerColor.BLUE:
-                return self.get_blue_first_action()
+                # return self.get_blue_first_action()
+                return [PlaceAction(Coord(8,4), Coord(8,5), Coord(8,6), Coord(8,7))]
         # subsequent actions for each agent
         else:
             for coord in self._player_occupied_coords(self._turn_color):
@@ -232,8 +229,11 @@ class Board:
         """
         return self._turn_color
     
-    def modify_turn_color(self) -> PlayerColor:
-        self._turn_color = self._turn_color.opponent
+    def modify_turn_color(self, color: PlayerColor = None) -> PlayerColor:
+        if color is None:
+            self._turn_color = self._turn_color.opponent
+        else:
+            self._turn_color = color
         return self._turn_color
     
     @property
