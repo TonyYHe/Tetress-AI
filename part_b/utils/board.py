@@ -11,7 +11,7 @@ from referee.game.exceptions import IllegalActionException
 from referee.game.constants import *
 
 from collections import deque
-from agent.constants import WIN, LOSS, DRAW
+from utils.constants import WIN, LOSS, DRAW
 import numpy as np
 
 @dataclass(frozen=True, slots=True)
@@ -396,4 +396,3 @@ class Board:
 
         for cell in remove_coords:
             self._state[cell] = CellState(None)    
-            

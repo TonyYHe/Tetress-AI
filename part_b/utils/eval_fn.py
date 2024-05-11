@@ -3,9 +3,59 @@ from referee.game.player import PlayerColor
 from referee.game.actions import Action, PlaceAction
 from referee.game.constants import *
 
-from agent.board import Board
+from utils.board import Board
 import copy
 from collections import deque
+
+from referee.game.constants import MAX_TURNS
+TURN_THRESHOLD = MAX_TURNS * 0.8 
+
+def eval_fn(board: Board, player_color: PlayerColor, 
+            transposition_table: dict, game_over=False):
+        """
+        This is problematic.
+        Return a positive utility value for the player, and a negative utility 
+        value for the opponent.
+        """
+        if game_over == True:
+            return board.game_result() * 1000
+        
+        boardstate = board._state
+        curr_color = board._turn_color
+
+        # check if the utility of the current state has been calculated already
+        utility = transposition_table.get(boardstate)
+        if utility is not None:
+            return utility
+
+        # Find the difference in the number of actions 
+        extra_num_actions = diff_legal_actions(board, player_color)
+        # Find the difference in the number of empty cells reachable that can be used as an action 
+        extra_num_reachable = diff_reachable_valid_empty_cell(board, player_color)
+        # Find the difference in the number of cells occupied 
+        extra_num_occupied = diff_cells_occupied(board, player_color)
+
+         # it's best to normalise this result to [-1, 1]
+        if board._turn_count < TURN_THRESHOLD: 
+            # Far away from turns limitation 
+            utility = (
+                extra_num_actions +         \
+                extra_num_reachable +       \
+                extra_num_occupied * 0.1 
+            )
+        else: 
+            # If about to reach turns limit, evalution also include the number of cells occupied 
+            turns_exceed_threshold = board._turn_count - TURN_THRESHOLD
+            utility = (
+                extra_num_actions +                                 \
+                extra_num_reachable +                               \
+                extra_num_occupied * turns_exceed_threshold * 0.5 
+            )
+        transposition_table[board] = utility
+        # since Tetress is a zero-sum game, we can take the negative of the 
+        # utility value for the opponent
+        return utility if player_color == curr_color else -utility
+
 
 def action_utility(board: Board, action: PlaceAction, player: PlayerColor) -> int: 
     '''Find the utility of an action for sorting the action for maximize pruning 

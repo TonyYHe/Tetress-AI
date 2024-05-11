@@ -3,7 +3,7 @@
 
 from referee.game import PlayerColor, Action, PlaceAction, Coord
 from habp_agent.habp import HABPNode
-from agent.board import Board
+from utils.board import Board
 import random
 from referee.game.constants import BOARD_N
 

@@ -1,11 +1,8 @@
 import numpy as np
 
-from agent.board import Board
+from utils.board import Board
 from copy import deepcopy
-from habp_agent.utility import *
-from referee.game.constants import MAX_TURNS
-
-TURN_THRESHOLD = MAX_TURNS * 0.8 
+from utils.eval_fn import *
 
 transposition_table = dict()
 
@@ -65,8 +62,11 @@ class HABPNode():
     
     # Functions used by alpha_beta
     def max_value(self, alpha, beta, depth):
-        if self.cutoff_test(depth):
-            return self.eval_fn()
+        if self.cutoff_test1():
+            return eval_fn(self.state, self.color, transposition_table, game_over=True)
+        if self.cutoff_test2(depth):
+            return eval_fn(self.state, self.color, transposition_table, game_over=False)
+        
         v = -np.inf
         legal_actions = self.state.get_legal_actions()
         sorted_children = self.sort_children(legal_actions, max=True)
@@ -81,8 +81,11 @@ class HABPNode():
         return v
 
     def min_value(self, alpha, beta, depth):
-        if self.cutoff_test(depth):
-            return self.eval_fn()
+        if self.cutoff_test1():
+            return eval_fn(self.state, self.color, transposition_table, game_over=True)
+        if self.cutoff_test2(depth):
+            return eval_fn(self.state, self.color, transposition_table, game_over=False)
+        
         v = np.inf
         legal_actions = self.state.get_legal_actions()
         sorted_children = self.sort_children(legal_actions, max=False)
@@ -94,58 +97,14 @@ class HABPNode():
             if v <= alpha:
                 return v
             beta = min(beta, v)
-        return v        
+        return v  
     
-    def cutoff_test(self, depth):
+    def cutoff_test1(self):
+        return self.state.game_over      
+    
+    def cutoff_test2(self, depth):
         d = 4
-        return depth > d or self.state.game_over
-    
-    def eval_fn(self, game_over=False):
-        """
-        This is problematic.
-        Return a positive utility value for the player, and a negative utility 
-        value for the opponent.
-        """
-        if game_over == True:
-            return self.state.game_result() * 1000
-        
-        board = self.state
-        curr_color = board._turn_color
-
-        # check if the utility of the current state has been calculated already
-        board_dict = board._state
-        key = board_dict
-        utility = transposition_table.get(key)
-        if utility is not None:
-            return utility
-
-        # Find the difference in the number of actions 
-        extra_num_actions = diff_legal_actions(board, self.color)
-        # Find the difference in the number of empty cells reachable that can be used as an action 
-        extra_num_reachable = diff_reachable_valid_empty_cell(board, self.color)
-        # Find the difference in the number of cells occupied 
-
-        extra_num_occupied = diff_cells_occupied(board, self.color)
-         # it's best to normalise this result to [-1, 1]
-        if board.turn_count < TURN_THRESHOLD: 
-            # Far away from turns limitation 
-            utility = (
-                extra_num_actions +         \
-                extra_num_reachable +       \
-                extra_num_occupied * 0.1 
-            )
-        else: 
-            # If about to reach turns limit, evalution also include the number of cells occupied 
-            turns_exceed_threshold = board.turn_count - TURN_THRESHOLD
-            utility = (
-                extra_num_actions +                                 \
-                extra_num_reachable +                               \
-                extra_num_occupied * turns_exceed_threshold * 0.5 
-            )
-        transposition_table[key] = utility
-        # since Tetress is a zero-sum game, we can take the negative of the 
-        # utility value for the opponent
-        return utility if self.color == curr_color else -utility
+        return depth > d
 
 
 

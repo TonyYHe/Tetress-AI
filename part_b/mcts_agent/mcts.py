@@ -1,8 +1,8 @@
 import numpy as np
 
-from agent.board import Board
+from utils.board import Board
 import copy
-from agent.constants import WIN, LOSS, DRAW
+from utils.constants import WIN, LOSS, DRAW
 
 board_legal_actions = dict()
 
