@@ -6,9 +6,7 @@ from referee.game.constants import *
 from utils.board import Board
 import copy
 from collections import deque
-
-from referee.game.constants import MAX_TURNS
-TURN_THRESHOLD = MAX_TURNS * 0.8 
+from utils.constants import TURN_THRESHOLD
 
 def eval_fn(board: Board, player_color: PlayerColor, 
             transposition_table: dict, game_over=False):
@@ -18,7 +16,7 @@ def eval_fn(board: Board, player_color: PlayerColor,
         value for the opponent.
         """
         if game_over == True:
-            return board.game_result() * 1000
+            return board.game_result(player_color) * 1000
         
         boardstate = board._state
         curr_color = board._turn_color
@@ -51,7 +49,7 @@ def eval_fn(board: Board, player_color: PlayerColor,
                 extra_num_reachable +                               \
                 extra_num_occupied * turns_exceed_threshold * 0.5 
             )
-        transposition_table[board] = utility
+        transposition_table[boardstate] = utility
         # since Tetress is a zero-sum game, we can take the negative of the 
         # utility value for the opponent
         return utility if player_color == curr_color else -utility

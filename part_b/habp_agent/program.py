@@ -5,10 +5,7 @@ from referee.game import PlayerColor, Action, PlaceAction, Coord
 from habp_agent.habp import HABPNode
 from utils.board import Board
 import random
-from referee.game.constants import BOARD_N
-
-OPENING_STAGE = BOARD_N * BOARD_N * 0.7
-MIDGAME_STAGE = BOARD_N * BOARD_N * 0.5
+from utils.constants import *
 
 class Agent:
     """
