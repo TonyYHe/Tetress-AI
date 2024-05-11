@@ -29,7 +29,7 @@ class Agent:
         to take an action. It must always return an action object. 
         """
         num_empty_cells = self.root.num_empty_cells
-        if num_empty_cells > OPENING_STAGE:
+        if num_empty_cells > MIDGAME_STAGE:
             legal_actions = self.root.legal_actions
             best_action = random.choice(legal_actions)
             self.root.state.apply_action(best_action)
@@ -49,11 +49,10 @@ class Agent:
         if color == self.root.color:
             self.root = self.next
         else:
-            child_node = self.root.children.get(action)
+            child_node: HABPNode = self.root.children.get(action)
             # some child nodes may not be generated due to approximation
             if child_node is None:
                 self.root.state.apply_action(action)
-                self.root = HABPNode(self.root.state, self.root.color)
+                self.root = HABPNode(self.root.state, self.root.color, parent_action=action)
             else:
-                self.root = child_node
-    
+                self.root = child_node    

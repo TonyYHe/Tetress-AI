@@ -8,10 +8,9 @@ transposition_table = dict()
 
 # ______________________________________________________________________________
 class HABPNode():
-    def __init__(self, board: Board, color, parent=None, parent_action=None):
+    def __init__(self, board: Board, color, parent_action=None):
         self.state = board
         self.color = color
-        self.parent = parent
         self.parent_action = parent_action
         self.children = dict()
         self.legal_actions = self.state.get_legal_actions()
@@ -29,11 +28,11 @@ class HABPNode():
         # Check if children_utilities has been calculated before
         if self.children_utilities != []:
             return self.children_utilities
-
+        
         for a in self.legal_actions:
             new_board = deepcopy(self.state)
             new_board.apply_action(a)
-            child_node = HABPNode(new_board, self.color, self, a)
+            child_node = HABPNode(new_board, self.color, a)
             self.children[a] = child_node
             utility = self.eval_fn(self.game_over)
             self.children_utilities.append((child_node, utility))
@@ -44,7 +43,7 @@ class HABPNode():
     
     def top_k_children(self):
         num_children = len(self.children_utilities)
-        proportion = self.num_empty_cells / NUM_CELLS * 0.05
+        proportion = self.num_empty_cells / NUM_CELLS
         k = int(proportion * num_children)
         return self.children_utilities[:k]
         
@@ -61,8 +60,7 @@ class HABPNode():
         best_child = None
         sorted_children = self.sort_children(max=True)
 
-        print("ab's total # of children:", self.num_legal_actions)
-        print("top k children:", len(sorted_children))
+        print("ab's total # of children:", self.num_legal_actions, "top k children:", len(sorted_children))
 
         for child_node, _ in sorted_children:
             v = child_node.min_value(best_score, beta, 1)
@@ -106,8 +104,13 @@ class HABPNode():
         return v  
     
     def cutoff_test(self, depth):
-        d = 4
-        return depth > d or self.game_over
+        if self.game_over:
+            return True
+        if self.num_empty_cells > LATEGAME_STAGE:
+            return depth > 0
+        if self.num_empty_cells > ENDGAME_STAGE:
+            return depth > 1
+        return depth > 2
     
     def eval_fn(self, game_over):
         """
