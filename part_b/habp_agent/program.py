@@ -28,16 +28,16 @@ class Agent:
         This method is called by the referee each time it is the agent's turn
         to take an action. It must always return an action object. 
         """
-
-        num_empty_cells = len(self.root.state._empty_coords())
+        num_empty_cells = self.root.num_empty_cells
         if num_empty_cells > OPENING_STAGE:
-        # if self.root.state._turn_count < OPENING_STAGE:
-            legal_actions = self.root.state.get_legal_actions()
+            legal_actions = self.root.legal_actions
             best_action = random.choice(legal_actions)
+            self.root.state.apply_action(best_action)
+            best_child = HABPNode(self.root.state, self.root.color, parent_action=best_action)
         else:
             best_child = self.root.alpha_beta_cutoff_search()
-            self.next = best_child
-            best_action = best_child.parent_action
+        self.next = best_child
+        best_action = best_child.parent_action
         return best_action
        
 
@@ -46,20 +46,14 @@ class Agent:
         This method is called by the referee after an agent has taken their
         turn. You should use it to update the agent's internal game state. 
         """
-
-        num_empty_cells = len(self.root.state._empty_coords())
-        if num_empty_cells > OPENING_STAGE:
-            self.root.state.apply_action(action)
+        if color == self.root.color:
+            self.root = self.next
         else:
-            if color == self.root.color:
-                self.root = self.next
+            child_node = self.root.children.get(action)
+            # some child nodes may not be generated due to approximation
+            if child_node is None:
+                self.root.state.apply_action(action)
+                self.root = HABPNode(self.root.state, self.root.color)
             else:
-                child_node = self.root.children.get(action)
-                # this is more to do with mcts, because not all child nodes are 
-                # generated in mcts
-                if child_node is None:
-                    self.root.state.apply_action(action)
-                    self.root = HABPNode(self.root.state, self.root.color)
-                else:
-                    self.root = child_node
+                self.root = child_node
     

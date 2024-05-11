@@ -1,9 +1,15 @@
 # COMP30024 Artificial Intelligence, Semester 1 2024
 # Project Part B: Game Playing Agent
 
+# =============================================================================
+# BROKEN DO NOT USE!
+# =============================================================================
+
 from referee.game import PlayerColor, Action, PlaceAction, Coord
 from mcts_agent.mcts import MCTSNode
 from utils.board import Board
+from utils.constants import *
+import random
 
 
 class Agent:
@@ -26,9 +32,15 @@ class Agent:
         This method is called by the referee each time it is the agent's turn
         to take an action. It must always return an action object. 
         """
-        best_child = self.root.best_action()
-        self.next = best_child
-        return best_child.parent_action
+        num_empty_cells = len(self.root.state._empty_coords())
+        if num_empty_cells > OPENING_STAGE:
+            legal_actions = self.root.state.get_legal_actions()
+            best_action = random.choice(legal_actions)
+        else:
+            best_child = self.root.best_action()
+            self.next = best_child
+            best_action = best_child.parent_action
+        return best_action
        
 
     def update(self, color: PlayerColor, action: Action, **referee: dict):
@@ -36,16 +48,19 @@ class Agent:
         This method is called by the referee after an agent has taken their
         turn. You should use it to update the agent's internal game state. 
         """
-        
-        if color == self.root.color:
-            self.root = self.next
+        num_empty_cells = len(self.root.state._empty_coords())
+        if num_empty_cells > OPENING_STAGE:
+            self.root.state.apply_action(action)
         else:
-            child_node = self.root.children.get(action)
-            if child_node is None:
-                self.root.state.apply_action(action)
-                self.root = MCTSNode(self.root.state, self.root.color)
+            if color == self.root.color:
+                self.root = self.next
             else:
-                self.root = child_node
+                child_node = self.root.children.get(action)
+                if child_node is None:
+                    self.root.state.apply_action(action)
+                    self.root = MCTSNode(self.root.state, self.root.color)
+                else:
+                    self.root = child_node
 
         # print("initial color:", initial_color, "| initial turn_count:", initial_turn_count)
         # print("input color:", color, "| input action:", action)
