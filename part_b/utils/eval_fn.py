@@ -8,7 +8,42 @@ import copy
 from collections import deque
 from utils.constants import TURN_THRESHOLD
 
-def eval_fn(board: Board, player_color: PlayerColor, game_over=False):
+def eval_fn1(board: Board, player_color: PlayerColor, game_over=False):
+        """
+        This is problematic.
+        Return a positive utility value for the player, and a negative utility 
+        value for the opponent.
+        """
+        if game_over == True:
+            return board.game_result(player_color) * 1000
+        
+        curr_color = board._turn_color
+
+        # Find the difference in the number of actions 
+        extra_num_actions = diff_legal_actions(board, player_color)
+        # Find the difference in the number of cells occupied 
+        extra_num_occupied = diff_cells_occupied(board, player_color)
+
+         # it's best to normalise this result to [-1, 1]
+        if board._turn_count < TURN_THRESHOLD: 
+            # Far away from turns limitation 
+            utility = (
+                extra_num_actions +         \
+                extra_num_occupied * 0.1 
+            )
+        else: 
+            # If about to reach turns limit, evalution also include the number of cells occupied 
+            turns_exceed_threshold = board._turn_count - TURN_THRESHOLD
+            utility = (
+                extra_num_actions +                                 \
+                extra_num_occupied * turns_exceed_threshold * 0.5 
+            )
+        # since Tetress is a zero-sum game, we can take the negative of the 
+        # utility value for the opponent
+        return utility if player_color != curr_color else -utility
+
+
+def eval_fn2(board: Board, player_color: PlayerColor, game_over=False):
         """
         This is problematic.
         Return a positive utility value for the player, and a negative utility 

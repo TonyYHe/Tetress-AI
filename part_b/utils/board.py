@@ -12,7 +12,7 @@ from referee.game.constants import *
 
 from collections import deque
 from utils.constants import WIN, LOSS, DRAW
-import numpy as np
+import random
 
 @dataclass(frozen=True, slots=True)
 class CellState:
@@ -132,12 +132,11 @@ class Board:
                                                          real_piece[3])
                                 legal_actions.add(real_piece)
         return list(legal_actions)
-        
+
     def get_blue_first_action(self):
         """
         Return a randomly generated action based on the chosen strategy.
         """
-
         def offensive_strategy():
             """
             Return placements adjacent to the only red piece on the board.
@@ -149,7 +148,25 @@ class Board:
             self.modify_turn_color()
             self._turn_count = curr_turn_count
             return legal_actions
-            
+        def random_strategy(starting_cell):
+            """
+            Return a completely random move.
+            """
+            action_coords = [starting_cell]
+            visited_coords = {starting_cell}
+            i = 0
+            while i < 3:
+                coord = action_coords[i]
+                adj_coords = \
+                    [coord.down(), coord.up(), coord.left(), coord.right()]
+                empty_adj_coords = [coord for coord in adj_coords 
+                                    if self._cell_empty(coord) and 
+                                    coord not in visited_coords]
+                next_coord = random.choice(empty_adj_coords)
+                visited_coords.add(next_coord)
+                action_coords.append(next_coord)
+                i += 1
+            return [PlaceAction(*action_coords)]
         def defensive_strategy():
             """
             Return a random placement far away from the only red piece on the 
@@ -162,24 +179,11 @@ class Board:
             max_c = max(col_nums)
             sc_r = (max_r + 5 + BOARD_N) % BOARD_N
             sc_c = (max_c + 5 + BOARD_N) % BOARD_N
-            action_coords = [Coord(sc_r, sc_c)]
-            visited_coords = set(Coord(sc_r, sc_c))
-            i = 0
-            while i < 3:
-                coord = action_coords[i]
-                adj_coords = \
-                    [coord.down(), coord.up(), coord.left(), coord.right()]
-                empty_adj_coords = [coord for coord in adj_coords 
-                                    if self._cell_empty(coord) and 
-                                    coord not in visited_coords]
-                next_coord = \
-                    empty_adj_coords[np.random.randint(len(empty_adj_coords))]
-                visited_coords.add(next_coord)
-                action_coords.append(next_coord)
-                i += 1
-            return [PlaceAction(*action_coords)]
-        
-        return offensive_strategy()
+            starting_cell = Coord(sc_r, sc_c)
+            return random_strategy(starting_cell)
+        empty_coords = self._empty_coords()
+        starting_cell = random.choice(list(empty_coords))
+        return random_strategy(starting_cell)
 
     def __getitem__(self, cell: Coord) -> CellState:
         """

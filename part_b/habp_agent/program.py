@@ -29,10 +29,12 @@ class Agent:
         This method is called by the referee each time it is the agent's turn
         to take an action. It must always return an action object. 
         """
+        print("starting time:", referee["time_remaining"])
         best_child = self.root.best_child(self.board)
         best_child.mutations = []
         self.best_child = best_child
         best_action = best_child.parent_action
+        print("ending time:", referee["time_remaining"])
         return best_action
        
 

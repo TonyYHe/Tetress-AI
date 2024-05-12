@@ -31,7 +31,7 @@ class Agent:
         for action in legal_actions:
             mutation = self.board.apply_action(action)
             is_game_over = self.board.game_over
-            utility = eval_fn(self.board, self.color, game_over=is_game_over)
+            utility = eval_fn1(self.board, self.color, game_over=is_game_over)
             action_utility.append((action, utility))
             self.board.undo_action(mutation)
         action_utility.sort(key=lambda x: x[1])

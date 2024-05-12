@@ -79,7 +79,7 @@ class HABPNode():
         k = int(proportion * num_children)
         return self.children_utilities[:k]
         
-    def alpha_beta_cutoff_search(self, root_state: Board):
+    def alpha_beta_cutoff_search(self, board: Board):
         """Search game to determine best action; use alpha-beta pruning.
         This version cuts off search and uses an evaluation function.
         Assumes the player is MAX.
@@ -90,7 +90,7 @@ class HABPNode():
         best_score = -np.inf
         beta = np.inf
         best_child = None # ============ this is where the problem comes from =============
-        self.sort_children(max=True)
+        self.sort_children(board, max=True)
         top_k_children = self.top_k_children()
 
         print("ab's total # of children:", self.num_legal_actions, "top k children:", len(top_k_children))
@@ -104,12 +104,12 @@ class HABPNode():
         return best_child
     
     # Functions used by alpha_beta
-    def max_value(self, alpha, beta, depth):
+    def max_value(self, board: Board, alpha, beta, depth):
         if self.cutoff_test(depth):
-            return self.eval_fn(game_over=self.game_over)
+            return self.eval_fn(board, game_over=self.game_over)
         
         v = -np.inf
-        sorted_children = self.sort_children(max=True)
+        sorted_children = self.sort_children(board, max=True)
 
         print("MAX, depth:", depth, "total # of legal actions:", self.num_legal_actions, "top k children:", len(sorted_children))
         
@@ -120,12 +120,12 @@ class HABPNode():
             alpha = max(alpha, v)
         return v
 
-    def min_value(self, alpha, beta, depth):
+    def min_value(self, board: Board, alpha, beta, depth):
         if self.cutoff_test(depth):
-            return self.eval_fn(game_over=self.game_over)
+            return self.eval_fn(board, game_over=self.game_over)
         
         v = np.inf
-        sorted_children = self.sort_children(max=False)
+        sorted_children = self.sort_children(board, max=False)
 
         print("MIN, depth:", depth, "total # of legal actions:", self.num_legal_actions, "top k children:", len(sorted_children))
 
