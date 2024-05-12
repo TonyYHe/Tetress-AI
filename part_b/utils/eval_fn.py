@@ -8,8 +8,7 @@ import copy
 from collections import deque
 from utils.constants import TURN_THRESHOLD
 
-def eval_fn(board: Board, player_color: PlayerColor, 
-            transposition_table: dict, game_over=False):
+def eval_fn(board: Board, player_color: PlayerColor, game_over=False):
         """
         This is problematic.
         Return a positive utility value for the player, and a negative utility 
@@ -18,13 +17,7 @@ def eval_fn(board: Board, player_color: PlayerColor,
         if game_over == True:
             return board.game_result(player_color) * 1000
         
-        boardstate = board._state
         curr_color = board._turn_color
-
-        # check if the utility of the current state has been calculated already
-        utility = transposition_table.get(boardstate)
-        if utility is not None:
-            return utility
 
         # Find the difference in the number of actions 
         extra_num_actions = diff_legal_actions(board, player_color)
@@ -49,10 +42,9 @@ def eval_fn(board: Board, player_color: PlayerColor,
                 extra_num_reachable +                               \
                 extra_num_occupied * turns_exceed_threshold * 0.5 
             )
-        transposition_table[boardstate] = utility
         # since Tetress is a zero-sum game, we can take the negative of the 
         # utility value for the opponent
-        return utility if player_color == curr_color else -utility
+        return utility if player_color != curr_color else -utility
 
 
 def action_utility(board: Board, action: PlaceAction, player: PlayerColor) -> int: 

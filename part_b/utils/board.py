@@ -22,6 +22,31 @@ class CellState:
     """
     player: PlayerColor | None = None
 
+@dataclass(frozen=True, slots=True)
+class CellMutation:
+    """
+    A structure representing a change in the state of a single cell on the game
+    board after an action has been played.
+    """
+    cell: Coord
+    prev: CellState
+    next: CellState
+
+    def __str__(self):
+        return f"CellMutation({self.cell}, {self.prev}, {self.next})"
+
+@dataclass(frozen=True, slots=True)
+class BoardMutation:
+    """
+    A structure representing a change in the state of the game board after an
+    action has been played. Each mutation consists of a set of cell mutations.
+    """
+    action: Action
+    cell_mutations: set[CellMutation]
+
+    def __str__(self):
+        return f"BoardMutation({self.cell_mutations})"
+
 class BoardState(dict):
     def __hash__(self):
         return hash(tuple(self.items()))
@@ -62,19 +87,18 @@ class Board:
         legal_actions = set()
         visited_coords = set()
         # first action for each agent
-        if self._turn_count < 2:
-            if self._turn_color == PlayerColor.RED:
-                # there are only 5 distinct moves in an empty board due to the 
-                # toroidal nature of the game board, and accounting for symmetry
-                return [
-                    PlaceAction(Coord(4,5), Coord(5,4), Coord(5,5), Coord(5,6)),
-                    PlaceAction(Coord(4,4), Coord(4,5), Coord(4,6), Coord(5,6)),
-                    PlaceAction(Coord(4,4), Coord(4,5), Coord(5,5), Coord(5,6)),
-                    PlaceAction(Coord(5,4), Coord(5,5), Coord(5,6), Coord(5,7)),
-                    PlaceAction(Coord(4,5), Coord(4,6), Coord(5,5), Coord(5,6))
-                ]
+        if self._turn_count == 0 and self._turn_color == PlayerColor.RED:
+            # there are only 5 distinct moves in an empty board due to the 
+            # toroidal nature of the game board, and accounting for symmetry
+            return [
+                PlaceAction(Coord(4,5), Coord(5,4), Coord(5,5), Coord(5,6)),
+                PlaceAction(Coord(4,4), Coord(4,5), Coord(4,6), Coord(5,6)),
+                PlaceAction(Coord(4,4), Coord(4,5), Coord(5,5), Coord(5,6)),
+                PlaceAction(Coord(5,4), Coord(5,5), Coord(5,6), Coord(5,7)),
+                PlaceAction(Coord(4,5), Coord(4,6), Coord(5,5), Coord(5,6))
+            ]
                 
-            elif self._turn_color == PlayerColor.BLUE:
+        elif self._turn_count == 1 and self._turn_color == PlayerColor.BLUE:
                 return self.get_blue_first_action()
         # subsequent actions for each agent
         else:
@@ -165,13 +189,28 @@ class Board:
             raise IndexError(f"Cell position '{cell}' is invalid.")
         return self._state[cell]
 
-    def apply_action(self, action: Action):
+    def apply_action(self, action: Action) -> BoardMutation:
         """
         Apply an action to a board, mutating the board state.
         """
-        self._resolve_place_action(action)
+        board_mutation = self._resolve_place_action(action)
         self._turn_color = self._turn_color.opponent
         self._turn_count += 1
+        return board_mutation
+
+    
+    def undo_action(self, board_mutation: BoardMutation) -> BoardMutation:
+        """
+        Undo the last action played, mutating the board state. Throws an
+        IndexError if no actions have been played.
+        """
+        self._turn_color = self._turn_color.opponent
+        self._turn_count -= 1
+
+        for cell_mutation in board_mutation.cell_mutations:
+            self._state[cell_mutation.cell] = cell_mutation.prev
+
+        return board_mutation
 
     def render(self, use_color: bool=False, use_unicode: bool=False) -> str:
         """
@@ -225,6 +264,15 @@ class Board:
         """
         return self._turn_color
     
+    # def modify_board(self, board_mutations: list[BoardMutation]=None, new_turn_count: int=None, new_turn_color: PlayerColor=None):
+    #     if board_mutations is not None:
+    #         for board_mutation in board_mutations:
+    #             for cell_mutation in board_mutation:
+                    
+
+
+
+
     def modify_turn_color(self, color: PlayerColor = None) -> PlayerColor:
         if color is None:
             self._turn_color = self._turn_color.opponent
@@ -359,11 +407,9 @@ class Board:
         """
         row_nums = set(c.r for c in action.coords)
         col_nums = set(c.c for c in action.coords)
-
-        for cell in action.coords:
-            self._state[cell] = CellState(self._turn_color)
-
-        remove_coords = []
+        coords_with_piece = self._occupied_coords() | set(action.coords)
+        cell_mutations = dict()
+        remove_coords = set()
 
         # scan all the coordinates in the same row as the input piece (action)
         for r in row_nums:
@@ -371,13 +417,13 @@ class Board:
             filled = True
             for c in range(BOARD_N):
                 cell = Coord(r, c)
-                if not self._cell_occupied(cell):
+                if cell not in coords_with_piece:
                     filled = False
                     break
                 remove_r_coords.append(cell)
             if not filled:
                 continue
-            remove_coords += remove_r_coords
+            remove_coords.update(remove_r_coords)
         
         # scan all the coordinates in the same col as the input piece (action)
         for c in col_nums:
@@ -385,13 +431,24 @@ class Board:
             filled = True
             for r in range(BOARD_N):
                 cell = Coord(r, c)
-                if not self._cell_occupied(cell):
+                if cell not in coords_with_piece:
                     filled = False
                     break
                 remove_c_coords.append(cell)
             if not filled:
                 continue
-            remove_coords += remove_c_coords
-
+            remove_coords.update(remove_c_coords)
+            
         for cell in remove_coords:
+            cell_mutations[cell] = CellMutation(cell, self._state[cell], CellState(None))
             self._state[cell] = CellState(None)
+        
+        for cell in action.coords:
+            if cell not in remove_coords:
+                cell_mutations[cell] = CellMutation(cell, self._state[cell], CellState(self._turn_color))
+                self._state[cell] = CellState(self._turn_color)
+
+        return BoardMutation(
+            action,
+            cell_mutations=set(cell_mutations.values())
+        )

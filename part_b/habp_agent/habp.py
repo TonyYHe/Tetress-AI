@@ -3,24 +3,25 @@ import numpy as np
 from utils.board import Board
 from copy import deepcopy
 from utils.constants import *
+import random
 
 transposition_table = dict()
 
 # ______________________________________________________________________________
 class HABPNode():
-    def __init__(self, board: Board, color, parent_action=None):
-        self.state = board
+    def __init__(self, board: Board, color, mutations: list=[], parent_action=None):
         self.color = color
+        self.mutations = mutations
         self.parent_action = parent_action
         self.children = dict()
-        self.legal_actions = self.state.get_legal_actions()
         self.children_utilities = []
+        self.legal_actions = board.get_legal_actions() # doesn't alway correspond to board
         self.num_legal_actions = len(self.legal_actions)
-        self.num_empty_cells = len(self.state._empty_coords())
-        self.game_over = self.state.game_over 
+        self.num_empty_cells = len(board._empty_coords())
+        self.game_over = board.game_over 
         return
     
-    def sort_children(self, max=True):
+    def sort_children(self, board: Board, max=True):
         """
         Return sorted child nodes based on utility value. Sorts in descending 
         order if current node is MAX, otherwise sort in ascending order.
@@ -30,24 +31,55 @@ class HABPNode():
             return self.children_utilities
         
         for a in self.legal_actions:
-            new_board = deepcopy(self.state)
-            new_board.apply_action(a)
-            child_node = HABPNode(new_board, self.color, a)
+            # print("root:")
+            # print(board.render(use_color=True))
+            self.get_current_board(board)
+            # print("current:")
+            # print(board.render(use_color=True))
+            # print("action:", a)
+            mutation = board.apply_action(a)
+            # print("After applying action:")
+            # print(board.render(use_color=True))
+            child_node = HABPNode(board, self.color, self.mutations + [mutation], a)
             self.children[a] = child_node
-            utility = self.eval_fn(self.game_over)
+            utility = child_node.eval_fn(board, child_node.game_over)
             self.children_utilities.append((child_node, utility))
+            board.undo_action(mutation)
+            # print("reversed:")
+            # print(board.render(use_color=True))
+            self.get_old_board(board)
 
         self.children_utilities.sort(key=lambda x:x[1], reverse=max)
-                
-        return self.top_k_children()
+                    
+    def best_child(self, board: Board):
+        print("# legal actions:: ", self.num_legal_actions)
+        board = deepcopy(board)
+        if self.num_empty_cells > MIDGAME_STAGE: 
+            # play random moves in the opening stage
+            best_action = random.choice(self.legal_actions)
+            board.apply_action(best_action)
+            best_child = HABPNode(board, self.color, list(), parent_action=best_action)
+        elif self.num_empty_cells > LATEGAME_STAGE:
+            # find the most promising move as in the case of the greedy agent in
+            # midgame stage 
+            self.sort_children(board, max=True)
+            best_child = self.children_utilities[0][0]
+        elif self.num_empty_cells > ENDGAME_STAGE:
+            # use heuristic alpha beta pruning in the lategame stage
+            print("LateGame Stage")
+        else:
+            # complete alpha beta pruning in the endgame stage
+            print("EndGame Stage")
+        return best_child
     
     def top_k_children(self):
+        """problematic, too simple"""
         num_children = len(self.children_utilities)
         proportion = self.num_empty_cells / NUM_CELLS
         k = int(proportion * num_children)
         return self.children_utilities[:k]
         
-    def alpha_beta_cutoff_search(self):
+    def alpha_beta_cutoff_search(self, root_state: Board):
         """Search game to determine best action; use alpha-beta pruning.
         This version cuts off search and uses an evaluation function.
         Assumes the player is MAX.
@@ -57,12 +89,13 @@ class HABPNode():
         # The default test cuts off at depth d or at a terminal state
         best_score = -np.inf
         beta = np.inf
-        best_child = None
-        sorted_children = self.sort_children(max=True)
+        best_child = None # ============ this is where the problem comes from =============
+        self.sort_children(max=True)
+        top_k_children = self.top_k_children()
 
-        print("ab's total # of children:", self.num_legal_actions, "top k children:", len(sorted_children))
+        print("ab's total # of children:", self.num_legal_actions, "top k children:", len(top_k_children))
 
-        for child_node, _ in sorted_children:
+        for child_node, _ in top_k_children:
             v = child_node.min_value(best_score, beta, 1)
             if v > best_score:
                 best_score = v
@@ -112,30 +145,43 @@ class HABPNode():
             return depth > 1
         return depth > 2
     
-    def eval_fn(self, game_over):
+    def get_current_board(self, board: Board):
+        """Apply mutations to get the current board state"""
+        for board_mutation in self.mutations:
+            board.apply_action(board_mutation.action)
+            # print("apply action:", board_mutation.action)
+        return board
+
+    def get_old_board(self, board: Board):
+        for board_mutation in self.mutations[::-1]:
+            board.undo_action(board_mutation)
+            # print("reverse action:", board_mutation.action)
+        return board
+    
+    def eval_fn(self, board: Board, game_over: bool):
         """
         This is problematic.
         Return a positive utility value for the player, and a negative utility 
         value for the opponent.
         """
-        board = self.state
+        
         player_color = self.color
 
         if game_over == True:
             return board.game_result(player_color) * 1000
         
-        boardstate = board._state
+        curr_boardstate = board._state
         curr_color = board._turn_color
 
         # check if the utility of the current state has been calculated already
-        utility = transposition_table.get(boardstate)
-        if utility is not None:
-            return utility
+        # utility = transposition_table.get(boardstate)
+        # if utility is not None:
+        #     return utility
 
         # Find the difference in the number of actions 
-        extra_num_actions = self.diff_legal_actions()
+        extra_num_actions = self.diff_legal_actions(board)
         # Find the difference in the number of cells occupied 
-        extra_num_occupied = self.diff_cells_occupied()
+        extra_num_occupied = self.diff_cells_occupied(board)
 
          # it's best to normalise this result to [-1, 1]
         if board._turn_count < TURN_THRESHOLD: 
@@ -146,38 +192,38 @@ class HABPNode():
             turns_exceed_threshold = board._turn_count - TURN_THRESHOLD
             utility = extra_num_actions + extra_num_occupied * turns_exceed_threshold * 0.5 
 
-        transposition_table[boardstate] = utility
+        # transposition_table[boardstate] = utility
         # since Tetress is a zero-sum game, we can take the negative of the 
         # utility value for the opponent
-        return utility if player_color == curr_color else -utility
+        return utility if player_color != curr_color else -utility
     
-    def diff_cells_occupied(self) -> int:
+    def diff_cells_occupied(self, board: Board) -> int:
         """
         Find the difference in the number of tokens between the player and the 
         opponent. 
         """
         player_color = self.color
-        num_player_occupied = self.state._player_token_count(player_color)
-        num_opponent_occupied = self.state._player_token_count(player_color.opponent)
+        num_player_occupied = board._player_token_count(player_color)
+        num_opponent_occupied = board._player_token_count(player_color.opponent)
         return num_player_occupied - num_opponent_occupied
 
 
-    def diff_legal_actions(self) -> int: 
+    def diff_legal_actions(self, board: Board) -> int: 
         """
         Find the difference in the number of legal actions between the player and 
         the opponent. 
         """
-        curr_color = self.state._turn_color
+        curr_color = board._turn_color
         player_color = self.color
         if curr_color == player_color:
             num_player_actions = self.num_legal_actions
-            self.state.modify_turn_color(player_color.opponent)
-            num_opponent_actions = len(self.state.get_legal_actions())
+            board.modify_turn_color(player_color.opponent)
+            num_opponent_actions = len(board.get_legal_actions())
         else:
             num_opponent_actions = self.num_legal_actions
-            self.state.modify_turn_color(player_color)
-            num_player_actions = len(self.state.get_legal_actions())
-        self.state.modify_turn_color(curr_color)
+            board.modify_turn_color(player_color)
+            num_player_actions = len(board.get_legal_actions())
+        board.modify_turn_color(curr_color)
         return num_player_actions - num_opponent_actions
 
     

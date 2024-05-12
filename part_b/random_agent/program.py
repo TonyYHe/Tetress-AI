@@ -3,8 +3,7 @@
 
 from referee.game import PlayerColor, Action, PlaceAction, Coord
 from utils.board import Board
-import numpy as np
-
+import random
 
 class Agent:
     """
@@ -26,7 +25,7 @@ class Agent:
         to take an action. It must always return an action object. 
         """
         legal_actions = self.board.get_legal_actions()
-        return legal_actions[np.random.randint(len(legal_actions))]
+        return random.choice(legal_actions)
        
 
     def update(self, color: PlayerColor, action: Action, **referee: dict):

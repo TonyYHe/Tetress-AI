@@ -6,8 +6,6 @@ from utils.board import Board
 from copy import deepcopy
 from utils.eval_fn import *
 
-transposition_table = dict()
-
 class Agent:
     """
     This class is the "entry point" for your agent, providing an interface to
@@ -31,14 +29,12 @@ class Agent:
         legal_actions = self.board.get_legal_actions()
         action_utility = []
         for action in legal_actions:
-            new_board = deepcopy(self.board)
-            new_board.apply_action(action)
-            is_game_over = new_board.game_over
-            utility = eval_fn(self.board, self.color, transposition_table, game_over=is_game_over)
+            mutation = self.board.apply_action(action)
+            is_game_over = self.board.game_over
+            utility = eval_fn(self.board, self.color, game_over=is_game_over)
             action_utility.append((action, utility))
-
+            self.board.undo_action(mutation)
         action_utility.sort(key=lambda x: x[1])
-        print("#legal actions:", len(legal_actions))
         return action_utility[-1][0]
        
 
