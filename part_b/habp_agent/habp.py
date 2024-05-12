@@ -4,9 +4,9 @@ from utils.board import Board
 from copy import deepcopy
 from utils.constants import *
 import random
+from habp_agent.transtable import TranspositionTable
 
-transposition_table = dict()
-
+transposition_table = TranspositionTable()
 # ______________________________________________________________________________
 class HABPNode():
     def __init__(self, board: Board, color, mutations: list=[], parent_action=None):
@@ -170,13 +170,13 @@ class HABPNode():
         if game_over == True:
             return board.game_result(player_color) * 1000
         
-        curr_boardstate = board._state
+        boardstate = board._state
         curr_color = board._turn_color
 
         # check if the utility of the current state has been calculated already
-        # utility = transposition_table.get(boardstate)
-        # if utility is not None:
-        #     return utility
+        utility = transposition_table.retrieve(boardstate)
+        if utility is not None:
+            return utility
 
         # Find the difference in the number of actions 
         extra_num_actions = self.diff_legal_actions(board)
@@ -192,7 +192,7 @@ class HABPNode():
             turns_exceed_threshold = board._turn_count - TURN_THRESHOLD
             utility = extra_num_actions + extra_num_occupied * turns_exceed_threshold * 0.5 
 
-        # transposition_table[boardstate] = utility
+        transposition_table.store(boardstate, utility)
         # since Tetress is a zero-sum game, we can take the negative of the 
         # utility value for the opponent
         return utility if player_color != curr_color else -utility

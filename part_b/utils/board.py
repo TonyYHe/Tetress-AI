@@ -50,6 +50,9 @@ class BoardMutation:
 class BoardState(dict):
     def __hash__(self):
         return hash(tuple(self.items()))
+    
+    def hash(self):
+        return self.__hash__
 
 class Board:
     """
