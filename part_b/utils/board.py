@@ -52,7 +52,7 @@ class BoardState(dict):
         return hash(tuple(self.items()))
     
     def hash(self):
-        return self.__hash__
+        return self.__hash__()
 
 class Board:
     """

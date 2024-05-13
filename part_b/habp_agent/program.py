@@ -31,7 +31,7 @@ class Agent:
         """
         print("starting time:", referee["time_remaining"])
         best_child = self.root.best_child(self.board)
-        best_child.mutations = []
+        best_child.mutations = [] # clear the mutations
         self.best_child = best_child
         best_action = best_child.parent_action
         print("ending time:", referee["time_remaining"])
@@ -52,7 +52,7 @@ class Agent:
             child_node: HABPNode = self.root.children.get(action)
             # some child nodes may not be generated due to approximation
             if child_node is None:
-                self.root = HABPNode(self.board, self.root.color, mutations=list(), parent_action=action)
+                self.root = HABPNode(self.board, self.color, mutations=list(), parent_action=action)
             else:
                 self.root = child_node
-                self.root.mutations = []
+                self.root.mutations = [] # clear the mutations
