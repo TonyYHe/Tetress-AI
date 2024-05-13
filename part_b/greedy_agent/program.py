@@ -1,10 +1,10 @@
 # COMP30024 Artificial Intelligence, Semester 1 2024
 # Project Part B: Game Playing Agent
 
-from referee.game import PlayerColor, Action, PlaceAction, Coord
+from referee.game import *
 from utils.board import Board
-from copy import deepcopy
-from utils.eval_fn import *
+from habp_agent.habp import HABPNode
+
 
 class Agent:
     """
@@ -26,16 +26,9 @@ class Agent:
         This method is called by the referee each time it is the agent's turn
         to take an action. It must always return an action object. 
         """
-        legal_actions = self.board.get_legal_actions()
-        action_utility = []
-        for action in legal_actions:
-            mutation = self.board.apply_action(action)
-            is_game_over = self.board.game_over
-            utility = eval_fn1(self.board, self.color, game_over=is_game_over)
-            action_utility.append((action, utility))
-            self.board.undo_action(mutation)
-        action_utility.sort(key=lambda x: x[1])
-        return action_utility[-1][0]
+        node = HABPNode(self.board, self.color)
+        node.sort_children(self.board, True)
+        return node.ordered_children[0].parent_action
        
 
     def update(self, color: PlayerColor, action: Action, **referee: dict):

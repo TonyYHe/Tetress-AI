@@ -58,22 +58,20 @@ class HABPNode():
         board = deepcopy(board)
         game_progress = self.state_info.num_empty_cells
         if game_progress > MIDGAME_STAGE: 
-            # play random moves in the opening stage
-            # print("previous:")
-            # print(board.render(use_color=True))
+            print("/"*11, "EARLY_GAME_STAGE", "/"*11)
             best_action = random.choice(self.state_info.player_legal_actions)
             board.apply_action(best_action)
-            # print("current:")
-            # print(board.render(use_color=True))
             best_child = HABPNode(board, self.color, list(), parent_action=best_action)
         elif game_progress > LATEGAME_STAGE:
             # find the most promising move as in the case of the greedy agent in
             # midgame stage 
+            print("/"*11, "MIDGAME_STAGE", "/"*11)
             self.sort_children(board, max=True)
             best_child = self.ordered_children[0]
         elif game_progress > ENDGAME_STAGE:
             # use heuristic alpha beta pruning in the lategame stage
-            print("LateGame Stage")
+            print("/"*11, "LATEGAME_STAGE", "/"*11)
+            best_child = self.iterative_deepening(board, 10)
         else:
             # complete alpha beta pruning in the endgame stage
             print("EndGame Stage")
@@ -84,6 +82,7 @@ class HABPNode():
         best_score = -np.inf
 
         for depth in range(1, max_depth + 1):
+            print(depth)
             current_best_score = -np.inf
             current_best_child = None
             self.sort_children(board, self.color)
@@ -122,79 +121,6 @@ class HABPNode():
                     break
             return value
         
-    # def top_k_children(self):
-    #     """problematic, too simple"""
-    #     num_children = len(self.children_utilities)
-    #     proportion = self.num_empty_cells / NUM_CELLS
-    #     k = int(proportion * num_children)
-    #     return self.children_utilities[:k]
-
-    # def old_alpha_beta_cutoff_search(self, board: Board):
-    #     """Search game to determine best action; use alpha-beta pruning.
-    #     This version cuts off search and uses an evaluation function.
-    #     Assumes the player is MAX.
-    #     """
-
-    #     # Body of alpha_beta_cutoff_search starts here:
-    #     # The default test cuts off at depth d or at a terminal state
-    #     best_score = -np.inf
-    #     beta = np.inf
-    #     best_child = None # ============ this is where the problem comes from =============
-    #     self.sort_children(board, max=True)
-    #     top_k_children = self.top_k_children()
-
-    #     print("ab's total # of children:", self.num_legal_actions, "top k children:", len(top_k_children))
-
-    #     for child_node, _ in top_k_children:
-    #         v = child_node.min_value(best_score, beta, 1)
-    #         if v > best_score:
-    #             best_score = v
-    #             best_child = child_node
-
-    #     return best_child
-    
-    # # Functions used by alpha_beta
-    # def max_value(self, board: Board, alpha, beta, depth):
-    #     if self.cutoff_test(depth):
-    #         return self.eval_fn(board, game_over=self.game_over)
-        
-    #     v = -np.inf
-    #     sorted_children = self.sort_children(board, max=True)
-
-    #     print("MAX, depth:", depth, "total # of legal actions:", self.num_legal_actions, "top k children:", len(sorted_children))
-        
-    #     for child_node, _ in sorted_children:
-    #         v = max(v, child_node.min_value(alpha, beta, depth + 1))
-    #         if v >= beta:
-    #             return v
-    #         alpha = max(alpha, v)
-    #     return v
-
-    # def min_value(self, board: Board, alpha, beta, depth):
-    #     if self.cutoff_test(depth):
-    #         return self.eval_fn(board, game_over=self.game_over)
-        
-    #     v = np.inf
-    #     sorted_children = self.sort_children(board, max=False)
-
-    #     print("MIN, depth:", depth, "total # of legal actions:", self.num_legal_actions, "top k children:", len(sorted_children))
-
-    #     for child_node, _ in sorted_children:
-    #         v = min(v, child_node.max_value(alpha, beta, depth + 1))
-    #         if v <= alpha:
-    #             return v
-    #         beta = min(beta, v)
-    #     return v
-
-    # def old_cutoff_test(self, depth):
-    #     if self.state_info.game_over:
-    #         return True
-    #     if self.state_info.num_empty_cells > LATEGAME_STAGE:
-    #         return depth > 0
-    #     if self.state_info.num_empty_cells > ENDGAME_STAGE:
-    #         return depth > 1
-    #     return depth > 2  
-    
     def cutoff_test(self, depth):
         return depth == 0 or self.state_info.game_over
     

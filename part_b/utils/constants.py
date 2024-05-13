@@ -15,7 +15,7 @@ NUM_CELLS = BOARD_N * BOARD_N
 # ENDGAME_STAGE = 100
 
 # ================= based on the number of empty cells =====================
-MIDGAME_STAGE = NUM_CELLS * 0.5
-LATEGAME_STAGE = NUM_CELLS * 0.3
-ENDGAME_STAGE = NUM_CELLS * 0.1
+MIDGAME_STAGE = NUM_CELLS * 0.8
+LATEGAME_STAGE = NUM_CELLS * 0.6
+ENDGAME_STAGE = NUM_CELLS * 0.4
 
