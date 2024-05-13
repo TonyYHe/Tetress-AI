@@ -52,19 +52,21 @@ class HABPNode():
         self.children_utilities.sort(key=lambda x:x[1], reverse=max)
                     
     def best_child(self, board: Board):
-        print("# legal actions:: ", self.num_legal_actions)
+        print("# of legal actions:: ", self.num_legal_actions)
+        print("# of empty coordinates:", self.num_empty_cells)
         board = deepcopy(board)
-        if self.num_empty_cells > MIDGAME_STAGE: 
+        game_progress = self.num_empty_cells
+        if game_progress > MIDGAME_STAGE: 
             # play random moves in the opening stage
             best_action = random.choice(self.legal_actions)
             board.apply_action(best_action)
             best_child = HABPNode(board, self.color, list(), parent_action=best_action)
-        elif self.num_empty_cells > LATEGAME_STAGE:
+        elif game_progress > LATEGAME_STAGE:
             # find the most promising move as in the case of the greedy agent in
             # midgame stage 
             self.sort_children(board, max=True)
             best_child = self.children_utilities[0][0]
-        elif self.num_empty_cells > ENDGAME_STAGE:
+        elif game_progress > ENDGAME_STAGE:
             # use heuristic alpha beta pruning in the lategame stage
             print("LateGame Stage")
         else:
