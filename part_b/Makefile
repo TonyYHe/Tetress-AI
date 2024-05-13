@@ -22,35 +22,35 @@ habp_greedy = $(a4) $(a2)
 greedy_habp = $(a2) $(a4) 
 
 run_random_random:
-	python3 -m referee $(random_random)
+	python3 -m referee -s 250 -t 180 $(random_random)
 run_greedy_greedy:
-	python3 -m referee $(greedy_greedy)
+	python3 -m referee -s 250 -t 180 $(greedy_greedy)
 run_random_greedy:
-	python3 -m referee $(random_greedy)
+	python3 -m referee -s 250 -t 180 $(random_greedy)
 run_greedy_random:
-	python3 -m referee $(greedy_random)
+	python3 -m referee -s 250 -t 180 $(greedy_random)
 
 run_mcts_mct: 
-	python3 -m referee $(mcts_mcts)
+	python3 -m referee -s 250 -t 180 $(mcts_mcts)
 run_mcts_random:
-	python3 -m referee $(mcts_random)
+	python3 -m referee -s 250 -t 180 $(mcts_random)
 run_random_mcts:
-	python3 -m referee $(random_mcts)
+	python3 -m referee -s 250 -t 180 $(random_mcts)
 run_mcts_greedy:
-	python3 -m referee $(mcts_greedy)
+	python3 -m referee -s 250 -t 180 $(mcts_greedy)
 run_greedy_mcts:
-	python3 -m referee $(greedy_mcts)
+	python3 -m referee -s 250 -t 180 $(greedy_mcts)
 
 run_habp_habp:
-	python3 -m referee $(habp_habp)
+	python3 -m referee -s 250 -t 180 $(habp_habp)
 run_habp_random:
-	python3 -m referee $(habp_random)
+	python3 -m referee -s 250 -t 180 $(habp_random)
 run_random_habp:
-	python3 -m referee $(random_habp)
+	python3 -m referee -s 250 -t 180 $(random_habp)
 run_habp_greedy:
-	python3 -m referee $(habp_greedy)
+	python3 -m referee -s 250 -t 180 $(habp_greedy)
 run_greedy_habp:
-	python3 -m referee $(greedy_habp)
+	python3 -m referee -s 250 -t 180 $(greedy_habp)
 
 # Use "make clean" to clean all the cache files in current and the next 3 layers of subdirectories 
 clean: 

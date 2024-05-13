@@ -3,6 +3,7 @@ import numpy as np
 from utils.board import Board
 import copy
 from utils.constants import WIN, LOSS, DRAW
+# CODE IS BROKEN
 
 class MCTSNode:
     def __init__(self, board: Board, color, parent=None, parent_action=None):

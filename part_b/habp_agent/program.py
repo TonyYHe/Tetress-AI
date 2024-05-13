@@ -4,7 +4,6 @@
 from referee.game import PlayerColor, Action, PlaceAction, Coord
 from habp_agent.habp import HABPNode
 from utils.board import Board
-import random
 from utils.constants import *
 
 class Agent:
@@ -29,12 +28,14 @@ class Agent:
         This method is called by the referee each time it is the agent's turn
         to take an action. It must always return an action object. 
         """
-        print("starting time:", referee["time_remaining"])
-        best_child = self.root.best_child(self.board)
+        print("@ starting time:", referee["time_remaining"])
+        print("@ starting space:", referee["space_remaining"])
+        best_child = self.root.best_child(self.board, referee["time_remaining"])
         best_child.mutations = [] # clear the mutations
         self.best_child = best_child
         best_action = best_child.parent_action
-        print("ending time:", referee["time_remaining"])
+        print("@ ending time:", referee["time_remaining"])
+        print("@ ending space:", referee["space_remaining"])
         return best_action
        
 
