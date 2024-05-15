@@ -3,6 +3,7 @@ a1 = random_agent
 a2 = greedy_agent
 a3 = mcts_agent
 a4 = pvs_agent
+a5 = mtdf_agent
 
 random_random = $(a1) $(a1) 
 greedy_greedy = $(a2) $(a2) 
@@ -20,6 +21,12 @@ pvs_random = $(a4) $(a1)
 random_pvs = $(a1) $(a4) 
 pvs_greedy = $(a4) $(a2) 
 greedy_pvs = $(a2) $(a4) 
+
+mtdf_mtdf = $(a5) $(a5) 
+mtdf_random = $(a5) $(a1)
+random_mtdf = $(a1) $(a5) 
+mtdf_greedy = $(a5) $(a2) 
+greedy_mtdf = $(a2) $(a5) 
 
 run_random_random:
 	python3 -m referee -s 250 -t 180 $(random_random)
@@ -51,6 +58,17 @@ run_pvs_greedy:
 	python3 -m referee -s 250 -t 180 $(pvs_greedy)
 run_greedy_pvs:
 	python3 -m referee -s 250 -t 180 $(greedy_pvs)
+
+run_mtdf_mtdf:
+	python3 -m referee -s 250 -t 180 $(mtdf_mtdf)
+run_mtdf_random:
+	python3 -m referee -s 250 -t 180 $(mtdf_random)
+run_random_mtdf:
+	python3 -m referee -s 250 -t 180 $(random_mtdf)
+run_mtdf_greedy:
+	python3 -m referee -s 250 -t 180 $(mtdf_greedy)
+run_greedy_mtdf:
+	python3 -m referee -s 250 -t 180 $(greedy_mtdf)
 
 # Use "make clean" to clean all the cache files in current and the next 3 layers of subdirectories 
 clean: 

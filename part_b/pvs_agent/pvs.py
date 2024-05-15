@@ -6,6 +6,8 @@ from utils.board import *
 from utils.constants import *
 from utils.table import *
 from utils.habp import *
+from utils.tracktime import *
+
 
 stateinfo_table = StateinfoTable()
 transposition_table = TranspositionTable()
@@ -47,12 +49,13 @@ class PVSNode(HABPNode):
     def iterative_deepening_pvs(self, board: Board, time_remaining=None):
         depth = 1
         start_time = time.time()
-        while depth < MAX_SEARCH_DEPTH + 1 and time_remaining > 0:
+        while depth < MAX_SEARCH_DEPTH + 1:
             print("depth:", depth)
             _, best_child = self.PVS_alpha_beta_search(board, -np.inf, np.inf, depth, time_remaining)
             depth += 1
-            elapsed_time = time.time() - start_time
-            time_remaining -= elapsed_time
+            time_remaining = time_left(time_remaining, start_time)
+            if time_remaining is not None and time_remaining <= 0:
+                break
         return best_child
     
     def PVS_alpha_beta_search(self, board: Board, alpha, beta, depth, time_remaining=None):
@@ -97,12 +100,11 @@ class PVSNode(HABPNode):
                 best_child = child_node
                 alpha = max(alpha, value)
                 if alpha >= beta:
-                    break
-            if time_remaining is not None:
-                elapsed_time = time.time() - start_time
-                time_remaining -= elapsed_time
-                if time_remaining <= 0:
-                    break
+                    break       
+            time_remaining = time_left(time_remaining, start_time)     
+            if time_remaining is not None and time_remaining <= 0:
+                break
+        
         
         node_type = EXACT
         if best_value <= alpha:

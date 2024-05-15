@@ -6,13 +6,14 @@ from utils.board import *
 from utils.constants import *
 from utils.table import *
 from utils.habp import *
+from utils.tracktime import *
 
 stateinfo_table = StateinfoTable()
 transposition_table = TranspositionTable()
 # ______________________________________________________________________________
 class MTDFNode(HABPNode):
     def __init__(self, board: Board, color: PlayerColor, parent_action=None):
-        super.__init__(board, color, parent_action)
+        super().__init__(board, color, parent_action)
         return
 
     def best_child(self, board: Board, time_remaining):
@@ -43,20 +44,19 @@ class MTDFNode(HABPNode):
             print("%"*DELIM_LEN, "ENDGAME_STAGE", "%"*DELIM_LEN)
             best_child = self.iterative_deepening_mtdf(board, board.turn_count/TIME_OUT_FACTOR)
         return best_child
-        
-    def cutoff_test(self, depth):
-        return depth == 0 or self.state_info.game_over
     
-    def iterative_deepening_mtdf(self, board: Board, time_remaining):
+    def iterative_deepening_mtdf(self, board: Board, time_remaining=None):
         guess = 0
         best_child = None
         start_time = time.time()
         depth = 1
-        while depth < MAX_SEARCH_DEPTH + 1 and time_remaining > 0:
+        while depth < MAX_SEARCH_DEPTH + 1:
             print("depth:", depth)
-            guess, best_child = self.mtdf(board, guess, depth)
+            guess, best_child = self.mtdf(board, guess, depth, time_remaining)
             depth += 1
-            time_remaining -= (time.time() - start_time)
+            time_remaining = time_left(time_remaining, start_time)
+            if time_remaining is not None and time_remaining <= 0:
+                break
         return best_child
     
     def mtdf(self, board, first_guess, depth, time_remaining=None):
@@ -64,53 +64,55 @@ class MTDFNode(HABPNode):
         best_child = None
         upper_bound = np.inf
         lower_bound = -np.inf
-        start_time = time.time()
+        start_time = time.time()            
         while lower_bound < upper_bound:
             beta = max(g, lower_bound + 1)
-            g, best_child = self.alpha_beta_with_memory(board, beta - 1, beta, depth)
+            g, best_child = self.alpha_beta_with_memory(board, beta - 1, beta, depth, time_remaining)
             if g < beta:
                 upper_bound = g
             else:
                 lower_bound = g
-            if time_limit and time.time() - start_time >= time_limit:
+            time_remaining = time_left(time_remaining, start_time)
+            if time_remaining is not None and time_remaining <= 0:
                 break
         return g, best_child
 
     def alpha_beta_with_memory(self, board: Board, alpha, beta, depth, time_remaining=None):
+
         if self.cutoff_test(depth):
-            return self.state_info.utility_value, None
+            return self.state_info.eval_fn(board, self.color), None
         
         entry: TTEntry = transposition_table.retrieve(board._state)
         if entry is not None:
             if entry.depth >= depth:
+                utility_value = entry.state_info.eval_fn(board, self.color)
                 if entry.node_type == EXACT:
-                    return entry.state_info.utility_value, entry.best_child
-                elif entry.node_type == LOWER_BOUND and entry.state_info.utility_value > alpha:
-                    alpha = entry.state_info.utility_value
-                elif entry.node_type == UPPER_BOUND and entry.state_info.utility_value < beta:
-                    beta = entry.state_info.utility_value
+                    return utility_value, entry.best_child
+                elif entry.node_type == LOWER_BOUND and utility_value > alpha:
+                    alpha = utility_value
+                elif entry.node_type == UPPER_BOUND and utility_value < beta:
+                    beta = utility_value
                 if alpha >= beta:
-                    return entry.state_info.utility_value, entry.best_child
+                    return utility_value, entry.best_child
         
         best_value = -np.inf
         best_child = None
         start_time = time.time()
         self.get_children(board=board, isMaximizingPlayer=(board._turn_color==self.color))
-        for child_node in self.children.values():
+        self.sort_children(board=board, isMaximizingPlayer=(board._turn_color==self.color))
+        for child_node in self.ordered_children:
             mutation = board.apply_action(child_node.parent_action)
-            value, _ = self.alpha_beta_with_memory(board, -beta, -alpha, depth - 1)
-            board = board.undo_action(mutation)
+            value, _ = self.alpha_beta_with_memory(board, -beta, -alpha, depth - 1, time_remaining)
+            board.undo_action(mutation)
             if value > best_value:
                 best_value = value
                 best_child = child_node
             alpha = max(alpha, value)
             if alpha >= beta:
                 break
-            if time_remaining is not None:
-                elapsed_time = time.time() - start_time
-                time_remaining -= elapsed_time
-                if time_remaining <= 0:
-                    break
+            time_remaining = time_left(time_remaining, start_time)
+            if time_remaining is not None and time_remaining <= 0:
+                break
         
         if best_value <= alpha:
             node_type = UPPER_BOUND

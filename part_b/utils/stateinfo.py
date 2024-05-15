@@ -24,7 +24,6 @@ class StateInformation:
 
     def eval_fn(self, board: Board, player_color: PlayerColor):
         """
-        This is problematic.
         Return a utility value calculated from the persepctive of the player, 
         given a board. 
         """
@@ -49,6 +48,12 @@ class StateInformation:
         # since Tetress is a zero-sum game, we can take the negative of the 
         # utility value for the opponent
         return utility if player_color != curr_color else -utility
+    
+    def eval_fn_token_count(self):
+        return self.diff_cells_occupied()
+    
+    def eval_fn_num_legal_actions(self):
+        return self.diff_legal_actions(self)
     
     def diff_cells_occupied(self) -> int:
         """

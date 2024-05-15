@@ -37,6 +37,7 @@ class HABPNode():
             util_val = node.state_info.eval_fn(board, node.color)
             board.undo_action(mutation)
             return util_val
+        
         self.ordered_children = sorted(self.children.values(), key=get_util_val, reverse=isMaximizingPlayer)
         return self.ordered_children
         
@@ -77,6 +78,8 @@ class HABPNode():
         
     def cutoff_test(self, depth):
         return depth == 0 or self.state_info.game_over
+
+
 
 
 
