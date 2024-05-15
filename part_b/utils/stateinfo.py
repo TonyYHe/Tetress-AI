@@ -21,13 +21,12 @@ class StateInformation:
         self.game_result = None
         if self.game_over:
             self.game_result = board.game_result(player_color)
-        self.utility_value = self.eval_fn(board, player_color)
 
     def eval_fn(self, board: Board, player_color: PlayerColor):
         """
         This is problematic.
-        Return a positive utility value for the player, and a negative utility 
-        value for the opponent.
+        Return a utility value calculated from the persepctive of the player, 
+        given a board. 
         """
         curr_color = board._turn_color
         if self.game_over == True:

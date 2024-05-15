@@ -9,7 +9,7 @@ DELIM_LEN = 25
 
 TURN_THRESHOLD = MAX_TURNS * 0.8 
 TIME_OUT_FACTOR = 10
-
+SAFE_RANDOM_TIME_OUT = 0.5
 NUM_CELLS = BOARD_N * BOARD_N
 
 # ============= game phase based on the number of empty cells ==================

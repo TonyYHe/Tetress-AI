@@ -1,6 +1,6 @@
 from utils.board import *
 from utils.constants import *
-from habp_agent.stateinfo import StateInformation
+from utils.stateinfo import StateInformation
 
 class Table:
     def __init__(self):

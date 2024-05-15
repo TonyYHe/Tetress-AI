@@ -2,7 +2,7 @@
 # Project Part B: Game Playing Agent
 
 from referee.game import PlayerColor, Action, PlaceAction, Coord
-from habp_agent.habp import HABPNode
+from mtdf_agent.mtdf import *
 from utils.board import Board
 from utils.constants import *
 
@@ -19,7 +19,7 @@ class Agent:
         """
         self.board = Board(initial_player=PlayerColor.RED)
         self.color = color
-        self.root = HABPNode(self.board, color)
+        self.root = MTDFNode(self.board, color)
         self.best_child = None
 
 
@@ -31,7 +31,6 @@ class Agent:
         print("@ starting time:", referee["time_remaining"])
         print("@ starting space:", referee["space_remaining"])
         best_child = self.root.best_child(self.board, referee["time_remaining"])
-        best_child.mutations = [] # clear the mutations
         self.best_child = best_child
         best_action = best_child.parent_action
         print("@ ending time:", referee["time_remaining"])
@@ -50,10 +49,9 @@ class Agent:
         if color == self.color:
             self.root = self.best_child
         else:
-            child_node: HABPNode = self.root.children.get(action)
+            child_node: MTDFNode = self.root.children.get(action) if self.root.children is not None else None
             # some child nodes may not be generated due to approximation
             if child_node is None:
-                self.root = HABPNode(self.board, self.color, mutations=list(), parent_action=action)
+                self.root = MTDFNode(self.board, self.color, parent_action=action)
             else:
                 self.root = child_node
-                self.root.mutations = [] # clear the mutations

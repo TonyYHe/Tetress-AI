@@ -3,7 +3,7 @@
 
 from referee.game import *
 from utils.board import Board
-from habp_agent.habp import HABPNode
+from utils.habp import HABPNode
 
 
 class Agent:
@@ -27,7 +27,8 @@ class Agent:
         to take an action. It must always return an action object. 
         """
         node = HABPNode(self.board, self.color)
-        node.sort_children(self.board, True)
+        node.get_children(self.board)
+        node.sort_children(self.board)
         return node.ordered_children[0].parent_action
        
 
