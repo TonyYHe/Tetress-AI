@@ -53,7 +53,7 @@ class StateInformation:
         return self.diff_cells_occupied()
     
     def eval_fn_num_legal_actions(self):
-        return self.diff_legal_actions(self)
+        return self.diff_legal_actions()
     
     def diff_cells_occupied(self) -> int:
         """
