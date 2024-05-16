@@ -21,7 +21,7 @@ class HABPNode():
             self.state_info = stateinfo_table.store(board, color)
         return
     
-    def sort_children(self, board: Board, isMaximizingPlayer=True) -> list:
+    def sort_children(self, board: Board, depth: int, isMaximizingPlayer=True) -> list:
         """
         Return sorted child nodes. Sort child nodes based on utility value. 
         Sorts in descending order if current node is MAX, otherwise sort in 
@@ -31,10 +31,11 @@ class HABPNode():
         if self.ordered_children is not None:
             return self.ordered_children
         
-        board : Board = board
+        board: Board = board
+        depth: int = depth
         def get_util_val(node: HABPNode):
             mutation = board.apply_action(node.parent_action)
-            util_val = node.state_info.eval_fn(board, node.color)
+            util_val = node.state_info.eval_fn(board, node.color, depth)
             board.undo_action(mutation)
             return util_val
         
@@ -49,9 +50,7 @@ class HABPNode():
         if self.children is not None:
             return self.children
         
-        legal_actions = \
-            self.state_info.player_legal_actions if isMaximizingPlayer \
-            else self.state_info.opponent_legal_actions
+        legal_actions = self.state_info.player_legal_actions if isMaximizingPlayer else self.state_info.opponent_legal_actions
         self.children = dict()
         for a in legal_actions:
             mutation = board.apply_action(a)

@@ -13,8 +13,8 @@ SAFE_RANDOM_TIME_OUT = 0.5
 NUM_CELLS = BOARD_N * BOARD_N
 
 # ============= game phase based on the number of empty cells ==================
-MIDGAME_STAGE = NUM_CELLS * 0.7
-LATEGAME_STAGE = NUM_CELLS * 0.5
+MIDGAME_STAGE = NUM_CELLS * 0.6
+LATEGAME_STAGE = NUM_CELLS * 0.4
 ENDGAME_STAGE = NUM_CELLS * 0.3
 
 # ============ game phase based on the number of legal actions =================

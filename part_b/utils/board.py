@@ -129,6 +129,7 @@ class Board:
                                     break
                                 real_piece.append(real_coord)
                             if not occupied:
+                                real_piece.sort()
                                 real_piece = PlaceAction(real_piece[0],
                                                          real_piece[1], 
                                                          real_piece[2], 
@@ -270,15 +271,6 @@ class Board:
         The player whose turn it is (represented as a colour).
         """
         return self._turn_color
-    
-    # def modify_board(self, board_mutations: list[BoardMutation]=None, new_turn_count: int=None, new_turn_color: PlayerColor=None):
-    #     if board_mutations is not None:
-    #         for board_mutation in board_mutations:
-    #             for cell_mutation in board_mutation:
-                    
-
-
-
 
     def modify_turn_color(self, color: PlayerColor = None) -> PlayerColor:
         if color is None:
