@@ -21,6 +21,17 @@ class HABPNode():
             self.state_info = stateinfo_table.store(board, color)
         return
     
+    @staticmethod
+    def get_util_val(board: Board, depth: int):
+        board: Board = board
+        depth: int = depth
+        def key(node: HABPNode):
+            mutation = board.apply_action(node.parent_action)
+            util_val = node.state_info.eval_fn(board, node.color, depth)
+            board.undo_action(mutation)
+            return util_val
+        return key
+    
     def sort_children(self, board: Board, depth: int, isMaximizingPlayer=True) -> list:
         """
         Return sorted child nodes. Sort child nodes based on utility value. 
@@ -31,15 +42,9 @@ class HABPNode():
         if self.ordered_children is not None:
             return self.ordered_children
         
-        board: Board = board
-        depth: int = depth
-        def get_util_val(node: HABPNode):
-            mutation = board.apply_action(node.parent_action)
-            util_val = node.state_info.eval_fn(board, node.color, depth)
-            board.undo_action(mutation)
-            return util_val
+        key = HABPNode.get_util_val(board, depth)
         
-        self.ordered_children = sorted(self.children.values(), key=get_util_val, reverse=isMaximizingPlayer)
+        self.ordered_children = sorted(self.children.values(), key=key, reverse=isMaximizingPlayer)
         return self.ordered_children
         
     def get_children(self, board: Board, isMaximizingPlayer=True) -> dict:
@@ -75,8 +80,8 @@ class HABPNode():
 
         return random_child
         
-    def cutoff_test(self, depth):
-        return depth == 0 or self.state_info.game_over
+    def cutoff_test(self, depth, max_depth):
+        return depth == max_depth or self.state_info.game_over
 
 
 

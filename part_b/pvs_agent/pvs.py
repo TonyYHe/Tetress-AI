@@ -24,58 +24,106 @@ class PVSNode(HABPNode):
         print("@ number of legal actions:", self.state_info.num_player_legal_actions)
         print("@ number of empty coordinates:", self.state_info.num_empty_cells)
         board = deepcopy(board)
-        game_progress = self.state_info.num_empty_cells
-        if game_progress > MIDGAME_STAGE: 
+        game_progress = self.state_info.num_player_legal_actions
+        if board._turn_count == 0 or game_progress > MIDGAME_STAGE: 
             # play a safe random move
             print("%"*DELIM_LEN, "OPENING_GAME_STAGE", "%"*DELIM_LEN)
             best_child = self.get_safe_random_child(board)
         elif game_progress > LATEGAME_STAGE:
-            # use heuristic alpha beta pruning in the lategame stage
+            # use principal variation search with random sampling and 
+            # heuristic sorting in midgame stage
             print("%"*DELIM_LEN, "MIDGAME_STAGE", "%"*DELIM_LEN)
-            best_child = self.iterative_deepening_pvs(board, topk=True, time_remaining=board.turn_count/TIME_OUT_FACTOR)
+            allocated_time = MIDGAME_TIME + board._turn_count/TIME_OUT_FACTOR
+            best_child = self.iterative_deepening_pvs(board, strategy=PVSNode.midgame_strategy, time_remaining=allocated_time)
         else:
-            # complete alpha beta pruning in the endgame stage
+            # complete principal variation search in endgame stage
             print("%"*DELIM_LEN, "LATEGAME_STAGE", "%"*DELIM_LEN)
-            best_child = self.iterative_deepening_pvs(board, topk=False, time_remaining=board.turn_count/TIME_OUT_FACTOR)
+            allocated_time = LATEGAME_TIME + board._turn_count/TIME_OUT_FACTOR
+            best_child = self.iterative_deepening_pvs(board, strategy=PVSNode.lategame_strategy, time_remaining=allocated_time)
         return best_child
     
-    def get_children(self, board: Board, isMaximizingPlayer=True) -> dict:
+    @staticmethod
+    def midgame_strategy(root, board: Board, depth: int, isMaximizingPlayer=True) -> list:
+        """
+        Return a list of children to investigate.
+        """
+        random_children = root.get_random_children(board, board._turn_count)
+        key = HABPNode.get_util_val(board, depth)
+        sorted_random_children = sorted(random_children, key=key, reverse=isMaximizingPlayer)
+        return sorted_random_children
+
+    @staticmethod
+    def lategame_strategy(root, board: Board, depth: int, isMaximizingPlayer=True) -> list:
+        """
+        Return a list of children to investigate.
+        """
+        num_legal_actions = root.state_info.num_player_legal_actions if isMaximizingPlayer else root.state_info.num_opponent_legal_actions
+        if num_legal_actions > 20:
+            children = root.get_random_children(board, board._turn_count)
+        else:
+            children = root.get_all_children(board, board._turn_count).values()
+        key = HABPNode.get_util_val(board, depth)
+        sorted_children = sorted(children, key=key, reverse=isMaximizingPlayer)
+        return sorted_children
+    
+    def get_all_children(self, board: Board, isMaximizingPlayer=True) -> dict:
         """
         Return child nodes stored in dict[action, PVSNode].
         """
         # Check if children has been generated already
-        if self.children is not None:
-            return self.children
-        
         legal_actions = self.state_info.player_legal_actions if isMaximizingPlayer else self.state_info.opponent_legal_actions
-        self.children = dict()
-        for a in legal_actions:
+        num_legal_actions = self.state_info.num_player_legal_actions if isMaximizingPlayer else self.state_info.num_opponent_legal_actions
+
+        if self.children is not None and len(self.children) == num_legal_actions:
+            return self.children
+        if self.children is None:
+            self.children = dict()
+        remaining_legal_actions = list(set(legal_actions) - set(self.children))
+        for a in remaining_legal_actions:
             mutation = board.apply_action(a)
             child_node = PVSNode(board, self.color, a)
             self.children[a] = child_node
             board.undo_action(mutation)
         return self.children
     
-    def iterative_deepening_pvs(self, board: Board, topk=False, time_remaining=None):
-        depth = 1
-        start_time = time.time()
-        while depth < MAX_SEARCH_DEPTH + 1:
-            print("max depth:", depth)
-            _, best_child = self.PVS_alpha_beta_search(board, -np.inf, np.inf, depth, depth, topk, time_remaining)
-            depth += 1
-            time_remaining = time_left(time_remaining, start_time)
-            if time_remaining is not None and time_remaining <= 0:
-                break
-        return best_child
+    def get_random_children(self, board: Board, n: int, isMaximizingPlayer=True) -> list:
+            
+        legal_actions = self.state_info.player_legal_actions if isMaximizingPlayer else self.state_info.opponent_legal_actions
+        n = min(len(legal_actions), n, 4)
+        random_actions = random.sample(legal_actions, n)
+        random_children = []
+        if self.children is None:
+            self.children = dict()
+        for a in random_actions:
+            mutation = board.apply_action(a)
+            child_node = self.children.get(a)
+            if child_node is None:
+                child_node = PVSNode(board, self.color, a)
+                self.children[a] = child_node
+            random_children.append(child_node)
+            board.undo_action(mutation)
+        return random_children
     
-    def topk_chldren(self):
-        num_children = len(self.children)
+    def topk_chlidren(self, children):
+        num_children = len(children)
         proportion = (NUM_CELLS - self.state_info.num_empty_cells) / NUM_CELLS
         k = int(proportion * num_children)
         k = min(k + 1, num_children)
         return self.ordered_children[:k]
 
-    def PVS_alpha_beta_search(self, board: Board, alpha, beta, depth, max_depth, topk=False, time_remaining=None):
+    def iterative_deepening_pvs(self, board: Board, strategy, time_remaining=None):
+        start_time = time.time()
+        depth = 1
+        while depth < MAX_SEARCH_DEPTH:
+            print("max depth:", depth)
+            _, best_child = self.PVS_alpha_beta_search(board, -np.inf, np.inf, 0, depth, strategy, time_remaining)
+            depth += 1
+            time_remaining = time_left(time_remaining, start_time)
+            if time_remaining is not None and time_remaining <= 0:
+                break
+        return best_child
+
+    def PVS_alpha_beta_search(self, board: Board, alpha, beta, depth, max_depth, strategy, time_remaining=None):
         """
         Modified code from https://ics.uci.edu/~eppstein/180a/990202b.html
         Return the best child using Principle Variation Search. Utilises 
@@ -94,36 +142,33 @@ class PVSNode(HABPNode):
                 if alpha >= beta:
                     return utility_value, entry.best_child
             
-        if self.cutoff_test(depth):
+        if self.cutoff_test(depth, max_depth):
             return self.state_info.eval_fn(board, self.color, depth), None
         
         start_time = time.time()
         best_value = -np.inf
         best_child = None
-        self.get_children(board=board, isMaximizingPlayer=(board._turn_color==self.color))
-        self.sort_children(board=board, isMaximizingPlayer=(board._turn_color==self.color), depth=max_depth-depth)
-        pv_node = self.ordered_children[0]
         
-        children = self.ordered_children
-        print("depth:", max_depth-depth, "total number of children:", len(children))
-        if topk == True:
-            children = self.topk_chldren()
-        
+        children = strategy(self, board, depth, board._turn_color==self.color)
+        pv_node = children[0]
+        num_legal_actions = self.state_info.num_player_legal_actions if board._turn_color==self.color else self.state_info.num_opponent_legal_actions
+        print("depth:", depth, "total number of children:", num_legal_actions)
         print("top k:", len(children))
+
         for child_node in children:
-            # print("color:", board._turn_color, "depth:", max_depth-depth, "before applying action:", child_node.parent_action)
+            # print("color:", board._turn_color, "depth:", depth, "before applying action:", child_node.parent_action)
             # print(board.render(use_color=True))
             mutation = board.apply_action(child_node.parent_action)
-            # print("color:", board._turn_color, "depth:", max_depth-depth, "after applying action:", child_node.parent_action)
+            # print("color:", board._turn_color, "depth:", depth, "after applying action:", child_node.parent_action)
             # print(board.render(use_color=True))
             if pv_node == child_node:
-                value = -child_node.PVS_alpha_beta_search(board, -beta, -alpha, depth - 1, max_depth, topk, time_remaining)[0]
+                value = -child_node.PVS_alpha_beta_search(board, -beta, -alpha, depth + 1, max_depth, strategy, time_remaining)[0]
             else:
-                value = -child_node.PVS_alpha_beta_search(board, -alpha-1, -alpha, depth - 1, max_depth, topk, time_remaining)[0]
+                value = -child_node.PVS_alpha_beta_search(board, -alpha-1, -alpha, depth + 1, max_depth, strategy, time_remaining)[0]
                 if alpha < value and value < beta:
-                    value = -child_node.PVS_alpha_beta_search(board, -beta, -alpha, depth - 1, max_depth, topk, time_remaining)[0]
+                    value = -child_node.PVS_alpha_beta_search(board, -beta, -alpha, depth + 1, max_depth, strategy, time_remaining)[0]
             board.undo_action(mutation)
-            # print("color:", board._turn_color, "depth:", max_depth-depth, "after reversing action:", child_node.parent_action)
+            # print("color:", board._turn_color, "depth:", depth, "after reversing action:", child_node.parent_action)
             # print(board.render(use_color=True))
             if value >= best_value:
                 best_value = value
