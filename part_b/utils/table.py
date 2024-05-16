@@ -25,16 +25,17 @@ class TranspositionTable(Table):
     def __init__(self):
         super().__init__()
         
-    def store(self, board: Board, node_type, depth, best_child, state_info: StateInformation):
+    def store(self, board: Board, node_type, depth, best_child, best_value, state_info: StateInformation):
         boardstate = board._state
         state_hash = boardstate.hash()
-        self.table[state_hash] = TTEntry(node_type, depth, best_child, state_info)
+        self.table[state_hash] = TTEntry(node_type, depth, best_child, best_value, state_info)
         return self.table[state_hash]
     
 class TTEntry:
-    def __init__(self, node_type, depth, best_child, state_info: StateInformation):
+    def __init__(self, node_type, depth, best_child, best_value, state_info: StateInformation):
         self.node_type = node_type
         self.depth = depth
         self.best_child = best_child
+        self.best_value = best_value
         self.state_info = state_info
 

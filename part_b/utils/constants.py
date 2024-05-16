@@ -12,8 +12,8 @@ SAFE_RANDOM_TIME_OUT = 0.5
 NUM_CELLS = BOARD_N * BOARD_N
 
 # =============================== time allocation ==============================
-MIDGAME_TIME = 5
-LATEGAME_TIME = 10
+MIDGAME_TIME = 4
+LATEGAME_TIME = 8
 TIME_OUT_FACTOR = 30
 SAFE_RANDOM_TIME_OUT = 0.5
 
@@ -24,8 +24,7 @@ SAFE_RANDOM_TIME_OUT = 0.5
 
 # ============ game phase based on the number of legal actions =================
 MIDGAME_STAGE = 200
-LATEGAME_STAGE = 100
-ENDGAME_STAGE = 50
+LATEGAME_STAGE = 20
 
 UPPER_BOUND = 'upperbound'
 LOWER_BOUND = 'lowerbound'

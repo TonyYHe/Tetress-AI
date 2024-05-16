@@ -80,8 +80,8 @@ class HABPNode():
 
         return random_child
         
-    def cutoff_test(self, depth, max_depth):
-        return depth == max_depth or self.state_info.game_over
+    def cutoff_test(self, depth):
+        return depth == 0 or self.state_info.game_over
 
 
 
