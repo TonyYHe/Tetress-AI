@@ -5,85 +5,59 @@ from dataclasses import dataclass
 
 from referee.game.pieces import Piece, PieceType, create_piece, _TEMPLATES
 from referee.game.coord import Coord, Direction
-from referee.game.player import PlayerColor
 from referee.game.actions import Action, PlaceAction
-from referee.game.exceptions import IllegalActionException
 from referee.game.constants import *
+
+from utils.player import *
 
 from collections import deque
 from utils.constants import *
+from disposed.boardstate import *
 import random
-import numpy as np
 
-@dataclass(frozen=True, slots=True)
-class CellState:
-    """
-    A structure representing the state of a cell on the game board. A cell can
-    be empty, or occupied by a player's token.
-    """
-    player: PlayerColor | None = None
 
-@dataclass(frozen=True, slots=True)
-class CellMutation:
-    """
-    A structure representing a change in the state of a single cell on the game
-    board after an action has been played.
-    """
-    cell: Coord
-    prev: CellState
-    next: CellState
-
-    def __str__(self):
-        return f"CellMutation({self.cell}, {self.prev}, {self.next})"
-
-@dataclass(frozen=True, slots=True)
-class BoardMutation:
-    """
-    A structure representing a change in the state of the game board after an
-    action has been played. Each mutation consists of a set of cell mutations.
-    """
-    action: Action
-    cell_mutations: set[CellMutation]
-
-    def __str__(self):
-        return f"BoardMutation({self.cell_mutations})"
-
-class BoardState(dict):
-    def __hash__(self):
-        return hash(tuple(sorted(self.items())))
-    
-    def hash(self):
-        return self.__hash__()
-
-class Board:
+class Game:
     """
     A class representing the game board for internal use in the referee. 
-
-    NOTE: Don't assume this class is an "ideal" board representation for your
-    own agent; you should think carefully about how to design data structures
-    for representing the state of a game with respect to your chosen strategy.
-    This class has not been optimised beyond what is necessary for the referee.
     """
+    tetrominoes = {
+    'I': ['1111'],
+    'O': ['1100', '1100'],
+    'T': ['111', '010'],
+    'J': ['111', '001'],
+    'L': ['111', '100'],
+    'S': ['011', '110'],
+    'Z': ['110', '011'],
+    'I90': ['1', '1', '1', '1'],
+    'O90': ['11', '11'],
+    'T90': ['1', '11', '1'],
+    'J90': ['1', '1', '11'],
+    'L90': ['11', '1', '1'],
+    'S90': ['10', '11', '01'],
+    'Z90': ['01', '11', '10'],
+    'I_FLIP': ['0001', '0001', '0001', '0001'],
+    'O_FLIP': ['0011', '0011'],
+    'T_FLIP': ['001', '011', '001'],
+    'J_FLIP': ['001', '001', '011'],
+    'L_FLIP': ['011', '001', '001']
+    }
+
     def __init__(
         self, 
-        initial_state: BoardState = {},
-        initial_player: PlayerColor = PlayerColor.RED,
+        initial_state: Board = None,
+        initial_player: int = PlayerColor.RED
     ):
         """
         Create a new board. It is optionally possible to specify an initial
         board state (in practice this is only used for testing).
         """
-        if initial_state == {}:
-            self._state: BoardState = BoardState({
-                Coord(r, c): CellState() 
-                for r in range(BOARD_N) 
-                for c in range(BOARD_N)
-            })
+        if initial_state is None:
+            self._state = Board()
         else:
             self._state = initial_state
-        self._turn_color: PlayerColor = initial_player
+        self._turn_color: int = initial_player
         self._turn_count = 0
-
+    
     def get_legal_actions(self) -> list[PlaceAction]:
         """
         Return the legal actions based on current state of board and player
@@ -153,7 +127,6 @@ class Board:
             self.modify_turn_color()
             self._turn_count = curr_turn_count
             return legal_actions
-        
         def random_strategy(starting_cell):
             """
             Return a completely random move.
@@ -173,7 +146,6 @@ class Board:
                 action_coords.append(next_coord)
                 i += 1
             return [PlaceAction(*action_coords)]
-        
         def defensive_strategy():
             """
             Return a random placement far away from the only red piece on the 
@@ -192,67 +164,13 @@ class Board:
         starting_cell = random.choice(list(empty_coords))
         return random_strategy(starting_cell)
 
-    def __getitem__(self, cell: Coord) -> CellState:
-        """
-        Return the state of a cell on the board.
-        """
-        if not self._within_bounds(cell):
-            raise IndexError(f"Cell position '{cell}' is invalid.")
-        return self._state[cell]
-
-    def apply_action(self, action: Action) -> BoardMutation:
+    def apply_action(self, action: Action):
         """
         Apply an action to a board, mutating the board state.
         """
-        board_mutation = self._resolve_place_action(action)
+        self._resolve_place_action(action)
         self._turn_color = self._turn_color.opponent
         self._turn_count += 1
-        return board_mutation
-
-    
-    def undo_action(self, board_mutation: BoardMutation) -> BoardMutation:
-        """
-        Undo the last action played, mutating the board state. Throws an
-        IndexError if no actions have been played.
-        """
-        self._turn_color = self._turn_color.opponent
-        self._turn_count -= 1
-
-        for cell_mutation in board_mutation.cell_mutations:
-            self._state[cell_mutation.cell] = cell_mutation.prev
-
-        return board_mutation
-
-    def render(self, use_color: bool=False, use_unicode: bool=False) -> str:
-        """
-        Returns a visualisation of the game board as a multiline string, with
-        optional ANSI color codes and Unicode characters (if applicable).
-        """
-        def apply_ansi(str, bold=True, color=None):
-            bold_code = "\033[1m" if bold else ""
-            color_code = ""
-            if color == "r":
-                color_code = "\033[31m"
-            if color == "b":
-                color_code = "\033[34m"
-            return f"{bold_code}{color_code}{str}\033[0m"
-
-        output = ""
-        for r in range(BOARD_N):
-            for c in range(BOARD_N):
-                if self._cell_occupied(Coord(r, c)):
-                    color = self._state[Coord(r, c)].player
-                    color = "r" if color == PlayerColor.RED else "b"
-                    text = f"{color}"
-                    if use_color:
-                        output += apply_ansi(text, color=color, bold=False)
-                    else:
-                        output += text
-                else:
-                    output += "."
-                output += " "
-            output += "\n"
-        return output
     
     @property
     def turn_count(self) -> int:
@@ -342,8 +260,8 @@ class Board:
         if self.turn_limit_reached:
             # In this case the player with the most tokens wins, or if equal,
             # the game ends in a draw.
-            red_count  = self._player_token_count(PlayerColor.RED)
-            blue_count = self._player_token_count(PlayerColor.BLUE)
+            red_count  = self._state._player_token_count(PlayerColor.RED)
+            blue_count = self._state._player_token_count(PlayerColor.BLUE)
             balance    = red_count - blue_count
 
             if balance == 0:
@@ -354,54 +272,6 @@ class Board:
         else:
             # Current player cannot place any more pieces. Opponent wins.
             return self._turn_color.opponent
-            
-    def _within_bounds(self, coord: Coord) -> bool:
-        r, c = coord
-        return 0 <= r < BOARD_N and 0 <= c < BOARD_N
-    
-    def _cell_occupied(self, coord: Coord) -> bool:
-        return self._state[coord].player != None
-    
-    def _cell_empty(self, coord: Coord) -> bool:
-        return self._state[coord].player == None
-    
-    def _player_token_count(self, color: PlayerColor) -> int:
-        return sum(1 for cell in self._state.values() if cell.player == color)
-    
-    def _occupied_coords(self) -> set[Coord]:
-        return set(filter(self._cell_occupied, self._state.keys()))
-    
-    # ==========================================================================
-    # Additional private functions
-    def _player_occupied_coords(self, player: PlayerColor) -> set[Coord]:
-        cell_occupied_by_player = lambda x : self._state[x].player == player
-        return set(filter(cell_occupied_by_player, self._state.keys()))
-    
-    def _empty_coords(self) -> set[Coord]:
-        return set(filter(self._cell_empty, self._state.keys()))
-    # ==========================================================================
-    def _assert_coord_valid(self, coord: Coord):
-        if type(coord) != Coord or not self._within_bounds(coord):
-            raise IllegalActionException(
-                f"'{coord}' is not a valid coordinate.", self._turn_color)
-        
-    def _assert_coord_empty(self, coord: Coord):
-        if self._cell_occupied(coord):
-            raise IllegalActionException(
-                f"Coord {coord} is already occupied.", self._turn_color)
-        
-    def _assert_has_attr(self, action: Action, attr: str):
-        if not hasattr(action, attr):
-            raise IllegalActionException(
-                f"Action '{action}' is missing '{attr}' attribute.", 
-                    self._turn_color)
-        
-    def _has_neighbour(self, coord: Coord, color: PlayerColor) -> bool:
-        for direction in Direction:
-            neighbour = coord + direction
-            if self._state[neighbour].player == color:
-                return True
-        return False
 
     def _resolve_place_action(self, action: PlaceAction):
         """
@@ -410,7 +280,6 @@ class Board:
         row_nums = set(c.r for c in action.coords)
         col_nums = set(c.c for c in action.coords)
         coords_with_piece = self._occupied_coords() | set(action.coords)
-        cell_mutations = dict()
         remove_coords = set()
 
         # scan all the coordinates in the same row as the input piece (action)
@@ -442,15 +311,12 @@ class Board:
             remove_coords.update(remove_c_coords)
             
         for cell in remove_coords:
-            cell_mutations[cell] = CellMutation(cell, self._state[cell], CellState(None))
-            self._state[cell] = CellState(None)
+            r = cell.r
+            c = cell.c
+            self._state.set_cell(r, c, None)
         
         for cell in action.coords:
             if cell not in remove_coords:
-                cell_mutations[cell] = CellMutation(cell, self._state[cell], CellState(self._turn_color))
-                self._state[cell] = CellState(self._turn_color)
-
-        return BoardMutation(
-            action,
-            cell_mutations=set(cell_mutations.values())
-        )
+                r = cell.r
+                c = cell.c
+                self._state.set_cell(r, c, self._turn_color)

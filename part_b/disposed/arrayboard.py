@@ -48,9 +48,10 @@ class BoardMutation:
     def __str__(self):
         return f"BoardMutation({self.cell_mutations})"
 
-class BoardState(dict):
+class BoardState(np.ndarray):
+    # problematic
     def __hash__(self):
-        return hash(tuple(sorted(self.items())))
+        return hash(tuple(self.items()))
     
     def hash(self):
         return self.__hash__()
@@ -66,19 +67,15 @@ class Board:
     """
     def __init__(
         self, 
-        initial_state: BoardState = {},
+        initial_state: BoardState = None,
         initial_player: PlayerColor = PlayerColor.RED,
     ):
         """
         Create a new board. It is optionally possible to specify an initial
         board state (in practice this is only used for testing).
         """
-        if initial_state == {}:
-            self._state: BoardState = BoardState({
-                Coord(r, c): CellState() 
-                for r in range(BOARD_N) 
-                for c in range(BOARD_N)
-            })
+        if initial_state is None:
+            self._state: BoardState = BoardState()
         else:
             self._state = initial_state
         self._turn_color: PlayerColor = initial_player
@@ -94,24 +91,25 @@ class Board:
         if self._turn_count == 0 and self._turn_color == PlayerColor.RED:
             # there are only 5 distinct moves in an empty board due to the 
             # toroidal nature of the game board, and accounting for symmetry
-            return [
+            # return np.array([np.array([49,59,60,61]), np.array([48,49,50,61]),
+            #                  np.array([48,49,60,61]), np.array([59,60,61,62]),
+            #                  np.array([49,50,60,61])])
+            [
                 PlaceAction(Coord(4,5), Coord(5,4), Coord(5,5), Coord(5,6)),
                 PlaceAction(Coord(4,4), Coord(4,5), Coord(4,6), Coord(5,6)),
                 PlaceAction(Coord(4,4), Coord(4,5), Coord(5,5), Coord(5,6)),
                 PlaceAction(Coord(5,4), Coord(5,5), Coord(5,6), Coord(5,7)),
                 PlaceAction(Coord(4,5), Coord(4,6), Coord(5,5), Coord(5,6))
             ]
-                
         elif self._turn_count == 1 and self._turn_color == PlayerColor.BLUE:
                 return self.get_blue_first_action()
         # subsequent actions for each agent
         else:
-            for coord in self._player_occupied_coords(self._turn_color):
-                adj_coords = \
-                    [coord.down(), coord.up(), coord.left(), coord.right()]
+            for index in self._player_occupied_coords(self._turn_color):
+                coord = Coord(index//BOARD_N, index%BOARD_N)
+                adj_coords = [coord.down(), coord.up(), coord.left(), coord.right()]
                 for adj_coord in adj_coords:
-                    if not self._cell_empty(adj_coord) or \
-                          adj_coord in visited_coords:
+                    if not self._cell_empty(adj_coord) or adj_coord in visited_coords:
                         continue
                     visited_coords.add(adj_coord)
                     for piecetype in PieceType:
@@ -153,7 +151,6 @@ class Board:
             self.modify_turn_color()
             self._turn_count = curr_turn_count
             return legal_actions
-        
         def random_strategy(starting_cell):
             """
             Return a completely random move.
@@ -173,7 +170,6 @@ class Board:
                 action_coords.append(next_coord)
                 i += 1
             return [PlaceAction(*action_coords)]
-        
         def defensive_strategy():
             """
             Return a random placement far away from the only red piece on the 
@@ -192,13 +188,13 @@ class Board:
         starting_cell = random.choice(list(empty_coords))
         return random_strategy(starting_cell)
 
-    def __getitem__(self, cell: Coord) -> CellState:
-        """
-        Return the state of a cell on the board.
-        """
-        if not self._within_bounds(cell):
-            raise IndexError(f"Cell position '{cell}' is invalid.")
-        return self._state[cell]
+    def get_cell(self, coord: Coord):
+        index = coord.r * BOARD_N + coord.c
+        return self._state[index]
+    
+    def set_cell(self, coord: Coord, color: PlayerColor):
+        index = coord.r * BOARD_N + coord.c
+        self._state[index] = color
 
     def apply_action(self, action: Action) -> BoardMutation:
         """
@@ -209,7 +205,6 @@ class Board:
         self._turn_count += 1
         return board_mutation
 
-    
     def undo_action(self, board_mutation: BoardMutation) -> BoardMutation:
         """
         Undo the last action played, mutating the board state. Throws an
@@ -219,7 +214,7 @@ class Board:
         self._turn_count -= 1
 
         for cell_mutation in board_mutation.cell_mutations:
-            self._state[cell_mutation.cell] = cell_mutation.prev
+            self.set_cell(cell_mutation.cell, cell_mutation.prev)
 
         return board_mutation
 
@@ -241,7 +236,7 @@ class Board:
         for r in range(BOARD_N):
             for c in range(BOARD_N):
                 if self._cell_occupied(Coord(r, c)):
-                    color = self._state[Coord(r, c)].player
+                    color = self.get_cell(Coord(r, c))
                     color = "r" if color == PlayerColor.RED else "b"
                     text = f"{color}"
                     if use_color:
@@ -360,46 +355,33 @@ class Board:
         return 0 <= r < BOARD_N and 0 <= c < BOARD_N
     
     def _cell_occupied(self, coord: Coord) -> bool:
-        return self._state[coord].player != None
+        return self.get_cell(coord) != None
     
     def _cell_empty(self, coord: Coord) -> bool:
-        return self._state[coord].player == None
+        return self.get_cell(coord) == None
     
     def _player_token_count(self, color: PlayerColor) -> int:
-        return sum(1 for cell in self._state.values() if cell.player == color)
+        return np.count_nonzero(self._state==color)
     
-    def _occupied_coords(self) -> set[Coord]:
-        return set(filter(self._cell_occupied, self._state.keys()))
+    def _empty_cell_count(self) -> int:
+        return np.count_nonzero(self._state==None)
     
-    # ==========================================================================
-    # Additional private functions
-    def _player_occupied_coords(self, player: PlayerColor) -> set[Coord]:
-        cell_occupied_by_player = lambda x : self._state[x].player == player
-        return set(filter(cell_occupied_by_player, self._state.keys()))
+    def _occupied_coords(self) -> np.ndarray:
+        return np.concatenate((self._player_occupied_coords(PlayerColor.RED), 
+                               self._player_occupied_coords(PlayerColor.BLUE)))
+    
+    def _player_occupied_coords(self, player: PlayerColor) -> np.ndarray:
+        player_occupied_coords, = np.where(self._state == player)
+        return player_occupied_coords
     
     def _empty_coords(self) -> set[Coord]:
-        return set(filter(self._cell_empty, self._state.keys()))
-    # ==========================================================================
-    def _assert_coord_valid(self, coord: Coord):
-        if type(coord) != Coord or not self._within_bounds(coord):
-            raise IllegalActionException(
-                f"'{coord}' is not a valid coordinate.", self._turn_color)
-        
-    def _assert_coord_empty(self, coord: Coord):
-        if self._cell_occupied(coord):
-            raise IllegalActionException(
-                f"Coord {coord} is already occupied.", self._turn_color)
-        
-    def _assert_has_attr(self, action: Action, attr: str):
-        if not hasattr(action, attr):
-            raise IllegalActionException(
-                f"Action '{action}' is missing '{attr}' attribute.", 
-                    self._turn_color)
+        empty_coords, = np.where(self._state==None)
+        return empty_coords
         
     def _has_neighbour(self, coord: Coord, color: PlayerColor) -> bool:
         for direction in Direction:
             neighbour = coord + direction
-            if self._state[neighbour].player == color:
+            if self.get_cell(neighbour) == color:
                 return True
         return False
 
