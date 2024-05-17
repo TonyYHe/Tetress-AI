@@ -22,12 +22,10 @@ class HABPNode():
         return
     
     @staticmethod
-    def get_util_val(board: Board, depth: int):
-        board: Board = board
-        depth: int = depth
+    def get_util_val(board: Board, ply: int):
         def key(node: HABPNode):
             mutation = board.apply_action(node.parent_action)
-            util_val = node.state_info.eval_fn(board, node.color, depth)
+            util_val = node.state_info.eval_fn(board, node.color, ply)
             board.undo_action(mutation)
             return util_val
         return key

@@ -35,38 +35,27 @@ class PVSNode(HABPNode):
             print("%"*DELIM_LEN, "MIDGAME_STAGE", "%"*DELIM_LEN)
             allocated_time = MIDGAME_TIME + board._turn_count/TIME_OUT_FACTOR
             print("allocated time:", allocated_time)
-            best_child = self.iterative_deepening_pvs(board, strategy=PVSNode.midgame_strategy, time_remaining=allocated_time)
+            best_child = self.iterative_deepening_pvs(board, strategy=PVSNode.strategy, time_remaining=allocated_time)
         else:
             # complete principal variation search in endgame stage
             print("%"*DELIM_LEN, "LATEGAME_STAGE", "%"*DELIM_LEN)
             allocated_time = LATEGAME_TIME + board._turn_count/TIME_OUT_FACTOR
             print("allocated time:", allocated_time)
-            best_child = self.iterative_deepening_pvs(board, strategy=PVSNode.lategame_strategy, time_remaining=allocated_time)
+            best_child = self.iterative_deepening_pvs(board, strategy=PVSNode.strategy, time_remaining=allocated_time)
         return best_child
-    
-    @staticmethod
-    def midgame_strategy(root, board: Board, ply: int, isMaximizingPlayer=True) -> list:
-        """
-        Return a list of children to investigate.
-        """
-        num_legal_actions = root.state_info.num_player_legal_actions if isMaximizingPlayer else root.state_info.num_opponent_legal_actions
-        n = min(num_legal_actions, 3)
-        random_children = root.get_random_children(board, n)
-        key = HABPNode.get_util_val(board, ply)
-        sorted_random_children = sorted(random_children, key=key, reverse=isMaximizingPlayer)
-        return sorted_random_children
 
     @staticmethod
-    def lategame_strategy(root, board: Board, ply: int, isMaximizingPlayer=True) -> list:
+    def strategy(root, board: Board, ply: int, isMaximizingPlayer=True) -> list:
         """
         Return a list of children to investigate.
         """
         num_legal_actions = root.state_info.num_player_legal_actions if isMaximizingPlayer else root.state_info.num_opponent_legal_actions
         if num_legal_actions > LATEGAME_STAGE:
-            n = LATEGAME_STAGE
-            children = root.get_random_children(board, n)
+            n = min(num_legal_actions, SAMPLE_SIZE)
+            # BRANCHING_FACTOR < SAMPLE_SIZE
+            children = root.get_random_children(board, n, isMaximizingPlayer)[:BRANCHING_FACTOR]
         else:
-            children = root.get_all_children(board, isMaximizingPlayer).values()
+            children = root.get_all_children(board, isMaximizingPlayer)
         key = HABPNode.get_util_val(board, ply)
         sorted_children = sorted(children, key=key, reverse=isMaximizingPlayer)
         return sorted_children
@@ -80,10 +69,10 @@ class PVSNode(HABPNode):
         num_legal_actions = self.state_info.num_player_legal_actions if isMaximizingPlayer else self.state_info.num_opponent_legal_actions
 
         if self.children is not None and len(self.children) == num_legal_actions:
-            return self.children
+            return list(self.children.values())
         if self.children is None:
             self.children = dict()
-        remaining_legal_actions = list(set(legal_actions) - set(self.children))
+        remaining_legal_actions = list(set(legal_actions) - set(self.children.keys()))
         for a in remaining_legal_actions:
             mutation = board.apply_action(a)
             child_node = PVSNode(board, self.color, a)
@@ -106,13 +95,6 @@ class PVSNode(HABPNode):
             random_children.append(child_node)
             board.undo_action(mutation)
         return random_children
-    
-    def topk_children(self, children):
-        num_children = len(children)
-        proportion = (NUM_CELLS - self.state_info.num_empty_cells) / NUM_CELLS
-        k = int(proportion * num_children)
-        k = min(k + 1, num_children)
-        return self.ordered_children[:k]
 
     def iterative_deepening_pvs(self, board: Board, strategy, time_remaining=None):
         start_time = time.time()
@@ -153,9 +135,9 @@ class PVSNode(HABPNode):
         
         children = strategy(self, board, ply, board._turn_color==self.color)
         pv_node = children[0]
-        num_legal_actions = self.state_info.num_player_legal_actions if board._turn_color==self.color else self.state_info.num_opponent_legal_actions
-        print("depth:", depth, "total number of children:", num_legal_actions)
-        print("top k:", len(children))
+        # num_legal_actions = self.state_info.num_player_legal_actions if board._turn_color==self.color else self.state_info.num_opponent_legal_actions
+        # print("depth:", depth, "total number of children:", num_legal_actions)
+        # print("top k:", len(children))
 
         for child_node in children:
             # print("color:", board._turn_color, "depth:", depth, "before applying action:", child_node.parent_action)

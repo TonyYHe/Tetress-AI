@@ -11,6 +11,9 @@ TURN_THRESHOLD = MAX_TURNS * 0.8
 SAFE_RANDOM_TIME_OUT = 0.5
 NUM_CELLS = BOARD_N * BOARD_N
 
+SAMPLE_SIZE = 30
+BRANCHING_FACTOR = 3
+
 # =============================== time allocation ==============================
 MIDGAME_TIME = 4
 LATEGAME_TIME = 8
