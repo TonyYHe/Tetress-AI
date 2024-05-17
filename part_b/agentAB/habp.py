@@ -20,8 +20,9 @@ StochasticGameState = namedtuple('StochasticGameState', 'to_move, utility, board
 
 MAX_TURN = 150 
 TURN_THRESHOLD = MAX_TURN * 0.8 
+MIN_ACTIONS_TEST = 30
 
-def print(*values): 
+def _print(*values): 
     ''' Change this function name to `_print` if want to print out debug messages '''
     pass 
 
@@ -52,7 +53,7 @@ def alpha_beta_cutoff_search(board:Board):
         if board.winner_color == player.opponent: 
             return -1 
         elif board.winner_color == player: 
-            return 1,000,000,000,000
+            return 1,000,000
 
         # Otherwise, evaluate the game state 
 
@@ -123,7 +124,6 @@ def alpha_beta_cutoff_search(board:Board):
     legal_actions = board.get_legal_actions()
     print(_testing.prefix(17), f"number of legal actions = {len(legal_actions)}")
 
-    MIN_ACTIONS_TEST = 30
     if len(legal_actions) < MIN_ACTIONS_TEST: 
         random_index = range(len(legal_actions))
     else: 

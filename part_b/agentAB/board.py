@@ -88,6 +88,7 @@ class Board:
 
         self._turn_color: PlayerColor = initial_player
         self._history: list[BoardMutation] = []
+
     
     def get_legal_actions(self, player:PlayerColor|None=None) -> list[PlaceAction]:
         """
