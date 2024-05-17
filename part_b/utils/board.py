@@ -49,7 +49,7 @@ class BoardMutation:
 
 class BoardState(dict):
     def __hash__(self):
-        return hash(tuple(self.items()))
+        return hash(tuple(sorted(self.items())))
     
     def hash(self):
         return self.__hash__()
