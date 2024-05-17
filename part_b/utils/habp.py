@@ -16,7 +16,7 @@ class HABPNode():
         self.parent_action = parent_action
         self.children = None
         self.ordered_children = None
-        self.state_info = stateinfo_table.retrieve(board._state)
+        self.state_info: StateInformation = stateinfo_table.retrieve(board._state)
         if self.state_info is None:
             self.state_info = stateinfo_table.store(board, color)
         return

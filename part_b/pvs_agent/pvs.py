@@ -108,7 +108,7 @@ class PVSNode(HABPNode):
                 break
         return best_child
 
-    def PVS_alpha_beta_search(self, board: Board, alpha, beta, depth, ply, strategy, time_remaining=None):
+    def PVS_alpha_beta_search(self, board: Board, alpha, beta, depth, ply, time_remaining=None):
         """
         Modified code from https://ics.uci.edu/~eppstein/180a/990202b.html
         Return the best child using Principle Variation Search. Utilises 
@@ -133,7 +133,7 @@ class PVSNode(HABPNode):
         best_value = -np.inf
         best_child = None
         
-        children = strategy(self, board, ply, board._turn_color==self.color)
+        children = PVSNode.strategy(self, board, ply, board._turn_color==self.color)
         pv_node = children[0]
         # num_legal_actions = self.state_info.num_player_legal_actions if board._turn_color==self.color else self.state_info.num_opponent_legal_actions
         # print("depth:", depth, "total number of children:", num_legal_actions)
