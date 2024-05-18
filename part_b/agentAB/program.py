@@ -40,7 +40,7 @@ class Agent:
 
         # If the board is relatively full, play using alpha-beta pruning 
         print("Start the search")
-        return alpha_beta_cutoff_search(self._board, self.transposition_table)
+        return alpha_beta_cutoff_search(self._board, self.transposition_table, referee)
     
 
         # Below we have hardcoded two actions to be played depending on whether

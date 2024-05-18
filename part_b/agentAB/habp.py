@@ -84,7 +84,7 @@ class TranspositionTable:
         return entry.topK_actions
         
 
-def alpha_beta_cutoff_search(board:Board, transposition_table:TranspositionTable):
+def alpha_beta_cutoff_search(board:Board, transposition_table:TranspositionTable, referee):
     """Search game to determine best action; use alpha-beta pruning.
     This version cuts off search and uses an evaluation function."""
     player = board.turn_color
@@ -159,7 +159,8 @@ def alpha_beta_cutoff_search(board:Board, transposition_table:TranspositionTable
 
     top_actions = transposition_table.get_topK_actions(board)
     start_time = time.time()
-    end_time = start_time + board.turn_count/TIME_OUT_FACTOR
+    base_time = referee["time_remaining"] / (MAX_TURN - board.turn_count)
+    end_time = start_time + base_time + board.turn_count/TIME_OUT_FACTOR
     while (time.time() < end_time):
         for action in top_actions: #[legal_actions[i] for i in random_index]
             # timer = CountdownTimer(time_limit=1,tolerance=10)

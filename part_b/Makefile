@@ -7,13 +7,13 @@ test_red = $(a1) $(a2)
 test_blue = $(a2) $(a1) 
 
 smart: 
-	python3 -m referee $(smart_agents)
+	python3 -m referee -s 250 -t 180 $(smart_agents)
 dumb:
-	python3 -m referee $(dumb_agents)
+	python3 -m referee -s 250 -t 180 $(dumb_agents)
 red:
-	python3 -m referee $(test_red)
+	python3 -m referee -s 250 -t 180 $(test_red)
 blue:
-	python3 -m referee $(test_blue)
+	python3 -m referee -s 250 -t 180 $(test_blue)
 
 err: 
 	python3 -m referee -s 250 -t 180 agentAB agentRandom 2> _out$(n).txt
