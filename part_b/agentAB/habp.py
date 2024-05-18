@@ -18,13 +18,64 @@ StochasticGameState = namedtuple('StochasticGameState', 'to_move, utility, board
 
 # ______________________________________________________________________________
 
+# For testing  
+def print(*values): 
+    ''' Change this function name to `_print` if want to print out debug messages '''
+    pass 
+
+# ______________________________________________________________________________
+
+
 MAX_TURN = 150 
 TURN_THRESHOLD = MAX_TURN * 0.8 
 MIN_ACTIONS_TEST = 20
 
-def print(*values): 
-    ''' Change this function name to `_print` if want to print out debug messages '''
-    pass 
+class Entry: 
+    def __init__(self, utility:float|None=None, actions:list[PlaceAction]=[]): 
+        ''' Initialize a node; `player` should be the colour of the agent
+        '''
+        #self.board: Board = board 
+        self.utility: float = utility
+        self.sorted_actions:list[PlaceAction] = actions
+    
+
+class TranspositionTable: 
+    def __init__(self, player:PlayerColor): 
+        '''Each player uses its own transposition table where the utility is in the perspective of the player. 
+        '''
+        self.player = player 
+
+        # key = board state, (include the state of the board, the turn color, and the turn count if exceed the threshold)
+        # value = node  
+        self.transposition_table: dict[tuple[PlayerColor|None], Entry] = {} 
+    
+
+    def get_entry(self, board:Board): 
+        # The key need to include the specific turn count for turns greater than the threshold, since the utility can be different
+        state_key:tuple[tuple[tuple[CellState], PlayerColor], int] = (board.hash(), max(TURN_THRESHOLD, board.turn_count))
+
+        # Create new entry if key does not previously exist in the table 
+        if not self.transposition_table.get(state_key): 
+            self.transposition_table[state_key] = Entry(board.turn_count, eval_fn(board, self.player))
+        return self.transposition_table[state_key]
+
+
+    def get_utility(self, board:Board): 
+        entry = self.get_entry(board)
+        return entry.utility
+
+
+    def get_topK_actions(self, board:Board, K=10):
+        entry = self.get_entry(board)
+        if not entry.sorted_actions:
+            def eval(action): 
+                board.apply_action(action) 
+                utility = self.get_utility(board, self.player)
+                board.undo_action()
+                return utility
+            entry.sorted_actions = sorted(board.get_legal_actions(), key=lambda action: eval(action), reverse=(board.turn_color==self.player))
+        return entry.sorted_actions[:K]
+        
 
 def alpha_beta_cutoff_search(board:Board):
     """Search game to determine best action; use alpha-beta pruning.
@@ -47,56 +98,16 @@ def alpha_beta_cutoff_search(board:Board):
         # else: 
         return depth > 4 
 
-    def eval_fn(board:Board, player:PlayerColor) -> float: 
-        print(_testing.prefix(), f"evaluate start for player {player}")
-        # If there is a winner, give the result straight away 
-        if board.winner_color == player.opponent: 
-            return -1000
-        elif board.winner_color == player: 
-            return 1000000
-
-        # Otherwise, evaluate the game state 
-
-        # Find the difference in the number of actions 
-        extra_num_actions = diff_legal_actions(board, player)
-
-        # Find the difference in the number of empty cells reachable that can be used as an action 
-        extra_num_reachable = diff_reachable_valid_empty_cell(board, player)
-
-        # Find the difference in the number of cells occupied 
-        extra_num_occupied = diff_cells_occupied(board, player)
-
-        if board.turn_count < TURN_THRESHOLD: 
-            # Far away from turns limitation 
-            utility = (
-                extra_num_actions +         \
-                extra_num_reachable +       \
-                extra_num_occupied * 0.1 
-            )
-        else: 
-            # If about to reach turns limit, evalution also include the number of cells occupied 
-            turns_exceed_threshold = board.turn_count - TURN_THRESHOLD
-            utility = (
-                extra_num_actions +                                 \
-                extra_num_reachable +                               \
-                extra_num_occupied * turns_exceed_threshold * 0.5 
-            )
-        
-        print(_testing.prefix(), f"evaluate end, utility={utility}")
-        return utility
-
     # Functions used by alpha_beta
     def max_value(board:Board, alpha, beta, depth) -> float:
         if cutoff_test(board, depth):
             return eval_fn(board, player)
         v = -np.inf
-        #for a in board.get_legal_actions():
-        for action in sorted(board.get_legal_actions(), key=lambda action: action_utility(board, action, player), reverse=True)[:5]: 
+        # TODO Store the children 
+        for action in sorted(board.get_legal_actions(), key=lambda action: action_utility(board, action, player), reverse=True)[:10]: 
             print(_testing.prefix(27), f"max-val apply action {action} in max_value() with depth {depth}")
             board.apply_action(action)
-            _v = min_value(board, alpha, beta, depth + 1)
-            print(f"v = {v}, min_value = {_v}")
-            v = max(v, _v)
+            v = max(v, min_value(board, alpha, beta, depth + 1))
             board.undo_action()
             if v >= beta:
                 return v
@@ -107,13 +118,11 @@ def alpha_beta_cutoff_search(board:Board):
         if cutoff_test(board, depth):
             return eval_fn(board, player)
         v = np.inf
-        # for a in board.get_legal_actions():
-        for action in sorted(board.get_legal_actions(), key=lambda action: action_utility(board, action, player))[:5]:
+        # TODO Store the children 
+        for action in sorted(board.get_legal_actions(), key=lambda action: action_utility(board, action, player))[:10]:
             print(_testing.prefix(27), f"min-val apply action {action} in max_value() with depth {depth}")
             board.apply_action(action)
-            _v = max_value(board, alpha, beta, depth + 1)
-            print(f"v = {v}, max_value = {_v}")
-            v = min(v, _v)
+            v = min(v, max_value(board, alpha, beta, depth + 1))
             board.undo_action()
             if v <= alpha:
                 return v
@@ -150,9 +159,8 @@ def alpha_beta_cutoff_search(board:Board):
 
 
 def action_utility(board:Board, action:PlaceAction, player:PlayerColor) -> int: 
-    '''Find the utility of an action for sorting the action for maximize pruning 
+    ''' Find the utility of an action for sorting the action for maximize pruning. 
     '''
-
     board.apply_action(action)
 
     # Calculate the weighted sum of the utility components for `player` (i.e. the agent using the habp) 
@@ -163,6 +171,47 @@ def action_utility(board:Board, action:PlaceAction, player:PlayerColor) -> int:
     )
 
     board.undo_action()
+    return utility
+
+
+def eval_fn(board:Board, player:PlayerColor) -> float: 
+    ''' Find the utility of terminal state. 
+    '''
+    print(_testing.prefix(), f"evaluate start for player {player}")
+    # If there is a winner, give the result straight away 
+    if board.winner_color == player.opponent: 
+        return -1000
+    elif board.winner_color == player: 
+        return 1000 - board.turn_count
+
+    # Otherwise, evaluate the game state 
+
+    # Find the difference in the number of actions 
+    extra_num_actions = diff_legal_actions(board, player)
+
+    # Find the difference in the number of empty cells reachable that can be used as an action 
+    extra_num_reachable = diff_reachable_valid_empty_cell(board, player)
+
+    # Find the difference in the number of cells occupied 
+    extra_num_occupied = diff_cells_occupied(board, player)
+
+    if board.turn_count <= TURN_THRESHOLD: 
+        # Far away from turns limitation 
+        utility = (
+            extra_num_actions +         \
+            extra_num_reachable +       \
+            extra_num_occupied * 0.1 
+        )
+    else: 
+        # If about to reach turns limit, evalution also include the number of cells occupied 
+        turns_exceed_threshold = board.turn_count - TURN_THRESHOLD
+        utility = (
+            extra_num_actions +                                 \
+            extra_num_reachable +                               \
+            extra_num_occupied * turns_exceed_threshold * 0.5 
+        )
+    
+    print(_testing.prefix(), f"evaluate end, utility={utility}")
     return utility
 
 

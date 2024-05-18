@@ -89,6 +89,8 @@ class Board:
         self._turn_color: PlayerColor = initial_player
         self._history: list[BoardMutation] = []
 
+    def hash(self) -> tuple[tuple[CellState], PlayerColor]:
+        return (tuple([coord[-1] for coord in sorted(self._state.items())]), self.turn_color)
     
     def get_legal_actions(self, player:PlayerColor|None=None) -> list[PlaceAction]:
         """

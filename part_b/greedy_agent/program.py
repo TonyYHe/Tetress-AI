@@ -28,7 +28,7 @@ class Agent:
         """
         node = HABPNode(self.board, self.color)
         node.get_children(self.board)
-        node.sort_children(self.board)
+        node.sort_children(self.board, self.board.turn_count)
         return node.ordered_children[0].parent_action
        
 
