@@ -14,28 +14,28 @@ class StateinfoTable(Table):
     def __init__(self):
         super().__init__()
 
-    def store(self, board: Board, player_color: PlayerColor):
+    def store(self, board: Board):
         boardstate = board._state
         state_hash = boardstate.__hash__()
-        state_info = StateInformation(board, player_color)
+        state_info = StateInformation(board)
         self.table[state_hash] = state_info
-        return self.table[state_hash]
+        return state_info
 
 class TranspositionTable(Table):
     def __init__(self):
         super().__init__()
         
-    def store(self, board: Board, node_type, depth, best_child, best_value, state_info: StateInformation):
+    def store(self, board: Board, node_type, depth, best_child, best_value):
         boardstate = board._state
         state_hash = boardstate.__hash__()
-        self.table[state_hash] = TTEntry(node_type, depth, best_child, best_value, state_info)
-        return self.table[state_hash]
+        entry = TTEntry(node_type, depth, best_child, best_value)
+        self.table[state_hash] = entry
+        return entry
     
 class TTEntry:
-    def __init__(self, node_type, depth, best_child, best_value, state_info: StateInformation):
+    def __init__(self, node_type, depth, best_child, best_value):
         self.node_type = node_type
         self.depth = depth
         self.best_child = best_child
         self.best_value = best_value
-        self.state_info = state_info
 

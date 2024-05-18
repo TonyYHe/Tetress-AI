@@ -19,9 +19,8 @@ class Agent:
         Any setup and/or precomputation should be done here.
         """
         self.board = Board(initial_player=PlayerColor.RED)
-        self.color = color
         self.agent = NegamaxAgent(color)
-        self.root = Node(self.board, color, self.agent.stateinfo_table)
+        self.root = Node(self.board)
         self.best_child = None
 
 
@@ -48,12 +47,12 @@ class Agent:
         self.board.apply_action(action)
 
         # update the root node of the habp search tree
-        if color == self.color:
+        if color == self.agent.color:
             self.root = self.best_child
         else:
             child_node: Node = self.root.children.get(action) if self.root.children is not None else None
             # some child nodes may not be generated due to approximation
             if child_node is None:
-                self.root = Node(self.board, self.color, self.agent.stateinfo_table, parent_action=action)
+                self.root = Node(self.board, parent_action=action)
             else:
                 self.root = child_node

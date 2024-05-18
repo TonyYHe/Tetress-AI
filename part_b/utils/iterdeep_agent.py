@@ -10,8 +10,7 @@ class IterativeDeepeningAgent(ABC):
     def __init__(self, color) -> None:
         super().__init__()
         self.transposition_table = TranspositionTable()
-        self.stateinfo_table = StateinfoTable()
-        self.color = color
+        self.color = color # color of the player
 
     def best_child(self, root: Node, board: Board, time_remaining):
         """
@@ -23,7 +22,7 @@ class IterativeDeepeningAgent(ABC):
         if board._turn_count == 0 or game_progress > MIDGAME_STAGE: 
             # play a safe random move
             print("%"*DELIM_LEN, "OPENING_GAME_STAGE", "%"*DELIM_LEN)
-            best_child = root.get_safe_random_child(board, self.stateinfo_table)
+            best_child = root.get_safe_random_child(board)
         else:
             # complete principal variation search in endgame stage
             print("%"*DELIM_LEN, "LATEGAME_STAGE", "%"*DELIM_LEN)
@@ -38,6 +37,7 @@ class IterativeDeepeningAgent(ABC):
         move_values = {}
         while depth < max_depth:
             print("max depth:", depth)
+            print("size of transposition table:", len(self.transposition_table.table))
             print("move_values:")
             print(move_values)
             _, best_child, move_values = self.search(root, board, -np.inf, np.inf, depth, 0, time_remaining, move_values)
