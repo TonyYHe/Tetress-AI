@@ -37,7 +37,7 @@ SAFE_RANDOM_TIME_OUT = 0.5
 # ENDGAME_STAGE = NUM_CELLS * 0.3
 
 # ============ game phase based on the number of legal actions =================
-MIDGAME_STAGE = 200
+MIDGAME_STAGE = 100
 LATEGAME_STAGE = 20
 
 UPPER_BOUND = 'upperbound'

@@ -5,14 +5,14 @@ import time
 from utils.board import *
 from utils.constants import *
 from utils.table import *
-from utils.habp import *
+from utils.node import *
 from utils.tracktime import *
 
 
 stateinfo_table = StateinfoTable()
 transposition_table = TranspositionTable()
 # ______________________________________________________________________________
-class PVSNode(HABPNode):
+class PVSNode(Node):
     def __init__(self, board: Board, color: PlayerColor, parent_action=None):
         super().__init__(board, color, parent_action)
         return
@@ -56,7 +56,7 @@ class PVSNode(HABPNode):
             children = root.get_random_children(board, n, isMaximizingPlayer)[:BRANCHING_FACTOR]
         else:
             children = root.get_all_children(board, isMaximizingPlayer)
-        key = HABPNode.get_util_val(board, ply)
+        key = Node.get_util_val(board, ply)
         sorted_children = sorted(children, key=key, reverse=isMaximizingPlayer)
         return sorted_children
     
@@ -108,7 +108,7 @@ class PVSNode(HABPNode):
                 break
         return best_child
 
-    def PVS_alpha_beta_search(self, board: Board, alpha, beta, depth, ply, time_remaining=None):
+    def PVS_alpha_beta_search(self, board: Board, alpha, beta, depth, ply, strategy, time_remaining=None):
         """
         Modified code from https://ics.uci.edu/~eppstein/180a/990202b.html
         Return the best child using Principle Variation Search. Utilises 
@@ -133,7 +133,7 @@ class PVSNode(HABPNode):
         best_value = -np.inf
         best_child = None
         
-        children = PVSNode.strategy(self, board, ply, board._turn_color==self.color)
+        children = strategy(self, board, ply, board._turn_color==self.color)
         pv_node = children[0]
         # num_legal_actions = self.state_info.num_player_legal_actions if board._turn_color==self.color else self.state_info.num_opponent_legal_actions
         # print("depth:", depth, "total number of children:", num_legal_actions)

@@ -7,7 +7,7 @@ class Table:
         self.table = dict()
 
     def retrieve(self, boardstate: BoardState):
-        state_hash = boardstate.hash()
+        state_hash = boardstate.__hash__()
         return self.table.get(state_hash)
 
 class StateinfoTable(Table):
@@ -16,7 +16,7 @@ class StateinfoTable(Table):
 
     def store(self, board: Board, player_color: PlayerColor):
         boardstate = board._state
-        state_hash = boardstate.hash()
+        state_hash = boardstate.__hash__()
         state_info = StateInformation(board, player_color)
         self.table[state_hash] = state_info
         return self.table[state_hash]
@@ -27,7 +27,7 @@ class TranspositionTable(Table):
         
     def store(self, board: Board, node_type, depth, best_child, best_value, state_info: StateInformation):
         boardstate = board._state
-        state_hash = boardstate.hash()
+        state_hash = boardstate.__hash__()
         self.table[state_hash] = TTEntry(node_type, depth, best_child, best_value, state_info)
         return self.table[state_hash]
     

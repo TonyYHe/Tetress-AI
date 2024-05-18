@@ -5,13 +5,13 @@ import time
 from utils.board import *
 from utils.constants import *
 from utils.table import *
-from utils.habp import *
+from utils.node import *
 from utils.tracktime import *
 
 stateinfo_table = StateinfoTable()
 transposition_table = TranspositionTable()
 # ______________________________________________________________________________
-class MTDFNode(HABPNode):
+class MTDFNode(Node):
     def __init__(self, board: Board, color: PlayerColor, parent_action=None):
         super().__init__(board, color, parent_action)
         return
