@@ -22,8 +22,8 @@ class StateInformation:
         # player color should always be THE PLAYER (YOU)
         """
         problematic
-        Return a utility value calculated from the persepctive of the player, 
-        given a board. 
+        Return a utility value calculated from the persepctive of the input 
+        player, given a board. 
         """
         if self.winner_color is not None:
             if self.winner_color == player_color:

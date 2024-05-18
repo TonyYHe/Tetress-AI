@@ -10,17 +10,6 @@ class Table:
         state_hash = boardstate.__hash__()
         return self.table.get(state_hash)
 
-class StateinfoTable(Table):
-    def __init__(self):
-        super().__init__()
-
-    def store(self, board: Board):
-        boardstate = board._state
-        state_hash = boardstate.__hash__()
-        state_info = StateInformation(board)
-        self.table[state_hash] = state_info
-        return state_info
-
 class TranspositionTable(Table):
     def __init__(self):
         super().__init__()

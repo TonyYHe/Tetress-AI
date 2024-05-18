@@ -46,7 +46,7 @@ class Agent:
         """
         self.board.apply_action(action)
 
-        # update the root node of the habp search tree
+        # update the root node of the game tree
         if color == self.agent.color:
             self.root = self.best_child
         else:
