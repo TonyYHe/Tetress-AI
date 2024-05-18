@@ -31,6 +31,9 @@ LATEGAME_TIME = 5
 TIME_OUT_FACTOR = 30
 SAFE_RANDOM_TIME_OUT = 0.5
 
+# ============================== space allocation ==============================
+MAX_TABLE_SIZE = 300
+
 # ============= game phase based on the number of empty cells ==================
 # MIDGAME_STAGE = NUM_CELLS * 0.6
 # LATEGAME_STAGE = NUM_CELLS * 0.4
