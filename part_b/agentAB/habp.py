@@ -63,7 +63,7 @@ class TranspositionTable:
     def get_utility(self, board:Board): 
         state_key:tuple[tuple[tuple[CellState], PlayerColor], int] = (board.hash(), max(TURN_THRESHOLD, board.turn_count))
         if self.transposition_table.get(state_key): 
-            print(_testing.prefix(10), "revisiting utility")
+            print(_testing.prefix(10), "------ revisiting utility")
         entry = self.get_entry(board)
         return entry.utility
     
@@ -73,12 +73,12 @@ class TranspositionTable:
         if not entry.topK_actions:
             def eval(action:PlaceAction) -> float: 
                 board.apply_action(action) 
-                utility = self.get_utility(board)
+                utility = eval_fn_ordering(board, self.player)
                 board.undo_action()
                 return utility
             entry.topK_actions = sorted(board.get_legal_actions(), key=lambda action: eval(action), reverse=(board.turn_color==self.player))[:K]
         else: 
-            print(f"revisit the top k children")
+            print(f"----- revisit the top k children")
         return entry.topK_actions
         
 
@@ -109,12 +109,15 @@ def alpha_beta_cutoff_search(board:Board, transposition_table:TranspositionTable
             return transposition_table.get_utility(board)
         v = -np.inf
         top_actions = transposition_table.get_topK_actions(board)
+        _search = 0
         for action in top_actions: 
             print(_testing.prefix(27), f"max-val apply action {action} in max_value() with depth {depth}")
             board.apply_action(action)
             v = max(v, min_value(board, alpha, beta, depth + 1))
             board.undo_action()
+            _search += 1
             if v >= beta:
+                print(_testing.prefix(10), f"pruned {15-_search} nodes at depth {depth}, exceed the maximum")
                 return v
             alpha = max(alpha, v)
         return v
@@ -124,12 +127,15 @@ def alpha_beta_cutoff_search(board:Board, transposition_table:TranspositionTable
             return transposition_table.get_utility(board)
         v = np.inf
         top_actions = transposition_table.get_topK_actions(board)
+        _search = 0
         for action in top_actions:
             print(_testing.prefix(27), f"min-val apply action {action} in max_value() with depth {depth}")
             board.apply_action(action)
             v = min(v, max_value(board, alpha, beta, depth + 1))
             board.undo_action()
+            _search += 1
             if v <= alpha:
+                print(_testing.prefix(10), f"pruned {15-_search} nodes at depth {depth}, exceed the minimum")
                 return v
             beta = min(beta, v)
         return v
@@ -142,13 +148,13 @@ def alpha_beta_cutoff_search(board:Board, transposition_table:TranspositionTable
     legal_actions = board.get_legal_actions()
     print(_testing.prefix(17), f"number of legal actions = {len(legal_actions)}")
 
-    if len(legal_actions) < MIN_ACTIONS_TEST: 
-        random_index = range(len(legal_actions))
-    else: 
-        random_index:set[int] = set([random.randint(0, len(legal_actions)-1) for _ in range(MIN_ACTIONS_TEST)])
-    print(_testing.prefix(17), random_index) 
+    # if len(legal_actions) < MIN_ACTIONS_TEST: 
+    #     random_index = range(len(legal_actions))
+    # else: 
+    #     random_index:set[int] = set([random.randint(0, len(legal_actions)-1) for _ in range(MIN_ACTIONS_TEST)])
+    # print(_testing.prefix(17), random_index) 
 
-    for action in [legal_actions[i] for i in random_index]:
+    for action in transposition_table.get_topK_actions(board): #[legal_actions[i] for i in random_index]
         # timer = CountdownTimer(time_limit=1,tolerance=10)
         # timer.__enter__()
 
@@ -163,10 +169,9 @@ def alpha_beta_cutoff_search(board:Board, transposition_table:TranspositionTable
     return best_action
 
 
-def action_utility(board:Board, action:PlaceAction, player:PlayerColor) -> int: 
+def eval_fn_ordering(board:Board, player:PlayerColor) -> int: 
     ''' Find the utility of an action for sorting the action for maximize pruning. 
     '''
-    board.apply_action(action)
 
     # Calculate the weighted sum of the utility components for `player` (i.e. the agent using the habp) 
     utility = (
@@ -175,7 +180,6 @@ def action_utility(board:Board, action:PlaceAction, player:PlayerColor) -> int:
         diff_reachable_valid_empty_cell(board, player)
     )
 
-    board.undo_action()
     return utility
 
 
