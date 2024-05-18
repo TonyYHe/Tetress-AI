@@ -5,7 +5,6 @@ from utils.board import *
 from utils.constants import *
 from utils.table import *
 from utils.node import *
-from utils.tracktime import *
 from utils.iterdeep_agent import *
 from utils.orderchildren import *
 from utils.searchexit import *
@@ -23,7 +22,7 @@ class NegamaxAgent(IterativeDeepeningAgent):
         if entry is not None and entry.depth >= depth:
             print("-------------------------visited-------------------------")
             if entry.node_type == EXACT:
-                return entry.best_value, entry.best_child, move_values
+                return entry.best_value, entry.best_child, move_values, SearchExit.DEPTH
             elif entry.node_type == LOWER_BOUND and entry.best_value > alpha:
                 alpha = entry.best_value
             elif entry.node_type == UPPER_BOUND and entry.best_value < beta:
