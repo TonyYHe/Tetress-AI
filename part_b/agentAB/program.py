@@ -4,7 +4,7 @@ import random
 
 from referee.game import PlayerColor, Action, PlaceAction, Coord
 from .board import Board, BOARD_N
-from .habp import alpha_beta_cutoff_search
+from .habp import alpha_beta_cutoff_search, TranspositionTable
 
 class Agent:
     """
@@ -25,6 +25,7 @@ class Agent:
                 print("Testing: I am playing as BLUE")
         
         self._board = Board()
+        self.transposition_table = TranspositionTable(color)
 
     def action(self, **referee: dict) -> Action:
         """
@@ -39,7 +40,7 @@ class Agent:
 
         # If the board is relatively full, play using alpha-beta pruning 
         print("Start the search")
-        return alpha_beta_cutoff_search(self._board)
+        return alpha_beta_cutoff_search(self._board, self.transposition_table)
     
 
         # Below we have hardcoded two actions to be played depending on whether

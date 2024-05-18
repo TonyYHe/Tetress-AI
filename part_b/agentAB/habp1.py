@@ -19,7 +19,7 @@ StochasticGameState = namedtuple('StochasticGameState', 'to_move, utility, board
 # ______________________________________________________________________________
 
 # For testing  
-def _print(*values): 
+def print(*values): 
     ''' Change this function name to `_print` if want to print out debug messages '''
     pass 
 
@@ -36,7 +36,7 @@ class Entry:
         '''
         #self.board: Board = board 
         self.utility: float = utility
-        self.topK_actions:list[PlaceAction] = actions
+        self.sorted_actions:list[PlaceAction] = actions
     
 
 class TranspositionTable: 
@@ -61,25 +61,20 @@ class TranspositionTable:
 
 
     def get_utility(self, board:Board): 
-        state_key:tuple[tuple[tuple[CellState], PlayerColor], int] = (board.hash(), max(TURN_THRESHOLD, board.turn_count))
-        if self.transposition_table.get(state_key): 
-            print(_testing.prefix(10), "revisiting utility")
         entry = self.get_entry(board)
         return entry.utility
-    
 
-    def get_topK_actions(self, board:Board, K:int=15):
+
+    def get_topK_actions(self, board:Board, K:int=10):
         entry = self.get_entry(board)
-        if not entry.topK_actions:
+        if not entry.sorted_actions:
             def eval(action:PlaceAction) -> float: 
                 board.apply_action(action) 
                 utility = self.get_utility(board)
                 board.undo_action()
                 return utility
-            entry.topK_actions = sorted(board.get_legal_actions(), key=lambda action: eval(action), reverse=(board.turn_color==self.player))[:K]
-        else: 
-            print(f"revisit the top k children")
-        return entry.topK_actions
+            entry.sorted_actions = sorted(board.get_legal_actions(), key=lambda action: eval(action), reverse=(board.turn_color==self.player))[:2*K]
+        return entry.sorted_actions[:K]
         
 
 def alpha_beta_cutoff_search(board:Board, transposition_table:TranspositionTable):
@@ -93,9 +88,9 @@ def alpha_beta_cutoff_search(board:Board, transposition_table:TranspositionTable
             return True
         
         if len(board._empty_coords()) > BOARD_N * BOARD_N / 3: 
-            return depth > 2
+            return depth > 1
         if len(board._empty_coords()) > BOARD_N * BOARD_N / 4:
-            return depth > 3
+            return depth > 2
 
         # TODO - if the state of the game is unstable, go deeper? 
         # if not board.is_stable(): 
@@ -106,10 +101,9 @@ def alpha_beta_cutoff_search(board:Board, transposition_table:TranspositionTable
     # Functions used by alpha_beta
     def max_value(board:Board, alpha, beta, depth) -> float:
         if cutoff_test(board, depth):
-            return transposition_table.get_utility(board)
+            return eval_fn(board, player)
         v = -np.inf
-        top_actions = transposition_table.get_topK_actions(board)
-        for action in top_actions: 
+        for action in sorted(board.get_legal_actions(), key=lambda action: action_utility(board, action, player), reverse=True)[:10]: 
             print(_testing.prefix(27), f"max-val apply action {action} in max_value() with depth {depth}")
             board.apply_action(action)
             v = max(v, min_value(board, alpha, beta, depth + 1))
@@ -121,10 +115,9 @@ def alpha_beta_cutoff_search(board:Board, transposition_table:TranspositionTable
 
     def min_value(board:Board, alpha, beta, depth) -> float:
         if cutoff_test(board, depth):
-            return transposition_table.get_utility(board)
+            return eval_fn(board, player)
         v = np.inf
-        top_actions = transposition_table.get_topK_actions(board)
-        for action in top_actions:
+        for action in sorted(board.get_legal_actions(), key=lambda action: action_utility(board, action, player))[:10]:
             print(_testing.prefix(27), f"min-val apply action {action} in max_value() with depth {depth}")
             board.apply_action(action)
             v = min(v, max_value(board, alpha, beta, depth + 1))
