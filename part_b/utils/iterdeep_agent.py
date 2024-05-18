@@ -14,7 +14,8 @@ class IterativeDeepeningAgent(ABC):
 
     def best_child(self, root: Node, board: Board, time_remaining):
         """
-        Return the best child node.
+        Return the best child node. Different strategy is employed at different
+        stage of the game.
         """
         print("@ number of legal actions:", root.state_info.num_player_legal_actions)
         print("@ number of empty coordinates:", root.state_info.num_empty_cells)
@@ -32,6 +33,10 @@ class IterativeDeepeningAgent(ABC):
         return best_child
     
     def iterative_deepening_search(self, root: Node, board: Board, max_depth=MAX_SEARCH_DEPTH, time_remaining=None):
+        """
+        Return the best child in a iterative deepening scheme. Search until the 
+        time limit expires.
+        """
         start_time = time.time()
         depth = 1
         move_values = {}
@@ -49,5 +54,9 @@ class IterativeDeepeningAgent(ABC):
     
     @abstractmethod
     def search(self, root: Node, board: Board, alpha, beta, depth, ply, time_remaining=None, move_values=None):
+        """
+        Return the best value, best child of the current node. Also returns an
+        updated move values dictionary. Agent specific.
+        """
         return NotImplementedError
     

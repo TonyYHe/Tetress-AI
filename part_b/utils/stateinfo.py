@@ -19,11 +19,11 @@ class StateInformation:
         self.winner_color = board.winner_color
     
     def eval_fn(self, player_color: PlayerColor, ply: int):
-        # player color should always be THE PLAYER (YOU)
         """
         problematic
         Return a utility value calculated from the persepctive of the input 
-        player, given a board. 
+        player, given a board. The input player color should always be THE 
+        PLAYER (YOU).
         """
         if self.winner_color is not None:
             if self.winner_color == player_color:
@@ -32,11 +32,13 @@ class StateInformation:
                 return -1000 + ply
 
         # Find the difference in the number of actions 
-        utility = self.diff_legal_actions()
+        extra_num_actions = self.diff_legal_actions()
+        extra_num_occupied = self.diff_cells_occupied()
+        utility = extra_num_actions + extra_num_occupied
 
         # since Tetress is a zero-sum game, we can take the negative of the 
         # utility value for the opponent
-        return -utility if player_color != self.curr_color else utility
+        return utility if player_color == self.curr_color else -utility
     
     
     def diff_cells_occupied(self) -> int:

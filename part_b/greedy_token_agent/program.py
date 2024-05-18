@@ -3,7 +3,6 @@
 
 from referee.game import *
 from utils.board import Board
-from utils.node import HABPNode
 
 
 class Agent:

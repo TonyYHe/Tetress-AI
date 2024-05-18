@@ -4,6 +4,7 @@ from utils.constants import *
 import random
 from utils.table import *
 import time
+from utils.stateinfo import *
 
 # ______________________________________________________________________________
 class Node:
@@ -33,6 +34,9 @@ class Node:
         return random_child
     
     def get_all_children(self, board: Board) -> list:
+        """
+        Return all valid child nodes of the current node.
+        """
         # Check if children has been generated already
         legal_actions = self.state_info.player_legal_actions
         num_legal_actions = self.state_info.num_player_legal_actions
@@ -51,6 +55,9 @@ class Node:
         return list(self.children.values())
     
     def get_random_children(self, board: Board, n: int) -> list:
+        """
+        Return n random children.
+        """
         legal_actions = self.state_info.player_legal_actions
         random_actions = random.sample(legal_actions, n)
         random_children = []

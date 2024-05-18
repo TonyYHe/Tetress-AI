@@ -20,6 +20,7 @@ class NegamaxAgent(IterativeDeepeningAgent):
         
         entry: TTEntry = self.transposition_table.retrieve(board._state)
         if entry is not None and entry.depth >= depth:
+            print("-------------------------visited-------------------------")
             if entry.node_type == EXACT:
                 return entry.best_value, entry.best_child, move_values
             elif entry.node_type == LOWER_BOUND and entry.best_value > alpha:
@@ -30,12 +31,19 @@ class NegamaxAgent(IterativeDeepeningAgent):
                 return entry.best_value, entry.best_child, move_values
         
         if root.cutoff_test(depth):
-            return root.state_info.eval_fn(self.color, ply), None, move_values
+            print(board.render(use_color=True))
+            print("agent's color:", self.color)
+            print("turn color:", board.turn_color)
+            print("ply:", ply)
+            utility_value = root.state_info.eval_fn(self.color, ply)
+            print("utility_value:", utility_value)
+            return utility_value, None, move_values
         
         best_child = None
         value = -np.inf
         children = root.get_all_children(board)
         children = OrderChildren.order_children(board, children, self.color, self.transposition_table, move_values)
+        children = OrderChildren.topk_children(children)
 
         print("depth:", ply, "total number of children:", len((children)))
 
@@ -60,7 +68,7 @@ class NegamaxAgent(IterativeDeepeningAgent):
             node_type = UPPER_BOUND
         elif value >= beta:
             node_type = LOWER_BOUND
-
+        print("best_value:", value)
         move_values[board._state.__hash__()] = value
         self.transposition_table.store(board, node_type, depth, best_child, value)
         return value, best_child, move_values

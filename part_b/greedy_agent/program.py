@@ -4,6 +4,7 @@
 from referee.game import *
 from utils.board import Board
 from utils.node import Node
+from utils.orderchildren import *
 
 
 class Agent:
@@ -27,9 +28,9 @@ class Agent:
         to take an action. It must always return an action object. 
         """
         node = Node(self.board, self.color)
-        node.get_children(self.board)
-        node.sort_children(self.board)
-        return node.ordered_children[0].parent_action
+        children = node.get_all_children(self.board)
+        children = OrderChildren.order_children(self.board, children, self.color, TranspositionTable(), {})
+        return children[0].parent_action
        
 
     def update(self, color: PlayerColor, action: Action, **referee: dict):

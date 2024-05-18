@@ -1,6 +1,5 @@
 from utils.board import *
 from utils.constants import *
-from utils.stateinfo import StateInformation
 
 class Table:
     def __init__(self):
