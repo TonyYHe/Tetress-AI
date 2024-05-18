@@ -20,9 +20,9 @@ StochasticGameState = namedtuple('StochasticGameState', 'to_move, utility, board
 
 MAX_TURN = 150 
 TURN_THRESHOLD = MAX_TURN * 0.8 
-MIN_ACTIONS_TEST = 30
+MIN_ACTIONS_TEST = 20
 
-def _print(*values): 
+def print(*values): 
     ''' Change this function name to `_print` if want to print out debug messages '''
     pass 
 
@@ -48,12 +48,12 @@ def alpha_beta_cutoff_search(board:Board):
         return depth > 4 
 
     def eval_fn(board:Board, player:PlayerColor) -> float: 
-        print(_testing.prefix(), "evaluate start")
+        print(_testing.prefix(), f"evaluate start for player {player}")
         # If there is a winner, give the result straight away 
         if board.winner_color == player.opponent: 
-            return -1 
+            return -1000
         elif board.winner_color == player: 
-            return 1,000,000
+            return 1000000
 
         # Otherwise, evaluate the game state 
 
@@ -82,7 +82,7 @@ def alpha_beta_cutoff_search(board:Board):
                 extra_num_occupied * turns_exceed_threshold * 0.5 
             )
         
-        print(_testing.prefix(), "evaluate end")
+        print(_testing.prefix(), f"evaluate end, utility={utility}")
         return utility
 
     # Functions used by alpha_beta
@@ -91,10 +91,12 @@ def alpha_beta_cutoff_search(board:Board):
             return eval_fn(board, player)
         v = -np.inf
         #for a in board.get_legal_actions():
-        for action in sorted(board.get_legal_actions(), key=lambda action: action_utility(board, action, player), reverse=True)[:10]: 
+        for action in sorted(board.get_legal_actions(), key=lambda action: action_utility(board, action, player), reverse=True)[:5]: 
             print(_testing.prefix(27), f"max-val apply action {action} in max_value() with depth {depth}")
             board.apply_action(action)
-            v = max(v, min_value(board, alpha, beta, depth + 1))
+            _v = min_value(board, alpha, beta, depth + 1)
+            print(f"v = {v}, min_value = {_v}")
+            v = max(v, _v)
             board.undo_action()
             if v >= beta:
                 return v
@@ -106,10 +108,12 @@ def alpha_beta_cutoff_search(board:Board):
             return eval_fn(board, player)
         v = np.inf
         # for a in board.get_legal_actions():
-        for action in sorted(board.get_legal_actions(), key=lambda action: action_utility(board, action, player))[:10]:
+        for action in sorted(board.get_legal_actions(), key=lambda action: action_utility(board, action, player))[:5]:
             print(_testing.prefix(27), f"min-val apply action {action} in max_value() with depth {depth}")
             board.apply_action(action)
-            v = min(v, max_value(board, alpha, beta, depth + 1))
+            _v = max_value(board, alpha, beta, depth + 1)
+            print(f"v = {v}, max_value = {_v}")
+            v = min(v, _v)
             board.undo_action()
             if v <= alpha:
                 return v
