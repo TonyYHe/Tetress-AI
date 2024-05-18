@@ -6,6 +6,7 @@ import random
 from collections import namedtuple
 
 import numpy as np
+import time
 
 from .board import Board, BOARD_N, Direction, Coord, CellState
 from referee.game import PlaceAction, PlayerColor
@@ -29,6 +30,7 @@ def _print(*values):
 MAX_TURN = 150 
 TURN_THRESHOLD = MAX_TURN * 0.8 
 MIN_ACTIONS_TEST = 20
+TIME_OUT_FACTOR = 30
 
 class Entry: 
     def __init__(self, utility:float|None=None, actions:list[PlaceAction]=[]): 
@@ -86,22 +88,23 @@ def alpha_beta_cutoff_search(board:Board, transposition_table:TranspositionTable
     """Search game to determine best action; use alpha-beta pruning.
     This version cuts off search and uses an evaluation function."""
     player = board.turn_color
+    deepest = 1
 
     def cutoff_test(board:Board, depth):
         # If the board is relatively empty, simply check until a certain depth  
         if board.game_over: 
             return True
         
-        if len(board._empty_coords()) > BOARD_N * BOARD_N / 3: 
-            return depth > 2
-        if len(board._empty_coords()) > BOARD_N * BOARD_N / 4:
-            return depth > 3
+        # if len(board._empty_coords()) > BOARD_N * BOARD_N / 3: 
+        #     return depth > 2
+        # if len(board._empty_coords()) > BOARD_N * BOARD_N / 4:
+        #     return depth > 3
 
         # TODO - if the state of the game is unstable, go deeper? 
         # if not board.is_stable(): 
         #     return depth > 5
         # else: 
-        return depth > 4 
+        return depth > deepest
 
     # Functions used by alpha_beta
     def max_value(board:Board, alpha, beta, depth) -> float:
@@ -154,18 +157,24 @@ def alpha_beta_cutoff_search(board:Board, transposition_table:TranspositionTable
     #     random_index:set[int] = set([random.randint(0, len(legal_actions)-1) for _ in range(MIN_ACTIONS_TEST)])
     # print(_testing.prefix(17), random_index) 
 
-    for action in transposition_table.get_topK_actions(board): #[legal_actions[i] for i in random_index]
-        # timer = CountdownTimer(time_limit=1,tolerance=10)
-        # timer.__enter__()
+    top_actions = transposition_table.get_topK_actions(board)
+    start_time = time.time()
+    end_time = start_time + board.turn_count/TIME_OUT_FACTOR
+    while (time.time() < end_time):
+        for action in top_actions: #[legal_actions[i] for i in random_index]
+            # timer = CountdownTimer(time_limit=1,tolerance=10)
+            # timer.__enter__()
 
-        # Apply the action, evaluate alpha and beta, then undo the action 
-        board.apply_action(action)     
-        v = min_value(board, best_score, beta, 1)
-        if v > best_score:
-            best_score = v
-            best_action = action
-        board.undo_action()
-        # timer.__exit__(None, None, None)
+            # Apply the action, evaluate alpha and beta, then undo the action 
+            board.apply_action(action)     
+            v = min_value(board, best_score, beta, 1)
+            if v > best_score:
+                best_score = v
+                best_action = action
+            board.undo_action()
+            # timer.__exit__(None, None, None)
+        deepest += 1
+    print(_testing.prefix(5), f"reach deepest at {deepest} at a testing turn count {board.turn_count}")
     return best_action
 
 

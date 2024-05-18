@@ -1,0 +1,2503 @@
+Testing: I am playing as RED
+Testing: I am playing as BLUE
+Update state for RED: RED played PLACE action: 4-4, 4-5, 5-5, 5-6
+Update state for BLUE: RED played PLACE action: 4-4, 4-5, 5-5, 5-6
+Update state for RED: BLUE played PLACE action: 2-3, 2-4, 2-5, 2-6
+Update state for BLUE: BLUE played PLACE action: 2-3, 2-4, 2-5, 2-6
+Update state for RED: RED played PLACE action: 6-7, 5-9, 5-7, 5-8
+Update state for BLUE: RED played PLACE action: 6-7, 5-9, 5-7, 5-8
+Update state for RED: BLUE played PLACE action: 3-2, 1-2, 3-3, 2-2
+Update state for BLUE: BLUE played PLACE action: 3-2, 1-2, 3-3, 2-2
+Update state for RED: RED played PLACE action: 4-10, 5-10, 6-10, 3-10
+Update state for BLUE: RED played PLACE action: 4-10, 5-10, 6-10, 3-10
+Update state for RED: BLUE played PLACE action: 3-1, 4-0, 5-0, 3-0
+Update state for BLUE: BLUE played PLACE action: 3-1, 4-0, 5-0, 3-0
+Update state for RED: RED played PLACE action: 7-9, 8-9, 6-9, 7-8
+Update state for BLUE: RED played PLACE action: 7-9, 8-9, 6-9, 7-8
+Update state for RED: BLUE played PLACE action: 5-3, 5-4, 5-1, 5-2
+Update state for BLUE: BLUE played PLACE action: 5-3, 5-4, 5-1, 5-2
+Update state for RED: RED played PLACE action: 1-0, 2-10, 1-10, 0-0
+Update state for BLUE: RED played PLACE action: 1-0, 2-10, 1-10, 0-0
+Update state for RED: BLUE played PLACE action: 1-8, 1-9, 2-7, 2-8
+Update state for BLUE: BLUE played PLACE action: 1-8, 1-9, 2-7, 2-8
+Update state for RED: RED played PLACE action: 6-1, 7-0, 8-0, 6-0
+Update state for BLUE: RED played PLACE action: 6-1, 7-0, 8-0, 6-0
+Update state for RED: BLUE played PLACE action: 0-1, 1-1, 0-3, 0-2
+Update state for BLUE: BLUE played PLACE action: 0-1, 1-1, 0-3, 0-2
+Update state for RED: RED played PLACE action: 5-0, 5-1, 4-2, 5-2
+Update state for BLUE: RED played PLACE action: 5-0, 5-1, 4-2, 5-2
+Update state for RED: BLUE played PLACE action: 10-4, 10-1, 10-2, 10-3
+Update state for BLUE: BLUE played PLACE action: 10-4, 10-1, 10-2, 10-3
+Update state for RED: RED played PLACE action: 10-9, 10-10, 0-9, 0-10
+Update state for BLUE: RED played PLACE action: 10-9, 10-10, 0-9, 0-10
+Update state for RED: BLUE played PLACE action: 1-6, 1-3, 1-4, 1-5
+Update state for BLUE: BLUE played PLACE action: 1-6, 1-3, 1-4, 1-5
+Start the search
+----------------- number of legal actions = 321
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=101.9
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=62.3
+--------------------------- min-val apply action PLACE(6-4, 7-4, 8-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=-28.1
+--------------------------- min-val apply action PLACE(6-3, 7-3, 8-3, 9-3) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=-0.1
+--------------------------- min-val apply action PLACE(8-5, 8-4, 7-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=-16.1
+--------------------------- min-val apply action PLACE(7-5, 7-4, 8-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=-27.1
+--------------------------- min-val apply action PLACE(8-10, 9-10, 9-0, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=41.9
+--------------------------- min-val apply action PLACE(9-1, 9-2, 8-2, 7-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=15.9
+--------------------------- min-val apply action PLACE(9-4, 8-4, 8-3, 7-3) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=9.9
+--------------------------- min-val apply action PLACE(9-2, 9-1, 8-1, 7-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=32.9
+--------------------------- min-val apply action PLACE(7-2, 8-2, 8-1, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=10.9
+--------------------------- min-val apply action PLACE(8-3, 8-4, 9-4, 7-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=-6.1
+--------------------------- min-val apply action PLACE(9-4, 9-5, 8-5, 7-5) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=-15.1
+--------------------------- min-val apply action PLACE(9-5, 9-4, 8-4, 7-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=-11.1
+--------------------------- min-val apply action PLACE(8-2, 8-3, 9-3, 7-3) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=12.9
+--------------------------- min-val apply action PLACE(7-3, 7-4, 8-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=-12.1
+--------------------------- min-val apply action PLACE(10-0, 9-0, 9-10, 8-10) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=45.9
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=146.3
+--------------------------- min-val apply action PLACE(6-4, 7-4, 8-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=37.9
+--------------------------- min-val apply action PLACE(6-3, 7-3, 8-3, 9-3) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=76.9
+--------------------------- min-val apply action PLACE(8-5, 8-4, 7-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=47.9
+--------------------------- min-val apply action PLACE(7-5, 7-4, 8-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=33.9
+--------------------------- min-val apply action PLACE(8-10, 9-10, 9-0, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=138.9
+--------------------------- min-val apply action PLACE(9-1, 9-2, 8-2, 7-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=99.9
+--------------------------- min-val apply action PLACE(9-4, 8-4, 8-3, 7-3) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=80.9
+--------------------------- min-val apply action PLACE(9-2, 9-1, 8-1, 7-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=116.9
+--------------------------- min-val apply action PLACE(7-2, 8-2, 8-1, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=95.9
+--------------------------- min-val apply action PLACE(8-3, 8-4, 9-4, 7-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=62.9
+--------------------------- min-val apply action PLACE(9-4, 9-5, 8-5, 7-5) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=39.9
+--------------------------- min-val apply action PLACE(9-5, 9-4, 8-4, 7-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=52.9
+--------------------------- min-val apply action PLACE(8-2, 8-3, 9-3, 7-3) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=89.9
+--------------------------- min-val apply action PLACE(7-3, 7-4, 8-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=56.9
+--------------------------- min-val apply action PLACE(10-0, 9-0, 9-10, 8-10) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=142.9
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=170.3
+--------------------------- min-val apply action PLACE(6-4, 7-4, 8-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=22.9
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=62.3
+--------------------------- min-val apply action PLACE(6-4, 7-4, 8-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=-6.1
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=185.3
+--------------------------- min-val apply action PLACE(6-4, 7-4, 8-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=23.9
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=139.3
+--------------------------- min-val apply action PLACE(6-4, 7-4, 8-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=38.9
+--------------------------- min-val apply action PLACE(6-3, 7-3, 8-3, 9-3) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=70.9
+--------------------------- min-val apply action PLACE(8-5, 8-4, 7-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=52.9
+--------------------------- min-val apply action PLACE(7-5, 7-4, 8-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=39.9
+--------------------------- min-val apply action PLACE(8-10, 9-10, 9-0, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=127.9
+--------------------------- min-val apply action PLACE(9-1, 9-2, 8-2, 7-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=91.9
+--------------------------- min-val apply action PLACE(9-4, 8-4, 8-3, 7-3) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=79.9
+--------------------------- min-val apply action PLACE(9-2, 9-1, 8-1, 7-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=108.9
+--------------------------- min-val apply action PLACE(7-2, 8-2, 8-1, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=87.9
+--------------------------- min-val apply action PLACE(8-3, 8-4, 9-4, 7-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=63.9
+--------------------------- min-val apply action PLACE(9-4, 9-5, 8-5, 7-5) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=46.9
+--------------------------- min-val apply action PLACE(9-5, 9-4, 8-4, 7-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=53.9
+--------------------------- min-val apply action PLACE(8-2, 8-3, 9-3, 7-3) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=83.9
+--------------------------- min-val apply action PLACE(7-3, 7-4, 8-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=57.9
+--------------------------- min-val apply action PLACE(10-0, 9-0, 9-10, 8-10) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=131.9
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=152.3
+--------------------------- min-val apply action PLACE(6-4, 7-4, 8-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=44.9
+--------------------------- min-val apply action PLACE(6-3, 7-3, 8-3, 9-3) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=80.9
+--------------------------- min-val apply action PLACE(8-5, 8-4, 7-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=60.9
+--------------------------- min-val apply action PLACE(7-5, 7-4, 8-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=46.9
+--------------------------- min-val apply action PLACE(8-10, 9-10, 9-0, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=137.9
+--------------------------- min-val apply action PLACE(9-1, 9-2, 8-2, 7-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=104.9
+--------------------------- min-val apply action PLACE(9-4, 8-4, 8-3, 7-3) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=88.9
+--------------------------- min-val apply action PLACE(9-2, 9-1, 8-1, 7-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=121.9
+--------------------------- min-val apply action PLACE(7-2, 8-2, 8-1, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=100.9
+--------------------------- min-val apply action PLACE(8-3, 8-4, 9-4, 7-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=70.9
+--------------------------- min-val apply action PLACE(9-4, 9-5, 8-5, 7-5) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=53.9
+--------------------------- min-val apply action PLACE(9-5, 9-4, 8-4, 7-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=60.9
+--------------------------- min-val apply action PLACE(8-2, 8-3, 9-3, 7-3) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=93.9
+--------------------------- min-val apply action PLACE(7-3, 7-4, 8-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=64.9
+--------------------------- min-val apply action PLACE(10-0, 9-0, 9-10, 8-10) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=141.9
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=155.3
+--------------------------- min-val apply action PLACE(6-4, 7-4, 8-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=56.9
+--------------------------- min-val apply action PLACE(6-3, 7-3, 8-3, 9-3) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=84.9
+--------------------------- min-val apply action PLACE(8-5, 8-4, 7-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=70.9
+--------------------------- min-val apply action PLACE(7-5, 7-4, 8-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=62.9
+--------------------------- min-val apply action PLACE(8-10, 9-10, 9-0, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=135.9
+--------------------------- min-val apply action PLACE(9-1, 9-2, 8-2, 7-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=107.9
+--------------------------- min-val apply action PLACE(9-4, 8-4, 8-3, 7-3) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=93.9
+--------------------------- min-val apply action PLACE(9-2, 9-1, 8-1, 7-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=124.9
+--------------------------- min-val apply action PLACE(7-2, 8-2, 8-1, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=103.9
+--------------------------- min-val apply action PLACE(8-3, 8-4, 9-4, 7-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=80.9
+--------------------------- min-val apply action PLACE(9-4, 9-5, 8-5, 7-5) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=69.9
+--------------------------- min-val apply action PLACE(9-5, 9-4, 8-4, 7-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=70.9
+--------------------------- min-val apply action PLACE(8-2, 8-3, 9-3, 7-3) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=97.9
+--------------------------- min-val apply action PLACE(7-3, 7-4, 8-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=74.9
+--------------------------- min-val apply action PLACE(10-0, 9-0, 9-10, 8-10) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=139.9
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=152.3
+--------------------------- min-val apply action PLACE(6-4, 7-4, 8-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=49.9
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=155.3
+--------------------------- min-val apply action PLACE(6-4, 7-4, 8-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=46.9
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=132.3
+--------------------------- min-val apply action PLACE(6-4, 7-4, 8-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=29.9
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=142.3
+--------------------------- min-val apply action PLACE(6-4, 7-4, 8-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=54.9
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=118.3
+--------------------------- min-val apply action PLACE(6-4, 7-4, 8-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=27.9
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=168.3
+--------------------------- min-val apply action PLACE(6-4, 7-4, 8-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=58.9
+--------------------------- min-val apply action PLACE(6-3, 7-3, 8-3, 9-3) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=98.9
+--------------------------- min-val apply action PLACE(8-5, 8-4, 7-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=63.9
+--------------------------- min-val apply action PLACE(7-5, 7-4, 8-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=52.9
+---------- pruned 11 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=169.3
+--------------------------- min-val apply action PLACE(6-4, 7-4, 8-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=22.9
+---------- pruned 14 nodes at depth 1, exceed the minimum
+----- reach deepest at 2 at a testing turn count 16
+Update state for RED: RED played PLACE action: 9-6, 7-6, 7-7, 8-6
+Update state for BLUE: RED played PLACE action: 9-6, 7-6, 7-7, 8-6
+Update state for RED: BLUE played PLACE action: 4-6, 5-6, 3-5, 3-6
+Update state for BLUE: BLUE played PLACE action: 4-6, 5-6, 3-5, 3-6
+Start the search
+----------------- number of legal actions = 287
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=84.9
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=82.3
+--------------------------- min-val apply action PLACE(6-4, 7-4, 8-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=19.9
+--------------------------- min-val apply action PLACE(6-3, 7-3, 8-3, 9-3) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=31.9
+--------------------------- min-val apply action PLACE(8-5, 8-4, 7-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=20.9
+--------------------------- min-val apply action PLACE(7-5, 7-4, 8-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=20.9
+--------------------------- min-val apply action PLACE(8-10, 9-10, 9-0, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=62.9
+--------------------------- min-val apply action PLACE(9-1, 9-2, 8-2, 7-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=34.9
+--------------------------- min-val apply action PLACE(9-4, 8-4, 8-3, 7-3) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=31.9
+--------------------------- min-val apply action PLACE(9-2, 9-1, 8-1, 7-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=51.9
+--------------------------- min-val apply action PLACE(5-5, 6-5, 7-5, 8-5) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=4.9
+--------------------------- min-val apply action PLACE(7-2, 8-2, 8-1, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=30.9
+--------------------------- min-val apply action PLACE(8-3, 8-4, 9-4, 7-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=30.9
+--------------------------- min-val apply action PLACE(9-4, 9-5, 8-5, 7-5) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=24.9
+--------------------------- min-val apply action PLACE(6-6, 6-5, 7-5, 8-5) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=6.9
+--------------------------- min-val apply action PLACE(9-5, 9-4, 8-4, 7-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=20.9
+--------------------------- min-val apply action PLACE(8-2, 8-3, 9-3, 7-3) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=33.9
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=50.3
+--------------------------- min-val apply action PLACE(8-10, 9-10, 9-0, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=30.9
+--------------------------- min-val apply action PLACE(9-1, 9-2, 8-2, 7-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=33.9
+--------------------------- min-val apply action PLACE(9-2, 9-1, 8-1, 7-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=35.9
+--------------------------- min-val apply action PLACE(7-2, 8-2, 8-1, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=33.9
+--------------------------- min-val apply action PLACE(10-0, 9-0, 9-10, 8-10) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=34.9
+--------------------------- min-val apply action PLACE(7-1, 7-2, 8-2, 9-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=36.9
+--------------------------- min-val apply action PLACE(9-0, 9-1, 8-1, 7-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=29.9
+--------------------------- min-val apply action PLACE(8-1, 9-1, 9-0, 9-10) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=23.9
+--------------------------- min-val apply action PLACE(7-2, 7-1, 8-1, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=33.9
+--------------------------- min-val apply action PLACE(9-3, 8-3, 8-2, 7-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=36.9
+--------------------------- min-val apply action PLACE(8-1, 8-2, 9-2, 7-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=36.9
+--------------------------- min-val apply action PLACE(9-2, 8-2, 8-1, 7-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=37.9
+--------------------------- min-val apply action PLACE(8-2, 8-1, 7-1, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=34.9
+--------------------------- min-val apply action PLACE(8-3, 8-2, 7-2, 9-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=36.9
+--------------------------- min-val apply action PLACE(9-3, 9-2, 8-2, 7-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=36.9
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=123.3
+--------------------------- min-val apply action PLACE(8-10, 9-10, 9-0, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=98.9
+--------------------------- min-val apply action PLACE(9-1, 9-2, 8-2, 7-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=50.9
+--------------------------- min-val apply action PLACE(9-2, 9-1, 8-1, 7-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=77.9
+--------------------------- min-val apply action PLACE(7-2, 8-2, 8-1, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=50.9
+--------------------------- min-val apply action PLACE(10-0, 9-0, 9-10, 8-10) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=107.9
+--------------------------- min-val apply action PLACE(7-3, 8-3, 8-2, 9-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=39.9
+--------------------------- min-val apply action PLACE(7-1, 7-2, 8-2, 9-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=53.9
+--------------------------- min-val apply action PLACE(9-0, 9-1, 8-1, 7-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=72.9
+--------------------------- min-val apply action PLACE(8-1, 9-1, 9-0, 9-10) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=79.9
+--------------------------- min-val apply action PLACE(7-2, 7-1, 8-1, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=52.9
+--------------------------- min-val apply action PLACE(8-1, 8-2, 9-2, 7-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=53.9
+--------------------------- min-val apply action PLACE(9-2, 8-2, 8-1, 7-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=72.9
+--------------------------- min-val apply action PLACE(7-3, 7-2, 8-2, 9-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=39.9
+--------------------------- min-val apply action PLACE(8-2, 8-1, 7-1, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=69.9
+--------------------------- min-val apply action PLACE(8-3, 8-2, 7-2, 9-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=48.9
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=89.3
+--------------------------- min-val apply action PLACE(8-10, 9-10, 9-0, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=73.9
+--------------------------- min-val apply action PLACE(5-5, 6-5, 7-5, 8-5) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=43.9
+--------------------------- min-val apply action PLACE(9-4, 9-5, 8-5, 7-5) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=53.9
+--------------------------- min-val apply action PLACE(6-6, 6-5, 7-5, 8-5) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=45.9
+--------------------------- min-val apply action PLACE(10-0, 9-0, 9-10, 8-10) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=73.9
+--------------------------- min-val apply action PLACE(7-5, 8-5, 9-5, 10-5) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=49.9
+--------------------------- min-val apply action PLACE(8-5, 9-5, 9-4, 9-3) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=73.9
+--------------------------- min-val apply action PLACE(5-5, 6-5, 6-4, 7-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=36.9
+---------- pruned 7 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=70.3
+--------------------------- min-val apply action PLACE(6-4, 7-4, 8-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=26.9
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=72.3
+--------------------------- min-val apply action PLACE(6-4, 7-4, 8-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=36.9
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=64.3
+--------------------------- min-val apply action PLACE(6-4, 7-4, 8-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=36.9
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=138.3
+--------------------------- min-val apply action PLACE(8-10, 9-10, 9-0, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=113.9
+--------------------------- min-val apply action PLACE(9-1, 9-2, 8-2, 7-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=59.9
+--------------------------- min-val apply action PLACE(9-2, 9-1, 8-1, 7-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=91.9
+--------------------------- min-val apply action PLACE(5-5, 6-5, 7-5, 8-5) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=64.9
+--------------------------- min-val apply action PLACE(7-2, 8-2, 8-1, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=59.9
+--------------------------- min-val apply action PLACE(6-6, 6-5, 7-5, 8-5) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=66.9
+--------------------------- min-val apply action PLACE(10-0, 9-0, 9-10, 8-10) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=122.9
+--------------------------- min-val apply action PLACE(7-3, 8-3, 8-2, 9-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=43.9
+--------------------------- min-val apply action PLACE(7-1, 7-2, 8-2, 9-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=62.9
+--------------------------- min-val apply action PLACE(9-0, 9-1, 8-1, 7-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=86.9
+--------------------------- min-val apply action PLACE(8-1, 9-1, 9-0, 9-10) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=93.9
+--------------------------- min-val apply action PLACE(7-2, 7-1, 8-1, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=63.9
+--------------------------- min-val apply action PLACE(8-1, 8-2, 9-2, 7-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=62.9
+--------------------------- min-val apply action PLACE(9-2, 8-2, 8-1, 7-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=83.9
+--------------------------- min-val apply action PLACE(7-3, 7-2, 8-2, 9-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=44.9
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=100.3
+--------------------------- min-val apply action PLACE(8-10, 9-10, 9-0, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=79.9
+--------------------------- min-val apply action PLACE(9-1, 9-2, 8-2, 7-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=52.9
+--------------------------- min-val apply action PLACE(9-2, 9-1, 8-1, 7-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=72.9
+--------------------------- min-val apply action PLACE(5-5, 6-5, 7-5, 8-5) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=55.9
+--------------------------- min-val apply action PLACE(7-2, 8-2, 8-1, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=52.9
+--------------------------- min-val apply action PLACE(6-6, 6-5, 7-5, 8-5) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=57.9
+--------------------------- min-val apply action PLACE(10-0, 9-0, 9-10, 8-10) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=84.9
+--------------------------- min-val apply action PLACE(7-1, 7-2, 8-2, 9-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=55.9
+--------------------------- min-val apply action PLACE(9-0, 9-1, 8-1, 7-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=67.9
+--------------------------- min-val apply action PLACE(8-1, 9-1, 9-0, 9-10) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=69.9
+--------------------------- min-val apply action PLACE(7-2, 7-1, 8-1, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=52.9
+--------------------------- min-val apply action PLACE(8-1, 8-2, 9-2, 7-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=55.9
+--------------------------- min-val apply action PLACE(9-2, 8-2, 8-1, 7-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=75.9
+--------------------------- min-val apply action PLACE(7-3, 7-2, 8-2, 9-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=41.9
+---------- pruned 1 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=63.3
+--------------------------- min-val apply action PLACE(6-4, 7-4, 8-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=36.9
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=51.8
+--------------------------- min-val apply action PLACE(6-4, 7-4, 8-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=-10.6
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=53.3
+--------------------------- min-val apply action PLACE(8-10, 9-10, 9-0, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=33.9
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=51.3
+--------------------------- min-val apply action PLACE(8-10, 9-10, 9-0, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=34.9
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=96.3
+--------------------------- min-val apply action PLACE(8-10, 9-10, 9-0, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=75.9
+--------------------------- min-val apply action PLACE(9-1, 9-2, 8-2, 7-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=49.9
+--------------------------- min-val apply action PLACE(9-2, 9-1, 8-1, 7-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=68.9
+--------------------------- min-val apply action PLACE(7-2, 8-2, 8-1, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=49.9
+--------------------------- min-val apply action PLACE(10-0, 9-0, 9-10, 8-10) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=80.9
+--------------------------- min-val apply action PLACE(7-1, 7-2, 8-2, 9-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=52.9
+--------------------------- min-val apply action PLACE(9-0, 9-1, 8-1, 7-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=63.9
+--------------------------- min-val apply action PLACE(8-1, 9-1, 9-0, 9-10) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=65.9
+--------------------------- min-val apply action PLACE(7-2, 7-1, 8-1, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=49.9
+--------------------------- min-val apply action PLACE(8-1, 8-2, 9-2, 7-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=52.9
+--------------------------- min-val apply action PLACE(9-2, 8-2, 8-1, 7-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=71.9
+--------------------------- min-val apply action PLACE(7-3, 7-2, 8-2, 9-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=40.9
+---------- pruned 3 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=62.3
+--------------------------- min-val apply action PLACE(8-5, 8-4, 7-4, 9-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=32.9
+---------- pruned 14 nodes at depth 1, exceed the minimum
+----- reach deepest at 2 at a testing turn count 18
+Update state for RED: RED played PLACE action: 9-5, 10-5, 9-3, 9-4
+Update state for BLUE: RED played PLACE action: 9-5, 10-5, 9-3, 9-4
+Update state for RED: BLUE played PLACE action: 4-9, 2-9, 5-9, 3-9
+Update state for BLUE: BLUE played PLACE action: 4-9, 2-9, 5-9, 3-9
+Start the search
+----------------- number of legal actions = 230
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=125.9
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=148.2
+--------------------------- min-val apply action PLACE(9-1, 9-2, 8-2, 7-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=72.8
+--------------------------- min-val apply action PLACE(9-2, 9-1, 8-1, 7-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=104.8
+--------------------------- min-val apply action PLACE(5-5, 6-5, 7-5, 8-5) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=74.8
+--------------------------- min-val apply action PLACE(7-2, 8-2, 8-1, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=72.8
+--------------------------- min-val apply action PLACE(6-6, 6-5, 7-5, 8-5) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=76.8
+--------------------------- min-val apply action PLACE(7-3, 8-3, 8-2, 9-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=53.8
+--------------------------- min-val apply action PLACE(7-1, 7-2, 8-2, 9-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=72.8
+--------------------------- min-val apply action PLACE(9-0, 9-1, 8-1, 7-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=104.8
+--------------------------- min-val apply action PLACE(7-2, 7-1, 8-1, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=76.8
+--------------------------- min-val apply action PLACE(8-1, 8-2, 9-2, 7-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=72.8
+--------------------------- min-val apply action PLACE(9-2, 8-2, 8-1, 7-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=93.8
+--------------------------- min-val apply action PLACE(7-3, 7-2, 8-2, 9-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=54.8
+--------------------------- min-val apply action PLACE(8-2, 8-1, 7-1, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=93.8
+--------------------------- min-val apply action PLACE(8-3, 8-2, 7-2, 9-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=64.8
+--------------------------- min-val apply action PLACE(5-5, 6-5, 6-4, 7-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=58.8
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=147.2
+--------------------------- min-val apply action PLACE(9-1, 9-2, 8-2, 7-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=71.8
+--------------------------- min-val apply action PLACE(9-2, 9-1, 8-1, 7-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=103.8
+--------------------------- min-val apply action PLACE(5-5, 6-5, 7-5, 8-5) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=73.8
+--------------------------- min-val apply action PLACE(7-2, 8-2, 8-1, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=71.8
+--------------------------- min-val apply action PLACE(6-6, 6-5, 7-5, 8-5) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=75.8
+--------------------------- min-val apply action PLACE(7-3, 8-3, 8-2, 9-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=52.8
+---------- pruned 9 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=45.3
+--------------------------- min-val apply action PLACE(8-10, 9-10, 9-0, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=23.9
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=172.2
+--------------------------- min-val apply action PLACE(9-1, 9-2, 8-2, 7-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=96.8
+--------------------------- min-val apply action PLACE(9-2, 9-1, 8-1, 7-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=128.8
+--------------------------- min-val apply action PLACE(5-5, 6-5, 7-5, 8-5) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=98.8
+--------------------------- min-val apply action PLACE(7-2, 8-2, 8-1, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=96.8
+--------------------------- min-val apply action PLACE(6-6, 6-5, 7-5, 8-5) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=100.8
+--------------------------- min-val apply action PLACE(7-3, 8-3, 8-2, 9-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=77.8
+--------------------------- min-val apply action PLACE(7-1, 7-2, 8-2, 9-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=96.8
+--------------------------- min-val apply action PLACE(7-2, 7-1, 8-1, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=100.8
+--------------------------- min-val apply action PLACE(8-1, 8-2, 9-2, 7-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=96.8
+--------------------------- min-val apply action PLACE(9-2, 8-2, 8-1, 7-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=117.8
+--------------------------- min-val apply action PLACE(7-3, 7-2, 8-2, 9-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=78.8
+--------------------------- min-val apply action PLACE(8-2, 8-1, 7-1, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=117.8
+--------------------------- min-val apply action PLACE(8-3, 8-2, 7-2, 9-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=88.8
+--------------------------- min-val apply action PLACE(5-5, 6-5, 6-4, 7-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=82.8
+--------------------------- min-val apply action PLACE(6-4, 6-5, 7-5, 5-5) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=93.8
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=80.3
+--------------------------- min-val apply action PLACE(8-10, 9-10, 9-0, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=64.9
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=86.3
+--------------------------- min-val apply action PLACE(8-10, 9-10, 9-0, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=62.9
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=100.3
+--------------------------- min-val apply action PLACE(8-10, 9-10, 9-0, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=82.9
+--------------------------- min-val apply action PLACE(9-1, 9-2, 8-2, 7-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=21.9
+---------- pruned 13 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=99.3
+--------------------------- min-val apply action PLACE(8-10, 9-10, 9-0, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=74.9
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=69.3
+--------------------------- min-val apply action PLACE(8-10, 9-10, 9-0, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=44.9
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=75.3
+--------------------------- min-val apply action PLACE(8-10, 9-10, 9-0, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=50.9
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=103.3
+--------------------------- min-val apply action PLACE(9-0, 9-1, 8-1, 7-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=52.9
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=62.3
+--------------------------- min-val apply action PLACE(8-10, 9-10, 9-0, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=45.9
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=130.3
+--------------------------- min-val apply action PLACE(8-10, 9-10, 9-0, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=105.9
+--------------------------- min-val apply action PLACE(9-1, 9-2, 8-2, 7-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=51.9
+---------- pruned 13 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=109.3
+--------------------------- min-val apply action PLACE(9-0, 9-1, 8-1, 7-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=57.9
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=56.3
+--------------------------- min-val apply action PLACE(8-10, 9-10, 9-0, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=36.9
+---------- pruned 14 nodes at depth 1, exceed the minimum
+----- reach deepest at 2 at a testing turn count 20
+Update state for RED: RED played PLACE action: 9-10, 9-0, 8-10, 9-9
+Update state for BLUE: RED played PLACE action: 9-10, 9-0, 8-10, 9-9
+Update state for RED: BLUE played PLACE action: 0-7, 10-7, 10-8, 0-6
+Update state for BLUE: BLUE played PLACE action: 0-7, 10-7, 10-8, 0-6
+Start the search
+----------------- number of legal actions = 244
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=128.8
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=112.2
+--------------------------- min-val apply action PLACE(9-1, 9-2, 8-2, 7-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=36.8
+--------------------------- min-val apply action PLACE(9-2, 9-1, 8-1, 7-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=68.8
+--------------------------- min-val apply action PLACE(5-5, 6-5, 7-5, 8-5) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=38.8
+--------------------------- min-val apply action PLACE(7-2, 8-2, 8-1, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=36.8
+--------------------------- min-val apply action PLACE(6-6, 6-5, 7-5, 8-5) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=40.8
+--------------------------- min-val apply action PLACE(7-3, 8-3, 8-2, 9-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=17.8
+--------------------------- min-val apply action PLACE(7-1, 7-2, 8-2, 9-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=36.8
+--------------------------- min-val apply action PLACE(7-2, 7-1, 8-1, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=40.8
+--------------------------- min-val apply action PLACE(9-2, 8-2, 8-1, 7-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=57.8
+--------------------------- min-val apply action PLACE(8-1, 8-2, 9-2, 7-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=36.8
+--------------------------- min-val apply action PLACE(7-3, 7-2, 8-2, 9-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=18.8
+--------------------------- min-val apply action PLACE(8-2, 8-1, 7-1, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=57.8
+--------------------------- min-val apply action PLACE(8-3, 8-2, 7-2, 9-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=28.8
+--------------------------- min-val apply action PLACE(5-5, 6-5, 6-4, 7-4) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=22.8
+--------------------------- min-val apply action PLACE(6-4, 6-5, 7-5, 5-5) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=33.8
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=122.2
+--------------------------- min-val apply action PLACE(7-9, 8-9, 8-8, 9-8) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=98.8
+--------------------------- min-val apply action PLACE(9-8, 9-9, 8-9, 7-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=98.8
+--------------------------- min-val apply action PLACE(7-9, 8-9, 9-9, 10-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=98.8
+--------------------------- min-val apply action PLACE(8-8, 9-8, 9-7, 9-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=111.8
+--------------------------- min-val apply action PLACE(8-8, 8-9, 9-8, 9-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=104.8
+--------------------------- min-val apply action PLACE(7-3, 8-3, 8-2, 9-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=27.8
+--------------------------- min-val apply action PLACE(7-2, 8-2, 8-1, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=46.8
+--------------------------- min-val apply action PLACE(8-8, 8-9, 9-9, 10-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=104.8
+--------------------------- min-val apply action PLACE(7-2, 7-1, 8-1, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=50.8
+--------------------------- min-val apply action PLACE(9-9, 9-8, 8-8, 8-7) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=111.8
+--------------------------- min-val apply action PLACE(9-8, 9-9, 10-9, 8-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=104.8
+--------------------------- min-val apply action PLACE(6-6, 6-5, 7-5, 8-5) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=50.8
+--------------------------- min-val apply action PLACE(9-7, 8-7, 8-8, 8-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=104.8
+--------------------------- min-val apply action PLACE(9-2, 8-2, 8-1, 7-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=67.8
+--------------------------- min-val apply action PLACE(8-7, 9-7, 9-8, 9-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=111.8
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=122.2
+--------------------------- min-val apply action PLACE(7-9, 8-9, 8-8, 9-8) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=98.8
+--------------------------- min-val apply action PLACE(9-8, 9-9, 8-9, 7-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=98.8
+--------------------------- min-val apply action PLACE(7-9, 8-9, 9-9, 10-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=98.8
+--------------------------- min-val apply action PLACE(8-8, 9-8, 9-7, 9-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=111.8
+--------------------------- min-val apply action PLACE(8-8, 8-9, 9-8, 9-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=104.8
+--------------------------- min-val apply action PLACE(7-3, 8-3, 8-2, 9-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=27.8
+---------- pruned 9 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=104.2
+--------------------------- min-val apply action PLACE(9-1, 9-2, 8-2, 7-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=28.8
+--------------------------- min-val apply action PLACE(9-2, 9-1, 8-1, 7-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=60.8
+--------------------------- min-val apply action PLACE(5-5, 6-5, 7-5, 8-5) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=30.8
+--------------------------- min-val apply action PLACE(7-2, 8-2, 8-1, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=28.8
+--------------------------- min-val apply action PLACE(6-6, 6-5, 7-5, 8-5) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=32.8
+--------------------------- min-val apply action PLACE(8-7, 9-7, 9-8, 9-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=103.8
+--------------------------- min-val apply action PLACE(7-3, 8-3, 8-2, 9-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=9.8
+---------- pruned 8 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=104.2
+--------------------------- min-val apply action PLACE(7-9, 8-9, 9-9, 10-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=95.8
+--------------------------- min-val apply action PLACE(7-9, 8-9, 8-8, 9-8) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=95.8
+--------------------------- min-val apply action PLACE(9-8, 9-9, 8-9, 7-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=95.8
+--------------------------- min-val apply action PLACE(9-1, 9-2, 8-2, 7-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=28.8
+--------------------------- min-val apply action PLACE(9-2, 9-1, 8-1, 7-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=60.8
+--------------------------- min-val apply action PLACE(5-5, 6-5, 7-5, 8-5) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=30.8
+--------------------------- min-val apply action PLACE(9-7, 9-8, 8-8, 8-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=95.8
+--------------------------- min-val apply action PLACE(8-8, 8-9, 9-8, 9-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=95.8
+--------------------------- min-val apply action PLACE(7-2, 8-2, 8-1, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=28.8
+--------------------------- min-val apply action PLACE(9-8, 9-9, 10-9, 8-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=95.8
+--------------------------- min-val apply action PLACE(6-6, 6-5, 7-5, 8-5) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=32.8
+--------------------------- min-val apply action PLACE(8-7, 9-7, 9-8, 9-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=95.8
+--------------------------- min-val apply action PLACE(8-9, 9-9, 10-9, 0-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=95.8
+--------------------------- min-val apply action PLACE(7-3, 8-3, 8-2, 9-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=9.8
+---------- pruned 1 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=120.2
+--------------------------- min-val apply action PLACE(7-9, 8-9, 9-9, 10-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=98.8
+--------------------------- min-val apply action PLACE(7-9, 8-9, 8-8, 9-8) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=98.8
+--------------------------- min-val apply action PLACE(9-8, 9-9, 8-9, 7-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=98.8
+--------------------------- min-val apply action PLACE(9-1, 9-2, 8-2, 7-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=44.8
+--------------------------- min-val apply action PLACE(9-2, 9-1, 8-1, 7-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=76.8
+--------------------------- min-val apply action PLACE(5-5, 6-5, 7-5, 8-5) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=46.8
+--------------------------- min-val apply action PLACE(9-7, 9-8, 8-8, 8-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=103.8
+--------------------------- min-val apply action PLACE(8-8, 8-9, 9-8, 9-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=103.8
+--------------------------- min-val apply action PLACE(7-2, 8-2, 8-1, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=44.8
+--------------------------- min-val apply action PLACE(9-8, 9-9, 10-9, 8-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=103.8
+--------------------------- min-val apply action PLACE(6-6, 6-5, 7-5, 8-5) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=48.8
+--------------------------- min-val apply action PLACE(8-7, 9-7, 9-8, 9-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=109.8
+--------------------------- min-val apply action PLACE(8-9, 9-9, 10-9, 0-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=103.8
+--------------------------- min-val apply action PLACE(7-3, 8-3, 8-2, 9-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=25.8
+---------- pruned 1 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=106.2
+--------------------------- min-val apply action PLACE(7-9, 8-9, 8-8, 9-8) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=95.8
+--------------------------- min-val apply action PLACE(9-8, 9-9, 8-9, 7-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=95.8
+--------------------------- min-val apply action PLACE(7-9, 8-9, 9-9, 10-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=95.8
+--------------------------- min-val apply action PLACE(8-8, 9-8, 9-7, 9-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=96.8
+--------------------------- min-val apply action PLACE(8-8, 8-9, 9-8, 9-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=95.8
+--------------------------- min-val apply action PLACE(7-3, 8-3, 8-2, 9-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=11.8
+---------- pruned 9 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=101.2
+--------------------------- min-val apply action PLACE(7-9, 8-9, 9-9, 10-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=95.8
+--------------------------- min-val apply action PLACE(7-9, 8-9, 8-8, 9-8) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=95.8
+--------------------------- min-val apply action PLACE(9-8, 9-9, 8-9, 7-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=95.8
+--------------------------- min-val apply action PLACE(9-1, 9-2, 8-2, 7-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=25.8
+---------- pruned 11 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=101.2
+--------------------------- min-val apply action PLACE(7-9, 8-9, 9-9, 10-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=95.8
+--------------------------- min-val apply action PLACE(7-9, 8-9, 8-8, 9-8) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=95.8
+--------------------------- min-val apply action PLACE(9-8, 9-9, 8-9, 7-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=95.8
+--------------------------- min-val apply action PLACE(9-1, 9-2, 8-2, 7-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=25.8
+---------- pruned 11 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=107.2
+--------------------------- min-val apply action PLACE(7-9, 8-9, 8-8, 9-8) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=95.8
+--------------------------- min-val apply action PLACE(9-8, 9-9, 8-9, 7-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=95.8
+--------------------------- min-val apply action PLACE(7-9, 8-9, 9-9, 10-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=95.8
+--------------------------- min-val apply action PLACE(8-8, 9-8, 9-7, 9-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=97.8
+--------------------------- min-val apply action PLACE(8-8, 8-9, 9-8, 9-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=95.8
+--------------------------- min-val apply action PLACE(7-3, 8-3, 8-2, 9-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=12.8
+---------- pruned 9 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=129.2
+--------------------------- min-val apply action PLACE(7-9, 8-9, 8-8, 9-8) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=101.8
+--------------------------- min-val apply action PLACE(9-8, 9-9, 8-9, 7-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=101.8
+--------------------------- min-val apply action PLACE(9-1, 9-2, 8-2, 7-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=53.8
+--------------------------- min-val apply action PLACE(9-2, 9-1, 8-1, 7-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=85.8
+--------------------------- min-val apply action PLACE(5-5, 6-5, 7-5, 8-5) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=55.8
+--------------------------- min-val apply action PLACE(9-7, 9-8, 8-8, 8-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=111.8
+--------------------------- min-val apply action PLACE(8-8, 8-9, 9-8, 9-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=111.8
+--------------------------- min-val apply action PLACE(7-2, 8-2, 8-1, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=53.8
+--------------------------- min-val apply action PLACE(6-6, 6-5, 7-5, 8-5) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=57.8
+--------------------------- min-val apply action PLACE(8-7, 9-7, 9-8, 9-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=118.8
+--------------------------- min-val apply action PLACE(7-3, 8-3, 8-2, 9-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=34.8
+--------------------------- min-val apply action PLACE(9-9, 9-8, 8-8, 8-7) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=118.8
+--------------------------- min-val apply action PLACE(9-7, 8-7, 8-8, 8-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=111.8
+--------------------------- min-val apply action PLACE(8-9, 9-9, 9-8, 9-7) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=111.8
+--------------------------- min-val apply action PLACE(7-1, 7-2, 8-2, 9-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=53.8
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=101.2
+--------------------------- min-val apply action PLACE(7-9, 8-9, 9-9, 10-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=95.8
+--------------------------- min-val apply action PLACE(7-9, 8-9, 8-8, 9-8) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=95.8
+--------------------------- min-val apply action PLACE(9-8, 9-9, 8-9, 7-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=95.8
+--------------------------- min-val apply action PLACE(9-1, 9-2, 8-2, 7-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=25.8
+---------- pruned 11 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=101.2
+--------------------------- min-val apply action PLACE(7-9, 8-9, 9-9, 10-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=95.8
+--------------------------- min-val apply action PLACE(7-9, 8-9, 8-8, 9-8) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=95.8
+--------------------------- min-val apply action PLACE(9-8, 9-9, 8-9, 7-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=95.8
+--------------------------- min-val apply action PLACE(9-1, 9-2, 8-2, 7-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=25.8
+---------- pruned 11 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=108.2
+--------------------------- min-val apply action PLACE(7-9, 8-9, 9-9, 10-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=95.8
+--------------------------- min-val apply action PLACE(7-9, 8-9, 8-8, 9-8) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=95.8
+--------------------------- min-val apply action PLACE(9-8, 9-9, 8-9, 7-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=95.8
+--------------------------- min-val apply action PLACE(9-1, 9-2, 8-2, 7-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=32.8
+---------- pruned 11 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=130.2
+--------------------------- min-val apply action PLACE(7-9, 8-9, 9-9, 10-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=103.8
+--------------------------- min-val apply action PLACE(7-9, 8-9, 8-8, 9-8) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=103.8
+--------------------------- min-val apply action PLACE(9-8, 9-9, 8-9, 7-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=103.8
+--------------------------- min-val apply action PLACE(9-1, 9-2, 8-2, 7-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=54.8
+--------------------------- min-val apply action PLACE(9-2, 9-1, 8-1, 7-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=86.8
+--------------------------- min-val apply action PLACE(5-5, 6-5, 7-5, 8-5) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=56.8
+--------------------------- min-val apply action PLACE(9-7, 9-8, 8-8, 8-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=112.8
+--------------------------- min-val apply action PLACE(8-8, 8-9, 9-8, 9-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=112.8
+--------------------------- min-val apply action PLACE(7-2, 8-2, 8-1, 9-1) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=54.8
+--------------------------- min-val apply action PLACE(9-8, 9-9, 10-9, 8-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=112.8
+--------------------------- min-val apply action PLACE(6-6, 6-5, 7-5, 8-5) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=58.8
+--------------------------- min-val apply action PLACE(8-7, 9-7, 9-8, 9-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=119.8
+--------------------------- min-val apply action PLACE(8-9, 9-9, 10-9, 0-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=112.8
+--------------------------- min-val apply action PLACE(7-3, 8-3, 8-2, 9-2) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=35.8
+--------------------------- min-val apply action PLACE(8-8, 8-9, 9-9, 10-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=112.8
+----- reach deepest at 2 at a testing turn count 22
+Update state for RED: RED played PLACE action: 2-9, 3-8, 3-9, 3-7
+Update state for BLUE: RED played PLACE action: 2-9, 3-8, 3-9, 3-7
+Update state for RED: BLUE played PLACE action: 7-9, 8-9, 9-8, 9-9
+Update state for BLUE: BLUE played PLACE action: 7-9, 8-9, 9-8, 9-9
+Start the search
+----------------- number of legal actions = 174
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=23.2
+--------------------------- min-val apply action PLACE(6-9, 5-9, 5-10, 5-8) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=14.8
+--------------------------- min-val apply action PLACE(6-8, 6-9, 5-9, 5-10) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=14.8
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=14.8
+--------------------------- min-val apply action PLACE(5-7, 5-8, 5-9, 5-10) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=14.8
+--------------------------- min-val apply action PLACE(5-7, 5-8, 6-8, 4-8) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=14.8
+--------------------------- min-val apply action PLACE(6-5, 5-5, 5-4, 5-3) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=18.8
+--------------------------- min-val apply action PLACE(4-7, 4-8, 5-8, 6-8) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=14.8
+--------------------------- min-val apply action PLACE(6-8, 5-8, 5-7, 4-7) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=14.8
+--------------------------- min-val apply action PLACE(6-9, 5-9, 5-8, 5-7) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=14.8
+--------------------------- min-val apply action PLACE(6-9, 6-8, 5-8, 5-7) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=14.8
+--------------------------- min-val apply action PLACE(5-8, 5-9, 6-9, 4-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=14.8
+--------------------------- min-val apply action PLACE(5-8, 5-9, 6-8, 6-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=14.8
+--------------------------- min-val apply action PLACE(6-3, 5-3, 5-4, 5-5) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=14.8
+--------------------------- min-val apply action PLACE(4-8, 4-9, 5-9, 6-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=14.8
+--------------------------- min-val apply action PLACE(6-8, 6-9, 5-9, 4-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=14.8
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=58.2
+--------------------------- min-val apply action PLACE(6-9, 5-9, 5-10, 5-8) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=49.8
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=49.8
+--------------------------- min-val apply action PLACE(6-8, 6-9, 5-9, 5-10) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=49.8
+--------------------------- min-val apply action PLACE(5-7, 5-8, 5-9, 5-10) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=49.8
+--------------------------- min-val apply action PLACE(5-5, 6-5, 6-4, 6-3) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=7.8
+---------- pruned 10 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=64.2
+--------------------------- min-val apply action PLACE(6-9, 5-9, 5-10, 5-8) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=55.8
+--------------------------- min-val apply action PLACE(6-8, 6-9, 5-9, 5-10) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=55.8
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=55.8
+--------------------------- min-val apply action PLACE(5-7, 5-8, 5-9, 5-10) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=55.8
+--------------------------- min-val apply action PLACE(6-3, 6-4, 5-4, 5-5) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=11.8
+---------- pruned 10 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=47.2
+--------------------------- min-val apply action PLACE(6-9, 5-9, 5-10, 5-8) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=38.8
+--------------------------- min-val apply action PLACE(6-8, 6-9, 5-9, 5-10) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=38.8
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=38.8
+--------------------------- min-val apply action PLACE(5-7, 5-8, 5-9, 5-10) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=38.8
+--------------------------- min-val apply action PLACE(5-7, 5-8, 6-8, 4-8) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=38.8
+--------------------------- min-val apply action PLACE(4-3, 5-3, 6-3, 7-3) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=7.8
+---------- pruned 9 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=77.2
+--------------------------- min-val apply action PLACE(6-9, 5-9, 5-10, 5-8) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=68.8
+--------------------------- min-val apply action PLACE(6-8, 6-9, 5-9, 5-10) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=68.8
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=68.8
+--------------------------- min-val apply action PLACE(5-7, 5-8, 6-8, 4-8) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=68.8
+--------------------------- min-val apply action PLACE(4-7, 4-8, 5-8, 6-8) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=68.8
+--------------------------- min-val apply action PLACE(6-8, 5-8, 5-7, 4-7) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=68.8
+--------------------------- min-val apply action PLACE(6-9, 5-9, 5-8, 5-7) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=68.8
+--------------------------- min-val apply action PLACE(6-9, 6-8, 5-8, 5-7) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=68.8
+--------------------------- min-val apply action PLACE(5-8, 5-9, 6-9, 4-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=68.8
+--------------------------- min-val apply action PLACE(5-8, 5-9, 6-8, 6-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=68.8
+--------------------------- min-val apply action PLACE(6-8, 6-9, 5-9, 4-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=68.8
+--------------------------- min-val apply action PLACE(4-8, 4-9, 5-9, 6-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=68.8
+--------------------------- min-val apply action PLACE(6-8, 5-8, 5-9, 5-7) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=68.8
+--------------------------- min-val apply action PLACE(6-9, 5-9, 5-8, 4-8) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=68.8
+--------------------------- min-val apply action PLACE(6-9, 6-8, 5-8, 4-8) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=68.8
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=40.2
+--------------------------- min-val apply action PLACE(6-9, 5-9, 5-10, 5-8) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=31.8
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=53.2
+--------------------------- min-val apply action PLACE(6-9, 5-9, 5-10, 5-8) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=44.8
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=96.2
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=95.8
+--------------------------- min-val apply action PLACE(5-5, 6-5, 6-4, 6-3) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=5.8
+---------- pruned 13 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=96.2
+--------------------------- min-val apply action PLACE(5-5, 6-5, 6-4, 6-3) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=5.8
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=34.2
+--------------------------- min-val apply action PLACE(6-9, 5-9, 5-10, 5-8) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=25.8
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=31.2
+--------------------------- min-val apply action PLACE(6-9, 5-9, 5-10, 5-8) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=22.8
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=33.2
+--------------------------- min-val apply action PLACE(6-9, 5-9, 5-10, 5-8) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=24.8
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=20.2
+--------------------------- min-val apply action PLACE(6-9, 5-9, 5-10, 5-8) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=11.8
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=96.2
+--------------------------- min-val apply action PLACE(5-5, 6-5, 6-4, 6-3) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=5.8
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=25.2
+--------------------------- min-val apply action PLACE(6-9, 5-9, 5-10, 5-8) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.8
+---------- pruned 14 nodes at depth 1, exceed the minimum
+----- reach deepest at 2 at a testing turn count 24
+Update state for RED: RED played PLACE action: 5-3, 5-4, 5-5, 6-5
+Update state for BLUE: RED played PLACE action: 5-3, 5-4, 5-5, 6-5
+Update state for RED: BLUE played PLACE action: 6-8, 5-7, 4-8, 5-8
+Update state for BLUE: BLUE played PLACE action: 6-8, 5-7, 4-8, 5-8
+Start the search
+----------------- number of legal actions = 88
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=64.2
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=91.7
+--------------------------- min-val apply action PLACE(0-8, 0-9, 1-9, 10-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=63.8
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=57.2
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=84.7
+--------------------------- min-val apply action PLACE(0-8, 0-9, 1-9, 10-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=56.8
+---------- pruned 13 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=42.2
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=69.7
+--------------------------- min-val apply action PLACE(0-8, 0-9, 1-9, 10-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=41.8
+---------- pruned 13 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=39.2
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=67.7
+--------------------------- min-val apply action PLACE(0-8, 0-9, 1-9, 10-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=38.8
+---------- pruned 13 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=39.2
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=67.7
+--------------------------- min-val apply action PLACE(0-8, 0-9, 1-9, 10-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=38.8
+---------- pruned 13 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=51.2
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=78.7
+--------------------------- min-val apply action PLACE(0-8, 0-9, 1-9, 10-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=50.8
+---------- pruned 13 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=51.2
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=78.7
+--------------------------- min-val apply action PLACE(0-8, 0-9, 1-9, 10-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=50.8
+---------- pruned 13 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=29.2
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=57.7
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=38.2
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=61.7
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=34.2
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=62.7
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=38.2
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=61.7
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=38.2
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=61.7
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=18.2
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=37.7
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=38.2
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=61.7
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=38.2
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=61.7
+---------- pruned 14 nodes at depth 1, exceed the minimum
+----- reach deepest at 2 at a testing turn count 26
+Update state for RED: RED played PLACE action: 9-1, 7-1, 9-2, 8-1
+Update state for BLUE: RED played PLACE action: 9-1, 7-1, 9-2, 8-1
+Update state for RED: BLUE played PLACE action: 10-9, 0-8, 0-9, 1-9
+Update state for BLUE: BLUE played PLACE action: 10-9, 0-8, 0-9, 1-9
+Start the search
+----------------- number of legal actions = 54
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=11.2
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=19.3
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=11.2
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=31.3
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=21.2
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=51.3
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=11.2
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=11.3
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=11.2
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=32.3
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=21.2
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=46.3
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=11.2
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=27.3
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.2
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=17.3
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=14.2
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.3
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=14.2
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.3
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=21.2
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=51.3
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=17.2
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=18.3
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=14.2
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=31.3
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=21.2
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=36.3
+---------- pruned 14 nodes at depth 1, exceed the minimum
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=21.2
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=23.3
+---------- pruned 14 nodes at depth 1, exceed the minimum
+----- revisit the top k children
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+--------------------------- max-val apply action PLACE(4-1, 5-1, 5-2, 5-3) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=11.7
+--------------------------- max-val apply action PLACE(5-0, 5-1, 5-2, 5-3) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=11.7
+--------------------------- max-val apply action PLACE(5-2, 5-3, 5-4, 5-5) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=11.7
+--------------------------- max-val apply action PLACE(4-3, 5-3, 5-2, 5-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=11.7
+--------------------------- max-val apply action PLACE(5-1, 5-2, 5-3, 5-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=11.7
+--------------------------- max-val apply action PLACE(4-3, 5-3, 5-2, 5-1) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=11.7
+--------------------------- max-val apply action PLACE(6-3, 5-3, 5-2, 5-1) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=9.7
+--------------------------- max-val apply action PLACE(6-3, 5-3, 5-4, 5-2) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=9.7
+--------------------------- max-val apply action PLACE(5-2, 5-3, 6-3, 4-3) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=9.7
+--------------------------- max-val apply action PLACE(6-2, 5-2, 5-1, 5-0) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=8.7
+--------------------------- max-val apply action PLACE(6-2, 5-2, 5-1, 4-1) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=8.7
+--------------------------- max-val apply action PLACE(6-3, 6-2, 5-2, 5-1) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=7.7
+--------------------------- max-val apply action PLACE(5-2, 5-3, 6-2, 6-3) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=7.7
+--------------------------- max-val apply action PLACE(6-2, 5-2, 5-3, 5-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=7.7
+--------------------------- max-val apply action PLACE(4-3, 5-3, 5-2, 6-2) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=7.7
+---------- pruned 14 nodes at depth 1, exceed the minimum
+----- revisit the top k children
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+--------------------------- max-val apply action PLACE(5-2, 5-3, 5-4, 5-5) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=11.7
+--------------------------- max-val apply action PLACE(4-3, 5-3, 5-2, 5-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=11.7
+--------------------------- max-val apply action PLACE(5-1, 5-2, 5-3, 5-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=11.7
+--------------------------- max-val apply action PLACE(6-2, 5-2, 5-3, 5-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=7.7
+--------------------------- max-val apply action PLACE(6-3, 5-3, 5-4, 5-2) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=5.7
+--------------------------- max-val apply action PLACE(6-3, 5-3, 5-4, 5-5) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=6.7
+--------------------------- max-val apply action PLACE(6-2, 6-3, 5-3, 5-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=5.7
+--------------------------- max-val apply action PLACE(4-9, 5-9, 5-10, 5-0) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=31.7
+--------------------------- max-val apply action PLACE(6-9, 5-9, 5-8, 5-7) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=31.7
+--------------------------- max-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=31.7
+--------------------------- max-val apply action PLACE(5-8, 5-9, 6-9, 4-9) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=31.7
+--------------------------- max-val apply action PLACE(2-9, 3-9, 4-9, 5-9) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=31.7
+--------------------------- max-val apply action PLACE(4-9, 5-9, 5-8, 5-7) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=31.7
+--------------------------- max-val apply action PLACE(3-9, 4-9, 5-9, 6-9) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=31.7
+--------------------------- max-val apply action PLACE(5-6, 5-7, 5-8, 5-9) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=31.7
+---------- pruned 14 nodes at depth 1, exceed the minimum
+----- revisit the top k children
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+--------------------------- max-val apply action PLACE(5-2, 5-3, 5-4, 5-5) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=21.7
+--------------------------- max-val apply action PLACE(4-3, 5-3, 5-2, 5-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=21.7
+--------------------------- max-val apply action PLACE(5-1, 5-2, 5-3, 5-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=21.7
+--------------------------- max-val apply action PLACE(6-3, 5-3, 5-4, 5-2) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=10.7
+--------------------------- max-val apply action PLACE(6-4, 5-4, 5-3, 5-2) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=12.7
+--------------------------- max-val apply action PLACE(6-2, 5-2, 5-3, 5-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=14.7
+--------------------------- max-val apply action PLACE(6-4, 6-3, 5-3, 5-2) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=7.7
+--------------------------- max-val apply action PLACE(6-2, 6-3, 5-3, 5-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=8.7
+--------------------------- max-val apply action PLACE(5-2, 6-2, 6-3, 6-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=5.7
+--------------------------- max-val apply action PLACE(5-3, 6-3, 6-2, 6-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=5.7
+--------------------------- max-val apply action PLACE(5-4, 6-4, 6-3, 6-2) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=5.7
+--------------------------- max-val apply action PLACE(4-9, 5-9, 5-10, 5-0) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=51.7
+--------------------------- max-val apply action PLACE(6-9, 5-9, 5-8, 5-7) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=51.7
+--------------------------- max-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=51.7
+--------------------------- max-val apply action PLACE(5-8, 5-9, 6-9, 4-9) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=51.7
+----- revisit the top k children
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+--------------------------- max-val apply action PLACE(4-3, 5-3, 5-2, 5-1) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=11.7
+--------------------------- max-val apply action PLACE(5-2, 5-3, 5-4, 5-5) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=11.7
+--------------------------- max-val apply action PLACE(4-1, 5-1, 5-0, 5-2) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=11.7
+--------------------------- max-val apply action PLACE(5-10, 5-0, 5-1, 5-2) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=11.7
+--------------------------- max-val apply action PLACE(4-3, 5-3, 5-2, 5-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=11.7
+--------------------------- max-val apply action PLACE(5-1, 5-2, 5-3, 5-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=11.7
+--------------------------- max-val apply action PLACE(4-1, 5-1, 5-2, 5-3) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=11.7
+--------------------------- max-val apply action PLACE(5-0, 5-1, 5-2, 5-3) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=11.7
+--------------------------- max-val apply action PLACE(6-2, 5-2, 5-1, 5-0) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=9.7
+--------------------------- max-val apply action PLACE(6-2, 5-2, 5-3, 5-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=9.7
+--------------------------- max-val apply action PLACE(6-2, 5-2, 5-1, 4-1) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=9.7
+--------------------------- max-val apply action PLACE(6-2, 5-2, 5-3, 5-1) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=9.7
+--------------------------- max-val apply action PLACE(4-3, 5-3, 5-2, 6-2) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=9.7
+--------------------------- max-val apply action PLACE(5-3, 5-2, 6-2, 7-2) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=7.7
+--------------------------- max-val apply action PLACE(5-1, 5-2, 6-2, 7-2) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=7.7
+---------- pruned 14 nodes at depth 1, exceed the minimum
+----- revisit the top k children
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+--------------------------- max-val apply action PLACE(5-2, 5-3, 5-4, 5-5) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=11.7
+--------------------------- max-val apply action PLACE(4-3, 5-3, 5-2, 5-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=11.7
+--------------------------- max-val apply action PLACE(5-1, 5-2, 5-3, 5-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=11.7
+--------------------------- max-val apply action PLACE(6-4, 5-4, 5-3, 5-2) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=5.7
+--------------------------- max-val apply action PLACE(6-2, 5-2, 5-3, 5-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=5.7
+--------------------------- max-val apply action PLACE(4-9, 5-9, 5-10, 5-0) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=32.7
+--------------------------- max-val apply action PLACE(6-9, 5-9, 5-8, 5-7) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=32.7
+--------------------------- max-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=32.7
+--------------------------- max-val apply action PLACE(5-8, 5-9, 6-9, 4-9) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=32.7
+--------------------------- max-val apply action PLACE(2-9, 3-9, 4-9, 5-9) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=32.7
+--------------------------- max-val apply action PLACE(4-9, 5-9, 5-8, 5-7) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=32.7
+--------------------------- max-val apply action PLACE(3-9, 4-9, 5-9, 6-9) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=32.7
+--------------------------- max-val apply action PLACE(5-6, 5-7, 5-8, 5-9) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=32.7
+--------------------------- max-val apply action PLACE(5-10, 5-9, 6-9, 7-9) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=32.7
+--------------------------- max-val apply action PLACE(4-9, 5-9, 6-9, 7-9) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=32.7
+---------- pruned 14 nodes at depth 1, exceed the minimum
+----- revisit the top k children
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+--------------------------- max-val apply action PLACE(5-2, 5-3, 5-4, 5-5) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=21.7
+--------------------------- max-val apply action PLACE(4-3, 5-3, 5-2, 5-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=21.7
+--------------------------- max-val apply action PLACE(5-1, 5-2, 5-3, 5-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=21.7
+--------------------------- max-val apply action PLACE(6-4, 5-4, 5-3, 5-2) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.7
+--------------------------- max-val apply action PLACE(6-2, 5-2, 5-3, 5-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=12.7
+--------------------------- max-val apply action PLACE(6-3, 5-3, 5-2, 5-1) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=9.7
+--------------------------- max-val apply action PLACE(6-3, 5-3, 5-4, 5-2) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=9.7
+--------------------------- max-val apply action PLACE(6-4, 6-3, 5-3, 5-2) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=9.7
+--------------------------- max-val apply action PLACE(5-2, 5-3, 6-3, 4-3) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=9.7
+--------------------------- max-val apply action PLACE(5-2, 6-2, 6-3, 6-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=5.7
+--------------------------- max-val apply action PLACE(6-3, 6-2, 5-2, 5-1) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=6.7
+--------------------------- max-val apply action PLACE(5-2, 5-3, 6-2, 6-3) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=5.7
+--------------------------- max-val apply action PLACE(5-3, 6-3, 6-2, 6-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=5.7
+--------------------------- max-val apply action PLACE(5-4, 6-4, 6-3, 6-2) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=5.7
+--------------------------- max-val apply action PLACE(5-2, 5-3, 6-3, 7-3) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=5.7
+---------- pruned 14 nodes at depth 1, exceed the minimum
+----- revisit the top k children
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+--------------------------- max-val apply action PLACE(5-2, 5-3, 5-4, 5-5) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=11.7
+--------------------------- max-val apply action PLACE(4-3, 5-3, 5-2, 5-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=11.7
+--------------------------- max-val apply action PLACE(5-1, 5-2, 5-3, 5-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=11.7
+--------------------------- max-val apply action PLACE(6-4, 5-4, 5-3, 5-2) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=9.7
+--------------------------- max-val apply action PLACE(6-3, 5-3, 5-2, 5-1) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=7.7
+--------------------------- max-val apply action PLACE(6-3, 5-3, 5-4, 5-2) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=7.7
+--------------------------- max-val apply action PLACE(6-4, 6-3, 5-3, 5-2) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=7.7
+--------------------------- max-val apply action PLACE(5-2, 5-3, 6-3, 4-3) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=7.7
+--------------------------- max-val apply action PLACE(5-2, 6-2, 6-3, 6-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=5.7
+--------------------------- max-val apply action PLACE(6-2, 5-2, 5-1, 5-0) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=9.7
+--------------------------- max-val apply action PLACE(6-2, 5-2, 5-1, 4-1) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=9.7
+--------------------------- max-val apply action PLACE(6-3, 6-2, 5-2, 5-1) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=6.7
+--------------------------- max-val apply action PLACE(5-2, 5-3, 6-2, 6-3) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=5.7
+--------------------------- max-val apply action PLACE(5-3, 6-3, 6-2, 6-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=5.7
+--------------------------- max-val apply action PLACE(6-2, 5-2, 5-3, 5-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=5.7
+---------- pruned 14 nodes at depth 1, exceed the minimum
+----- revisit the top k children
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+--------------------------- max-val apply action PLACE(4-3, 5-3, 5-2, 5-1) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.7
+--------------------------- max-val apply action PLACE(5-2, 5-3, 5-4, 5-5) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.7
+--------------------------- max-val apply action PLACE(4-1, 5-1, 5-0, 5-2) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.7
+--------------------------- max-val apply action PLACE(5-10, 5-0, 5-1, 5-2) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.7
+--------------------------- max-val apply action PLACE(4-3, 5-3, 5-2, 5-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.7
+--------------------------- max-val apply action PLACE(5-1, 5-2, 5-3, 5-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.7
+--------------------------- max-val apply action PLACE(4-1, 5-1, 5-2, 5-3) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.7
+--------------------------- max-val apply action PLACE(5-0, 5-1, 5-2, 5-3) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.7
+--------------------------- max-val apply action PLACE(6-2, 5-2, 5-1, 5-0) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=12.7
+--------------------------- max-val apply action PLACE(6-2, 5-2, 5-3, 5-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=12.7
+--------------------------- max-val apply action PLACE(6-2, 5-2, 5-1, 4-1) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=12.7
+--------------------------- max-val apply action PLACE(6-2, 5-2, 5-3, 5-1) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=12.7
+--------------------------- max-val apply action PLACE(4-3, 5-3, 5-2, 6-2) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=12.7
+--------------------------- max-val apply action PLACE(5-3, 5-2, 6-2, 7-2) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=8.7
+--------------------------- max-val apply action PLACE(5-1, 5-2, 6-2, 7-2) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=8.7
+---------- pruned 14 nodes at depth 1, exceed the minimum
+----- revisit the top k children
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+--------------------------- max-val apply action PLACE(5-7, 5-8, 5-9, 5-10) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.7
+--------------------------- max-val apply action PLACE(6-9, 5-9, 5-10, 5-8) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.7
+--------------------------- max-val apply action PLACE(5-8, 5-9, 5-10, 5-0) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.7
+--------------------------- max-val apply action PLACE(5-8, 5-9, 4-9, 3-9) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.7
+--------------------------- max-val apply action PLACE(5-9, 5-10, 5-0, 5-1) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=15.7
+--------------------------- max-val apply action PLACE(4-9, 5-9, 5-8, 5-7) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.7
+--------------------------- max-val apply action PLACE(7-10, 7-9, 6-9, 5-9) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.7
+--------------------------- max-val apply action PLACE(3-9, 4-9, 5-9, 6-9) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.7
+--------------------------- max-val apply action PLACE(4-9, 5-9, 5-10, 5-0) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.7
+--------------------------- max-val apply action PLACE(5-10, 5-9, 4-9, 3-9) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.7
+--------------------------- max-val apply action PLACE(5-6, 5-7, 5-8, 5-9) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.7
+--------------------------- max-val apply action PLACE(6-9, 5-9, 5-8, 5-7) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.7
+--------------------------- max-val apply action PLACE(6-9, 5-9, 5-10, 5-0) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.7
+--------------------------- max-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.7
+--------------------------- max-val apply action PLACE(5-8, 5-9, 6-9, 4-9) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.7
+---------- pruned 14 nodes at depth 1, exceed the minimum
+----- revisit the top k children
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+--------------------------- max-val apply action PLACE(5-7, 5-8, 5-9, 5-10) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.7
+--------------------------- max-val apply action PLACE(6-9, 5-9, 5-10, 5-8) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.7
+--------------------------- max-val apply action PLACE(5-8, 5-9, 5-10, 5-0) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.7
+--------------------------- max-val apply action PLACE(5-8, 5-9, 4-9, 3-9) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.7
+--------------------------- max-val apply action PLACE(5-9, 5-10, 5-0, 5-1) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=15.7
+--------------------------- max-val apply action PLACE(4-9, 5-9, 5-8, 5-7) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.7
+--------------------------- max-val apply action PLACE(7-10, 7-9, 6-9, 5-9) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.7
+--------------------------- max-val apply action PLACE(3-9, 4-9, 5-9, 6-9) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.7
+--------------------------- max-val apply action PLACE(4-9, 5-9, 5-10, 5-0) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.7
+--------------------------- max-val apply action PLACE(5-10, 5-9, 4-9, 3-9) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.7
+--------------------------- max-val apply action PLACE(5-6, 5-7, 5-8, 5-9) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.7
+--------------------------- max-val apply action PLACE(6-9, 5-9, 5-8, 5-7) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.7
+--------------------------- max-val apply action PLACE(6-9, 5-9, 5-10, 5-0) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.7
+--------------------------- max-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.7
+--------------------------- max-val apply action PLACE(5-8, 5-9, 6-9, 4-9) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=16.7
+---------- pruned 14 nodes at depth 1, exceed the minimum
+----- revisit the top k children
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+--------------------------- max-val apply action PLACE(5-2, 5-3, 5-4, 5-5) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=21.7
+--------------------------- max-val apply action PLACE(4-3, 5-3, 5-2, 5-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=21.7
+--------------------------- max-val apply action PLACE(5-1, 5-2, 5-3, 5-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=21.7
+--------------------------- max-val apply action PLACE(6-3, 5-3, 5-4, 5-2) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=10.7
+--------------------------- max-val apply action PLACE(6-4, 5-4, 5-3, 5-2) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=14.7
+--------------------------- max-val apply action PLACE(6-2, 5-2, 5-3, 5-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=12.7
+--------------------------- max-val apply action PLACE(6-4, 6-3, 5-3, 5-2) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=8.7
+--------------------------- max-val apply action PLACE(6-2, 6-3, 5-3, 5-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=7.7
+--------------------------- max-val apply action PLACE(5-2, 6-2, 6-3, 6-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=5.7
+--------------------------- max-val apply action PLACE(5-3, 6-3, 6-2, 6-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=5.7
+--------------------------- max-val apply action PLACE(5-4, 6-4, 6-3, 6-2) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=5.7
+--------------------------- max-val apply action PLACE(4-9, 5-9, 5-10, 5-0) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=51.7
+--------------------------- max-val apply action PLACE(6-9, 5-9, 5-8, 5-7) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=51.7
+--------------------------- max-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=51.7
+--------------------------- max-val apply action PLACE(5-8, 5-9, 6-9, 4-9) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=51.7
+---------- pruned 14 nodes at depth 1, exceed the minimum
+----- revisit the top k children
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+--------------------------- max-val apply action PLACE(5-3, 5-4, 5-5, 5-6) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=17.7
+--------------------------- max-val apply action PLACE(5-2, 5-3, 5-4, 5-5) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=17.7
+--------------------------- max-val apply action PLACE(5-4, 5-5, 5-6, 5-7) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=17.7
+--------------------------- max-val apply action PLACE(4-3, 5-3, 5-4, 5-5) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=17.7
+--------------------------- max-val apply action PLACE(5-1, 5-2, 5-3, 5-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=17.7
+--------------------------- max-val apply action PLACE(4-3, 5-3, 5-2, 5-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=17.7
+--------------------------- max-val apply action PLACE(6-6, 5-6, 5-5, 5-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=17.7
+--------------------------- max-val apply action PLACE(6-4, 5-4, 5-5, 5-3) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=12.7
+--------------------------- max-val apply action PLACE(6-4, 5-4, 5-3, 5-2) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=12.7
+--------------------------- max-val apply action PLACE(6-4, 5-4, 5-3, 4-3) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=12.7
+--------------------------- max-val apply action PLACE(6-4, 5-4, 5-5, 5-6) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=12.7
+--------------------------- max-val apply action PLACE(5-3, 5-4, 6-4, 7-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=7.7
+--------------------------- max-val apply action PLACE(5-5, 5-4, 6-4, 7-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=7.7
+--------------------------- max-val apply action PLACE(7-5, 7-4, 6-4, 5-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=5.7
+--------------------------- max-val apply action PLACE(5-7, 5-8, 5-9, 5-10) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=18.7
+---------- pruned 14 nodes at depth 1, exceed the minimum
+----- revisit the top k children
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+--------------------------- max-val apply action PLACE(5-2, 5-3, 5-4, 5-5) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=14.7
+--------------------------- max-val apply action PLACE(4-3, 5-3, 5-2, 5-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=14.7
+--------------------------- max-val apply action PLACE(5-1, 5-2, 5-3, 5-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=14.7
+--------------------------- max-val apply action PLACE(6-3, 5-3, 5-4, 5-2) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=9.7
+--------------------------- max-val apply action PLACE(6-3, 5-3, 5-4, 5-5) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=9.7
+--------------------------- max-val apply action PLACE(6-2, 6-3, 5-3, 5-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=9.7
+--------------------------- max-val apply action PLACE(6-4, 5-4, 5-3, 5-2) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=5.7
+--------------------------- max-val apply action PLACE(5-3, 5-4, 6-3, 6-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=5.7
+--------------------------- max-val apply action PLACE(5-3, 6-3, 6-2, 6-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=5.7
+--------------------------- max-val apply action PLACE(6-4, 5-4, 5-3, 4-3) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=6.7
+--------------------------- max-val apply action PLACE(6-3, 6-4, 5-4, 5-5) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=6.7
+--------------------------- max-val apply action PLACE(6-4, 6-3, 5-3, 5-2) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=5.7
+--------------------------- max-val apply action PLACE(5-4, 6-4, 6-3, 6-2) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=5.7
+--------------------------- max-val apply action PLACE(6-4, 5-4, 5-5, 5-6) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=9.7
+--------------------------- max-val apply action PLACE(6-4, 5-4, 5-5, 5-3) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=6.7
+---------- pruned 14 nodes at depth 1, exceed the minimum
+----- revisit the top k children
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+--------------------------- max-val apply action PLACE(4-1, 5-1, 5-2, 5-3) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=21.7
+--------------------------- max-val apply action PLACE(5-0, 5-1, 5-2, 5-3) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=21.7
+--------------------------- max-val apply action PLACE(5-2, 5-3, 5-4, 5-5) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=21.7
+--------------------------- max-val apply action PLACE(4-3, 5-3, 5-2, 5-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=21.7
+--------------------------- max-val apply action PLACE(5-1, 5-2, 5-3, 5-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=21.7
+--------------------------- max-val apply action PLACE(4-3, 5-3, 5-2, 5-1) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=21.7
+--------------------------- max-val apply action PLACE(6-3, 5-3, 5-2, 5-1) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=13.7
+--------------------------- max-val apply action PLACE(6-3, 5-3, 5-4, 5-2) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=13.7
+--------------------------- max-val apply action PLACE(6-2, 5-2, 5-3, 5-4) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=14.7
+--------------------------- max-val apply action PLACE(5-2, 5-3, 6-3, 4-3) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=13.7
+--------------------------- max-val apply action PLACE(4-3, 5-3, 5-2, 6-2) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=14.7
+--------------------------- max-val apply action PLACE(6-2, 5-2, 5-3, 5-1) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=14.7
+--------------------------- max-val apply action PLACE(6-3, 6-2, 5-2, 5-1) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=9.7
+--------------------------- max-val apply action PLACE(5-2, 5-3, 6-2, 6-3) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=9.7
+--------------------------- max-val apply action PLACE(5-3, 5-2, 6-2, 7-2) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=8.7
+---------- pruned 14 nodes at depth 1, exceed the minimum
+----- revisit the top k children
+--------------------------- min-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 1
+--------------------------- max-val apply action PLACE(5-7, 5-8, 5-9, 5-10) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=23.7
+--------------------------- max-val apply action PLACE(6-9, 5-9, 5-10, 5-8) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=23.7
+--------------------------- max-val apply action PLACE(5-8, 5-9, 5-10, 5-0) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=23.7
+--------------------------- max-val apply action PLACE(5-8, 5-9, 4-9, 3-9) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=23.7
+--------------------------- max-val apply action PLACE(5-9, 5-10, 5-0, 5-1) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=22.7
+--------------------------- max-val apply action PLACE(7-10, 7-9, 6-9, 5-9) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=23.7
+--------------------------- max-val apply action PLACE(4-9, 5-9, 5-8, 5-7) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=23.7
+--------------------------- max-val apply action PLACE(3-9, 4-9, 5-9, 6-9) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=23.7
+--------------------------- max-val apply action PLACE(4-9, 5-9, 5-10, 5-0) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=23.7
+--------------------------- max-val apply action PLACE(5-10, 5-9, 4-9, 3-9) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=23.7
+--------------------------- max-val apply action PLACE(5-6, 5-7, 5-8, 5-9) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=23.7
+--------------------------- max-val apply action PLACE(6-9, 5-9, 5-8, 5-7) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=23.7
+--------------------------- max-val apply action PLACE(6-9, 5-9, 5-10, 5-0) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=23.7
+--------------------------- max-val apply action PLACE(5-10, 5-9, 4-9, 6-9) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=23.7
+--------------------------- max-val apply action PLACE(5-8, 5-9, 6-9, 4-9) in max_value() with depth 2
+------------------------------------- evaluate start for player RED
+------------------------------------- evaluate end, utility=23.7
+---------- pruned 14 nodes at depth 1, exceed the minimum
+----- reach deepest at 3 at a testing turn count 28
+Update state for RED: RED played PLACE action: 8-2, 8-3, 8-4, 8-5
+Update state for BLUE: RED played PLACE action: 8-2, 8-3, 8-4, 8-5
