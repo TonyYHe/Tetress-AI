@@ -1,19 +1,9 @@
 # Use "make run" to run "python3 -m referee agent (red) agent (blue)"
-a1 = agentAB
-a2 = agentRandom
-smart_agents = $(a1) $(a1) 
-dumb_agents = $(a2) $(a2) 
-test_red = $(a1) $(a2) 
-test_blue = $(a2) $(a1) 
+red = agentAB
+blue = agentRandom
 
-smart: 
-	python3 -m referee -s 250 -t 180 $(smart_agents)
-dumb:
-	python3 -m referee -s 250 -t 180 $(dumb_agents)
-red:
-	python3 -m referee -s 250 -t 180 $(test_red)
-blue:
-	python3 -m referee -s 250 -t 180 $(test_blue)
+run:
+	python3 -m referee -s 250 -t 180 $(red) $(blue)
 
 err: 
 	python3 -m referee -s 250 -t 180 agentAB agentRandom 2> _out$(n).txt
