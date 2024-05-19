@@ -28,7 +28,7 @@ class Agent:
         to take an action. It must always return an action object. 
         """
         actions = self.board.get_legal_actions()
-        best_action = OrderActions.order_actions(self.board, actions, self.color, TranspositionTable(), {})
+        best_action = OrderActions.order_actions(self.board, actions, self.color, TranspositionTable())
         return best_action
        
 
