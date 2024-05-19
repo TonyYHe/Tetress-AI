@@ -60,9 +60,6 @@ class TranspositionTable:
 
 
     def get_utility(self, board:Board): 
-        state_key:tuple[tuple[tuple[CellState], PlayerColor], int] = (board.hash(), max(TURN_THRESHOLD, board.turn_count))
-        if self.transposition_table.get(state_key): 
-            print(_testing.prefix(10), "------ revisiting utility")
         entry = self.get_entry(board)
         return entry.utility
     
@@ -76,8 +73,6 @@ class TranspositionTable:
                 board.undo_action()
                 return utility
             entry.topK_actions = sorted(board.get_legal_actions(), key=lambda action: eval(action), reverse=(board.turn_color==self.player))[:K]
-        else: 
-            print(f"----- revisit the top k children")
         return entry.topK_actions
         
 
@@ -92,15 +87,6 @@ def alpha_beta_cutoff_search(board:Board, transposition_table:TranspositionTable
         if board.game_over: 
             return True
         
-        # if len(board._empty_coords()) > BOARD_N * BOARD_N / 3: 
-        #     return depth > 2
-        # if len(board._empty_coords()) > BOARD_N * BOARD_N / 4:
-        #     return depth > 3
-
-        # TODO - if the state of the game is unstable, go deeper? 
-        # if not board.is_stable(): 
-        #     return depth > 5
-        # else: 
         return depth > deepest
 
     # Functions used by alpha_beta
@@ -145,24 +131,12 @@ def alpha_beta_cutoff_search(board:Board, transposition_table:TranspositionTable
     beta = np.inf
     best_action = None
 
-    legal_actions = board.get_legal_actions()
-    print(_testing.prefix(17), f"number of legal actions = {len(legal_actions)}")
-
-    # if len(legal_actions) < MIN_ACTIONS_TEST: 
-    #     random_index = range(len(legal_actions))
-    # else: 
-    #     random_index:set[int] = set([random.randint(0, len(legal_actions)-1) for _ in range(MIN_ACTIONS_TEST)])
-    # print(_testing.prefix(17), random_index) 
-
     top_actions = transposition_table.get_topK_actions(board)
     start_time = time.time()
     base_time = referee["time_remaining"] / (MAX_TURN - board.turn_count)
     end_time = start_time + base_time + board.turn_count/TIME_OUT_FACTOR
     while (time.time() < end_time and deepest < 30):
-        for action in top_actions: #[legal_actions[i] for i in random_index]
-            # timer = CountdownTimer(time_limit=1,tolerance=10)
-            # timer.__enter__()
-
+        for action in top_actions: 
             # Apply the action, evaluate alpha and beta, then undo the action 
             board.apply_action(action)     
             v = min_value(board, best_score, beta, 1)
@@ -170,7 +144,6 @@ def alpha_beta_cutoff_search(board:Board, transposition_table:TranspositionTable
                 best_score = v
                 best_action = action
             board.undo_action()
-            # timer.__exit__(None, None, None)
         deepest += 1
     print(_testing.prefix(5), f"reach deepest at {deepest} at a testing turn count {board.turn_count}")
     return best_action
@@ -184,7 +157,6 @@ def eval_fn_ordering(board:Board, player:PlayerColor) -> int:
     if (board.turn_count < 20):
         utility = (
             diff_row_col_occupied(board, player) +    \
-            #diff_cells_occupied(new_board, player) * 0.5 +      \
             diff_reachable_valid_empty_cell(board, player) 
         )
     else: 

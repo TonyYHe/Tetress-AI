@@ -1,4 +1,4 @@
---- semi-final version of main agent; final version of greedy agent ----
+--- semi-final version of main agent before changing the utility evaluation for ordering ----
 GAME 1: * referee @ result: player 2 [greedy_agent:Agent]
 GAME 2: * referee @ result: player 1 [agent:Agent]
 GAME 3: * referee @ result: player 1 [agent:Agent]
