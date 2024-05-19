@@ -29,7 +29,7 @@ class Agent:
         """
         node = Node(self.board, self.color)
         children = node.get_all_children(self.board)
-        children = OrderChildren.order_children(self.board, children, self.color, TranspositionTable(), {})
+        children = OrderChildren.order_children(self.board, children, self.color, TranspositionTable())
         return children[0].parent_action
        
 

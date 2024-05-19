@@ -158,7 +158,7 @@ def alpha_beta_cutoff_search(board:Board, transposition_table:TranspositionTable
     start_time = time.time()
     base_time = referee["time_remaining"] / (MAX_TURN - board.turn_count)
     end_time = start_time + base_time + board.turn_count/TIME_OUT_FACTOR
-    while (time.time() < end_time):
+    while (time.time() < end_time and deepest < 30):
         for action in top_actions: #[legal_actions[i] for i in random_index]
             # timer = CountdownTimer(time_limit=1,tolerance=10)
             # timer.__enter__()
@@ -181,11 +181,17 @@ def eval_fn_ordering(board:Board, player:PlayerColor) -> int:
     '''
 
     # Calculate the weighted sum of the utility components for `player` (i.e. the agent using the habp) 
-    utility = (
-        diff_row_col_occupied(board, player) * 0.8 +    \
-        #diff_cells_occupied(new_board, player) * 0.5 +      \
-        diff_reachable_valid_empty_cell(board, player)
-    )
+    if (board.turn_count < 20):
+        utility = (
+            diff_row_col_occupied(board, player) +    \
+            #diff_cells_occupied(new_board, player) * 0.5 +      \
+            diff_reachable_valid_empty_cell(board, player) 
+        )
+    else: 
+        utility = (
+            diff_row_col_occupied(board, player) * 0.5 +    \
+            diff_reachable_valid_empty_cell(board, player)
+        )
 
     return utility
 
