@@ -2,3 +2,8 @@ GAME 1: * referee @ result: player 1 [agent:Agent]
 GAME 2: * referee @ result: player 1 [agent:Agent]
 GAME 3: * referee @ result: player 1 [agent:Agent]
 GAME 4: * referee @ result: player 1 [agent:Agent]
+
+-------- after adding safty check for early stage --------- 
+GAME 1: * referee @ result: player 1 [agent:Agent]
+GAME 2: * referee @ result: player 1 [agent:Agent]
+GAME 3: * referee @ result: player 2 [agentGreedy:Agent]

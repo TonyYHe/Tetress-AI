@@ -285,7 +285,7 @@ def query_player(game, state):
 
 
 def alpha_beta_player(game, state):
-    return alpha_beta_cutoff_search(state, game)
+    return iterative_deepening_alpha_beta_cutoff_search(state, game)
 
 
 
