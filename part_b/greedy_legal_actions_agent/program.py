@@ -3,9 +3,6 @@
 
 from referee.game import *
 from utils.board import Board
-from utils.node import Node
-from utils.orderchildren import *
-
 
 class Agent:
     """
@@ -27,10 +24,20 @@ class Agent:
         This method is called by the referee each time it is the agent's turn
         to take an action. It must always return an action object. 
         """
-        node = Node(self.board, self.color)
-        children = node.get_all_children(self.board)
-        children = OrderChildren.order_children(self.board, children, self.color, TranspositionTable(), {})
-        return children[0].parent_action
+        action_utility = []
+        for action in self.board.get_legal_actions():
+            mutation = self.board.apply_action(action)
+            curr_color = self.board._turn_color
+            self.board.modify_turn_color(self.color)
+            num_player_legal_actions = len(self.board.get_legal_actions())
+            self.board.modify_turn_color(self.color.opponent)
+            num_opponent_legal_actions = len(self.board.get_legal_actions())
+            self.board.modify_turn_color(curr_color)
+            utility_value = num_player_legal_actions - num_opponent_legal_actions
+            self.board.undo_action(mutation)
+            action_utility.append((action, utility_value))
+        sorted_children = sorted(action_utility, key=lambda x: x[1])
+        return sorted_children[0][0]
        
 
     def update(self, color: PlayerColor, action: Action, **referee: dict):

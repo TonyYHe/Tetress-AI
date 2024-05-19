@@ -11,8 +11,9 @@ from referee.game.exceptions import IllegalActionException
 from referee.game.constants import *
 
 from collections import deque
-from utils.constants import WIN, LOSS, DRAW
+from utils.constants import *
 import random
+import numpy as np
 
 @dataclass(frozen=True, slots=True)
 class CellState:
@@ -49,10 +50,7 @@ class BoardMutation:
 
 class BoardState(dict):
     def __hash__(self):
-        return hash(tuple(sorted(self.items())))
-    
-    def hash(self):
-        return self.__hash__()
+        return hash(frozenset(self.items()))
 
 class Board:
     """
@@ -152,6 +150,7 @@ class Board:
             self.modify_turn_color()
             self._turn_count = curr_turn_count
             return legal_actions
+        
         def random_strategy(starting_cell):
             """
             Return a completely random move.
@@ -171,6 +170,7 @@ class Board:
                 action_coords.append(next_coord)
                 i += 1
             return [PlaceAction(*action_coords)]
+        
         def defensive_strategy():
             """
             Return a random placement far away from the only red piece on the 
