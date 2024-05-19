@@ -3,7 +3,7 @@ from utils.table import *
 
 class OrderActions:
     @staticmethod
-    def order_actions(board: Board, actions: list, player_color: PlayerColor, ttable: TranspositionTable):
+    def order_actions(board: Board, actions: list, ttable: TranspositionTable, move_values):
         """
         Return a sorted list of actions based on best value stored in 
         transposition table, best value from previous iteration and heuristic 
@@ -16,9 +16,12 @@ class OrderActions:
             mutation = board.apply_action(action)
             ttentry: TTEntry = ttable.retrieve(board._state)
             if ttentry is not None:
-                move_scores[board._state.__hash__()] = ttentry.best_value
+                move_scores[board._state.__hash__()] = -ttentry.best_value
             else:
-                move_scores[board._state.__hash__()] = OrderActions.heuristic_evaluate_action(action, board, player_color)
+                if board._state in move_values:
+                    move_scores[board._state.__hash__()] = -move_values[board._state.__hash__()]
+                else:
+                    move_scores[board._state.__hash__()] = OrderActions.heuristic_evaluate_action(action, board)
             board.undo_action(mutation)
 
         def get_move_score(action: PlaceAction):
@@ -39,16 +42,17 @@ class OrderActions:
         return actions[:k]
     
     @staticmethod
-    def heuristic_evaluate_action(action: PlaceAction, board: Board, player_color: PlayerColor):
+    def heuristic_evaluate_action(action: PlaceAction, board: Board):
         """
         Return the heuristic value of a node evaluated from the perspective of 
         the input player.
         """
         mutation = board.apply_action(action)
-        heuristic_value = board.diff_cells_occupied() + board.diff_legal_actions()
+        if board._turn_count < 20:
+            heuristic_value = board.diff_cells_occupied() + board.diff_reachable_valid_empty_cell()
+        else:
+            heuristic_value = board.diff_cells_occupied()*0.5 + board.diff_reachable_valid_empty_cell()
         board.undo_action(mutation)
-        if player_color == board._turn_color:
-            return heuristic_value
         return -heuristic_value
 
         

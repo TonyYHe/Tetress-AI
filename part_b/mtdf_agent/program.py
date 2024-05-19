@@ -2,9 +2,10 @@
 # Project Part B: Game Playing Agent
 
 from referee.game import PlayerColor, Action, PlaceAction, Coord
-from mtdf_agent.mtdf import *
 from utils.board import Board
 from utils.constants import *
+from mtdf_agent.mtdf_agent import *
+from utils.node import *
 
 class Agent:
     """
@@ -18,9 +19,7 @@ class Agent:
         Any setup and/or precomputation should be done here.
         """
         self.board = Board(initial_player=PlayerColor.RED)
-        self.color = color
-        self.root = MTDFNode(self.board, color)
-        self.best_child = None
+        self.agent = MTDFAgent(color)
 
 
     def action(self, **referee: dict) -> Action:
@@ -30,9 +29,8 @@ class Agent:
         """
         print("@ starting time:", referee["time_remaining"])
         print("@ starting space:", referee["space_remaining"])
-        best_child = self.root.best_child(self.board, referee["time_remaining"])
-        self.best_child = best_child
-        best_action = best_child.parent_action
+        print("turn count:", self.board.turn_count)
+        best_action = self.agent.best_action(self.board, referee["time_remaining"])
         print("@ ending time:", referee["time_remaining"])
         print("@ ending space:", referee["space_remaining"])
         return best_action
@@ -44,14 +42,3 @@ class Agent:
         turn. You should use it to update the agent's internal game state. 
         """
         self.board.apply_action(action)
-
-        # update the root node of the habp search tree
-        if color == self.color:
-            self.root = self.best_child
-        else:
-            child_node: MTDFNode = self.root.children.get(action) if self.root.children is not None else None
-            # some child nodes may not be generated due to approximation
-            if child_node is None:
-                self.root = MTDFNode(self.board, self.color, parent_action=action)
-            else:
-                self.root = child_node

@@ -20,6 +20,7 @@ class Agent:
         """
         self.board = Board(initial_player=PlayerColor.RED)
         self.color = color
+        self.ttable = TranspositionTable()
 
 
     def action(self, **referee: dict) -> Action:
@@ -28,7 +29,7 @@ class Agent:
         to take an action. It must always return an action object. 
         """
         actions = self.board.get_legal_actions()
-        best_action = OrderActions.order_actions(self.board, actions, self.color, TranspositionTable())
+        best_action = OrderActions.order_actions(self.board, actions, self.color, self.ttable)
         return best_action
        
 

@@ -452,7 +452,7 @@ class Board:
             cell_mutations=set(cell_mutations.values())
         )
     
-    def eval_fn(self, player_color: PlayerColor, ply: int):
+    def eval_fn(self, ply: int):
         """
         problematic
         Return a utility value calculated from the persepctive of the input 
@@ -460,7 +460,7 @@ class Board:
         PLAYER (YOU).
         """
         if self.winner_color is not None:
-            if self.winner_color == player_color:
+            if self.winner_color == self._turn_color:
                 return 1000 - ply
             else:
                 return -1000 + ply
@@ -478,7 +478,7 @@ class Board:
 
         # since Tetress is a zero-sum game, we can take the negative of the 
         # utility value for the opponent
-        return utility if player_color == self._turn_color else -utility
+        return utility
     
     
     def diff_cells_occupied(self) -> int:
@@ -500,40 +500,64 @@ class Board:
         self._turn_color = curr_color
         return num_player_legal_actions - num_opponent_legal_actions
     
-    # def diff_reachable_valid_empty_cell(self) -> int: 
-    #     ''' Find the difference in the number of valid empty cells reachable 
-    #         between the player and the opponent. 
-    #         A cell is valid if it is connected to at least 3 other empty cells. 
-    #     '''
-    #     return self.num_empty_player_reachable - self.num_empty_opponent_reachable
+    def diff_reachable_valid_empty_cell(self, player_color: PlayerColor = None) -> int: 
+        ''' Find the difference in the number of valid empty cells reachable 
+            between the player and the opponent. 
+            A cell is valid if it is connected to at least 3 other empty cells. 
+        '''
+        if player_color is None:
+            player = self._turn_color
+        else:
+            player = player_color
+        num_empty_player_reachable = self.num_valid_reachable_cells(player)
+        num_empty_opponent_reachable = self.num_valid_reachable_cells(player.opponent)
+        return num_empty_player_reachable - num_empty_opponent_reachable
     
-    # def empty_connected(self, board: Board, empty: Coord) -> set[Coord]:
-    #     ''' Return the empty cells connected to the `empty` cell
-    #     '''
-    #     frontier = [empty]
-    #     connected = {empty}
-    #     while frontier: 
-    #         visiting = frontier.pop()
-    #         for adjacent in [visiting.__add__(direction) for direction in Direction]: 
-    #             if board._cell_empty(adjacent) and adjacent not in connected: 
-    #                 frontier.append(adjacent)
-    #                 connected.add(adjacent)
-    #     return connected
+    def empty_connected(self, empty: Coord) -> set[Coord]:
+        ''' Return the empty cells connected to the `empty` cell
+        '''
+        frontier = [empty]
+        connected = {empty}
+        while frontier: 
+            visiting = frontier.pop()
+            for adjacent in [visiting.__add__(direction) for direction in Direction]: 
+                if self._cell_empty(adjacent) and adjacent not in connected: 
+                    frontier.append(adjacent)
+                    connected.add(adjacent)
+        return connected
     
-    # def num_valid_reachable_cells(self, board:Board, player:PlayerColor) -> int: 
-    #     reachable = 0
-    #     visited = set()
-    #     occupied = board._player_occupied_coords(player)
-    #     for cell in occupied: 
-    #         for adjacent in [cell.__add__(direction) for direction in Direction]: 
-    #             if board._cell_empty(adjacent) and adjacent not in visited: 
-    #                 connected = self.empty_connected(board, adjacent)
-    #                 # _testing.show(connected, description="new empty region connected")
-    #                 # _testing.show(visited, description="previously visited empty region")
-    #                 assert(len(visited.intersection(connected)) == 0)  # `connected` should be a new region that has not been visited 
-    #                 visited.update(connected)
+    def num_valid_reachable_cells(self, player: PlayerColor) -> int: 
+        reachable = 0
+        visited = set()
+        occupied = self._player_occupied_coords(player)
+        for cell in occupied: 
+            for adjacent in [cell.__add__(direction) for direction in Direction]: 
+                if self._cell_empty(adjacent) and adjacent not in visited: 
+                    connected = self.empty_connected(adjacent)
+                    # _testing.show(connected, description="new empty region connected")
+                    # _testing.show(visited, description="previously visited empty region")
+                    assert(len(visited.intersection(connected)) == 0)  # `connected` should be a new region that has not been visited 
+                    visited.update(connected)
                     
-    #                 # Only add valid cell count to the output 
-    #                 if len(connected) >= 4: 
-    #                     reachable += len(connected)
-    #     return reachable
+                    # Only add valid cell count to the output 
+                    if len(connected) >= 4: 
+                        reachable += len(connected)
+        return reachable
+
+    
+    def diff_row_col_occupied(self, player: PlayerColor=None) -> int: 
+        ''' Find the difference in the sum of the number of rows and columns occupied
+            between the player and the opponent. 
+        '''
+        if player is None:
+            player = self._turn_color
+        else:
+            player = player
+        player_occupied = (self._player_occupied_coords(player)) 
+        opponent_occupied = (self._player_occupied_coords(player.opponent)) 
+        player_occupied_row = set(map(lambda coord: coord.r, player_occupied))
+        player_occupied_col = set(map(lambda coord: coord.c, player_occupied))
+        opponent_occupied_row = set(map(lambda coord: coord.r, opponent_occupied))
+        opponent_occupied_col = set(map(lambda coord: coord.c, opponent_occupied))
+        return len(player_occupied_row) + len(player_occupied_col) \
+            - len(opponent_occupied_row) - len(opponent_occupied_col)

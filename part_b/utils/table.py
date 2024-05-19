@@ -32,10 +32,7 @@ class TranspositionTable(Table):
         super().__init__()
         
     def store(self, board: Board, node_type, depth, best_action, best_value):
-        if len(self.table) >= MAX_TABLE_SIZE:
-            self.remove_least_valuable_entry()
-        boardstate = board._state
-        state_hash = boardstate.__hash__()
+        state_hash = board._state.__hash__()
         entry = TTEntry(node_type, depth, best_action, best_value)
         self.table[state_hash] = entry
         return entry
