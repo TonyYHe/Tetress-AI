@@ -1,5 +1,7 @@
 from utils.board import *
 from utils.constants import *
+import time
+from utils.table import *
 
 class StateInformation:
     def __init__(self, board: Board):
@@ -18,9 +20,6 @@ class StateInformation:
         self.num_player_token_count = len(board._player_occupied_coords(self.curr_color))
         self.num_opponent_token_count = len(board._player_occupied_coords(self.curr_color.opponent))
         self.winner_color = board.winner_color
-        self.num_empty_player_reachable = self.num_valid_reachable_cells(board, self.curr_color)
-        self.num_empty_opponent_reachable = self.num_valid_reachable_cells(board, self.curr_color.opponent)
-
     
     def eval_fn(self, player_color: PlayerColor, ply: int):
         """
@@ -65,6 +64,21 @@ class StateInformation:
         """
         return self.num_player_legal_actions - self.num_opponent_legal_actions
     
+    
+    def diff_cells_occupied(self) -> int:
+        """
+        Find the difference in the number of tokens between the player and the 
+        opponent. 
+        """
+        return self.num_player_token_count - self.num_opponent_token_count
+
+    def diff_legal_actions(self) -> int: 
+        """
+        Find the difference in the number of legal actions between the player and 
+        the opponent. 
+        """
+        return len(self.player_legal_actions) - len(self.opponent_legal_actions)
+    
     def diff_reachable_valid_empty_cell(self) -> int: 
         ''' Find the difference in the number of valid empty cells reachable 
             between the player and the opponent. 
@@ -102,3 +116,18 @@ class StateInformation:
                     if len(connected) >= 4: 
                         reachable += len(connected)
         return reachable
+    
+    def get_safe_random_action(self, board: Board, sttable):
+        """
+        Return a random action that makes a safe move. A safe move is defined as
+        take an action that increases the number of legal actions.
+        """
+        safe = False
+        start_time = time.time()
+        while not safe and time.time() - start_time < SAFE_RANDOM_TIME_OUT:
+            random_action = random.choice(self.player_legal_actions)
+            mutation = board.apply_action(random_action)
+            state_info = sttable.retrieve(board)
+            board.undo_action(mutation)
+            safe = len(state_info.player_legal_actions) > len(self.player_legal_actions)
+        return random_action

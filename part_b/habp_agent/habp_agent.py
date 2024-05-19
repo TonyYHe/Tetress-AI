@@ -6,7 +6,7 @@ from utils.constants import *
 from utils.table import *
 from utils.node import *
 from utils.iterdeep_agent import *
-from utils.orderchildren import *
+from utils.orderactions import *
 from utils.searchexit import *
 
 # ______________________________________________________________________________
@@ -15,22 +15,22 @@ class NegamaxAgent(IterativeDeepeningAgent):
         super().__init__(color)
         return
 
-    def search(self, root: Node, board: Board, alpha, beta, depth, ply):
+    def search(self, board: Board, alpha, beta, depth, ply):
         entry: TTEntry = self.transposition_table.retrieve(board._state)
         if entry is not None and entry.depth >= depth:
             # print("-------------------------visited-------------------------")
             if entry.node_type == EXACT:
-                return entry.best_value, entry.best_child, SearchExit.DEPTH
+                return entry.best_value, entry.best_action, SearchExit.DEPTH
             elif entry.node_type == LOWER_BOUND and entry.best_value > alpha:
                 alpha = entry.best_value
             elif entry.node_type == UPPER_BOUND and entry.best_value < beta:
                 beta = entry.best_value
             if alpha >= beta:
-                return entry.best_value, entry.best_child, SearchExit.DEPTH
+                return entry.best_value, entry.best_action, SearchExit.DEPTH
         
-        if root.cutoff_test(depth):
-
-            utility_value = root.state_info.eval_fn(board._turn_color, ply)
+        if self.cutoff_test(board, depth):
+            state_info = self.stateinfo_table.retrieve(board)
+            utility_value = state_info.eval_fn(board._turn_color, ply)
 
             # print(board.render(use_color=True))
             # print("agent's color:", self.color)
@@ -55,21 +55,22 @@ class NegamaxAgent(IterativeDeepeningAgent):
 
             return utility_value, None, search_exit_type
         
-        best_child = None
+        best_action = None
         value = -np.inf
-        children = root.get_all_children(board)
-        children = OrderChildren.order_children(board, children, self.color, self.transposition_table)
-        children = OrderChildren.topk_children(children)
 
-        # print("depth:", ply, "total number of children:", len((children)))
+        actions = board.get_legal_actions()
+        children = OrderActions.order_actions(board, actions, self.color, self.transposition_table, self.stateinfo_table)
+        children = OrderActions.topk_actions(children)
 
-        for child_node in children:
-            mutation = board.apply_action(child_node.parent_action)
-            child_value, _, search_exit_type = self.search(child_node, board, -beta, -alpha, depth - 1, ply + 1)
+        # print("depth:", ply, "total number of actions", len((children)))
+
+        for action in actions:
+            mutation = board.apply_action(action)
+            child_value, _, search_exit_type = self.search(board, -beta, -alpha, depth - 1, ply + 1)
             child_value = -child_value
             if child_value > value:
                 value = child_value
-                best_child = child_node
+                best_action = action
             alpha = max(alpha, value)
             board.undo_action(mutation)
             if alpha >= beta:
@@ -86,8 +87,8 @@ class NegamaxAgent(IterativeDeepeningAgent):
             node_type = UPPER_BOUND
 
         # print("best_value:", value)
-        self.transposition_table.store(board, node_type, depth, best_child, value)
-        return value, best_child, search_exit_type
+        self.transposition_table.store(board, node_type, depth, best_action, value)
+        return value, best_action, search_exit_type
 
         
 

@@ -4,18 +4,22 @@ from utils.constants import *
 import random
 from utils.table import *
 import time
-from utils.stateinfo import *
 
 # ______________________________________________________________________________
 class Node:
     def __init__(self, board: Board, parent_action=None):
         self.parent_action = parent_action
         self.children = None
-        self.state_info: StateInformation = StateInformation(board)
+        self.curr_color = board._turn_color
+        self.turn_count = board._turn_count
+        self.player_legal_actions = board.get_legal_actions()
+        board.modify_turn_color(self.curr_color.opponent)
+        self.opponent_legal_actions = board.get_legal_actions()
+        board.modify_turn_color(self.curr_color)
+        self.num_player_token_count = len(board._player_occupied_coords(self.curr_color))
+        self.num_opponent_token_count = len(board._player_occupied_coords(self.curr_color.opponent))
+        self.winner_color = board.winner_color
         return
-    
-    def cutoff_test(self, depth):
-        return depth == 0 or (self.state_info.winner_color is not None)
     
     def get_safe_random_child(self, board: Board):
         """
@@ -25,11 +29,11 @@ class Node:
         safe = False
         start_time = time.time()
         while not safe and time.time() - start_time < SAFE_RANDOM_TIME_OUT:
-            random_action = random.choice(self.state_info.player_legal_actions)
+            random_action = random.choice(self.player_legal_actions)
             mutation = board.apply_action(random_action)
             random_child = Node(board, parent_action=random_action)
             board.undo_action(mutation)
-            safe = random_child.state_info.num_player_legal_actions > self.state_info.num_player_legal_actions
+            safe = len(random_child.player_legal_actions) > len(self.player_legal_actions)
 
         return random_child
     
@@ -38,8 +42,8 @@ class Node:
         Return all valid child nodes of the current node.
         """
         # Check if children has been generated already
-        legal_actions = self.state_info.player_legal_actions
-        num_legal_actions = self.state_info.num_player_legal_actions
+        legal_actions = self.player_legal_actions
+        num_legal_actions = len(legal_actions)
 
         if self.children is not None and len(self.children) == num_legal_actions:
             return list(self.children.values())
@@ -58,7 +62,7 @@ class Node:
         """
         Return n random children.
         """
-        legal_actions = self.state_info.player_legal_actions
+        legal_actions = self.player_legal_actions
         random_actions = random.sample(legal_actions, n)
         random_children = []
 

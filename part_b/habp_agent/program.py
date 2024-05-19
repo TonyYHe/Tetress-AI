@@ -20,8 +20,6 @@ class Agent:
         """
         self.board = Board(initial_player=PlayerColor.RED)
         self.agent = NegamaxAgent(color)
-        self.root = Node(self.board)
-        self.best_child = None
 
 
     def action(self, **referee: dict) -> Action:
@@ -31,9 +29,8 @@ class Agent:
         """
         print("@ starting time:", referee["time_remaining"])
         print("@ starting space:", referee["space_remaining"])
-        best_child = self.agent.best_child(self.root, self.board, referee["time_remaining"])
-        self.best_child = best_child
-        best_action = best_child.parent_action
+        print("turn count:", self.board.turn_count)
+        best_action = self.agent.best_action(self.board, referee["time_remaining"])
         print("@ ending time:", referee["time_remaining"])
         print("@ ending space:", referee["space_remaining"])
         return best_action
@@ -45,14 +42,3 @@ class Agent:
         turn. You should use it to update the agent's internal game state. 
         """
         self.board.apply_action(action)
-
-        # update the root node of the game tree
-        if color == self.agent.color:
-            self.root = self.best_child
-        else:
-            child_node: Node = self.root.children.get(action) if self.root.children is not None else None
-            # some child nodes may not be generated due to approximation
-            if child_node is None:
-                self.root = Node(self.board, parent_action=action)
-            else:
-                self.root = child_node

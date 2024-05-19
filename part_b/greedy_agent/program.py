@@ -4,7 +4,7 @@
 from referee.game import *
 from utils.board import Board
 from utils.node import Node
-from utils.orderchildren import *
+from utils.orderactions import *
 
 
 class Agent:
@@ -27,10 +27,9 @@ class Agent:
         This method is called by the referee each time it is the agent's turn
         to take an action. It must always return an action object. 
         """
-        node = Node(self.board, self.color)
-        children = node.get_all_children(self.board)
-        children = OrderChildren.order_children(self.board, children, self.color, TranspositionTable(), {})
-        return children[0].parent_action
+        actions = self.board.get_legal_actions()
+        best_action = OrderActions.order_actions(self.board, actions, self.color, TranspositionTable(), {})
+        return best_action
        
 
     def update(self, color: PlayerColor, action: Action, **referee: dict):
