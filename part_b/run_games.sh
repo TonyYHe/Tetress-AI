@@ -1,6 +1,6 @@
 #!/bin/bash
 
-output_file="_testing_output/habp-vs-greedy.txt"
+output_file="_testing_final/habp-vs-greedy.txt"
 
 for i in $(seq 1 100)
 do
