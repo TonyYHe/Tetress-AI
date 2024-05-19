@@ -17,7 +17,7 @@ class Node:
     def cutoff_test(self, depth):
         return depth == 0 or (self.state_info.winner_color is not None)
     
-    def get_safe_random_child(self,board: Board):
+    def get_safe_random_child(self, board: Board):
         """
         Return a random child that makes a safe move. A safe move is defined as
         take an action that increases the number of legal actions.

@@ -37,14 +37,14 @@ class StateInformation:
             
         # Find the difference in the number of actions 
         extra_num_actions = self.diff_legal_actions()
-        extra_num_reachable = self.diff_reachable_valid_empty_cell()
+        # extra_num_reachable = self.diff_reachable_valid_empty_cell()
         extra_num_occupied = self.diff_cells_occupied()
 
         if self.turn_count <= TURN_THRESHOLD:
-            utility = extra_num_actions + extra_num_reachable + extra_num_occupied*0.1
+            utility = extra_num_actions + extra_num_occupied*0.1
         else:
             turns_exceed_threshold = self.turn_count - TURN_THRESHOLD
-            utility = extra_num_actions + extra_num_reachable + extra_num_occupied*turns_exceed_threshold*0.5
+            utility = extra_num_actions + extra_num_occupied*turns_exceed_threshold*0.5
 
         # since Tetress is a zero-sum game, we can take the negative of the 
         # utility value for the opponent

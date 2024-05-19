@@ -53,6 +53,7 @@ class IterativeDeepeningAgent(ABC):
             depth += 1
             if exit_type == SearchExit.TIME or exit_type == SearchExit.FULL_DEPTH:
                 break
+        self.full_depth = True
         return best_child
     
     @abstractmethod
