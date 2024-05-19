@@ -40,7 +40,7 @@ MAX_TABLE_SIZE = 300
 # ENDGAME_STAGE = NUM_CELLS * 0.3
 
 # ============ game phase based on the number of legal actions =================
-MIDGAME_STAGE = 20
+MIDGAME_STAGE = 200
 LATEGAME_STAGE = 20
 
 UPPER_BOUND = 'upperbound'

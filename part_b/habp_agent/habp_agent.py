@@ -16,8 +16,6 @@ class NegamaxAgent(IterativeDeepeningAgent):
         return
 
     def search(self, root: Node, board: Board, alpha, beta, depth, ply, move_values=None):
-        alphaOrig = alpha
-        
         entry: TTEntry = self.transposition_table.retrieve(board._state)
         if entry is not None and entry.depth >= depth:
             print("-------------------------visited-------------------------")
@@ -31,12 +29,22 @@ class NegamaxAgent(IterativeDeepeningAgent):
                 return entry.best_value, entry.best_child, move_values, SearchExit.DEPTH
         
         if root.cutoff_test(depth):
+
+            utility_value = root.state_info.eval_fn(board._turn_color, ply)
+
             print(board.render(use_color=True))
             print("agent's color:", self.color)
             print("turn color:", board.turn_color)
             print("ply:", ply)
-            utility_value = root.state_info.eval_fn(self.color, ply)
             print("utility_value:", utility_value)
+
+            if utility_value <= alpha:
+                self.transposition_table.store(board, LOWER_BOUND, depth, None, utility_value)
+            elif utility_value >= beta:
+                self.transposition_table.store(board, UPPER_BOUND, depth, None, utility_value)
+            else:
+                self.transposition_table.store(board, EXACT, depth, None, utility_value)
+            
             if self.full_depth == False:
                 search_exit_type = SearchExit.DEPTH
             elif board.game_over != True:
@@ -44,6 +52,7 @@ class NegamaxAgent(IterativeDeepeningAgent):
                 search_exit_type = SearchExit.DEPTH
             else:
                 search_exit_type = SearchExit.FULL_DEPTH
+
             return utility_value, None, move_values, search_exit_type
         
         best_child = None
@@ -71,10 +80,10 @@ class NegamaxAgent(IterativeDeepeningAgent):
                 break
 
         node_type = EXACT
-        if value <= alphaOrig:
-            node_type = UPPER_BOUND
-        elif value >= beta:
+        if value <= alpha:
             node_type = LOWER_BOUND
+        elif value >= beta:
+            node_type = UPPER_BOUND
 
         print("best_value:", value)
         move_values[board._state.__hash__()] = value

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-output_file="testing/pvs-vs-random.txt"
+output_file="testing/negamax-vs-random.txt"
 
 for i in $(seq 1 100)
 do
