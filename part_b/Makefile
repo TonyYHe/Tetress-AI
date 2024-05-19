@@ -6,11 +6,11 @@ prefix = python3 -m referee -s 250 -t 180 $(red)
 random:
 	$(prefix) agentRandom
 token: 
-	$(prefix) greedy_token_agent	
+	$(prefix) agentGreedyToken	
 actions: 
-	$(prefix) greedy_legal_actions_agent
+	$(prefix) agentGreedyAction
 greedy: 
-	$(prefix) greedy_agent
+	$(prefix) agentGreedy
 
 err: 
 	python3 -m referee -s 250 -t 180 $(red) $(blue) 2> _out$(n).txt

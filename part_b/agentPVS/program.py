@@ -2,7 +2,7 @@
 # Project Part B: Game Playing Agent
 
 from referee.game import PlayerColor, Action, PlaceAction, Coord
-from pvs_agent.pvs_agent import PVSNode
+from agentPVS.pvs_agent import PVSNode
 from utils.board import Board
 from utils.constants import *
 

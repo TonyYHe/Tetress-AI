@@ -1,0 +1,4 @@
+GAME 1: * referee @ result: player 1 [agent:Agent]
+GAME 2: * referee @ result: player 1 [agent:Agent]
+GAME 3: * referee @ result: player 1 [agent:Agent]
+GAME 4: * referee @ result: player 1 [agent:Agent]
