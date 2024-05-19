@@ -3,7 +3,7 @@ from utils.table import *
 
 class OrderActions:
     @staticmethod
-    def order_actions(board: Board, actions: list, player_color: PlayerColor, ttable: TranspositionTable, sttable: StateinfoTable):
+    def order_actions(board: Board, actions: list, player_color: PlayerColor, ttable: TranspositionTable):
         """
         Return a sorted list of actions based on best value stored in 
         transposition table, best value from previous iteration and heuristic 
@@ -18,7 +18,7 @@ class OrderActions:
             if ttentry is not None:
                 move_scores[board._state.__hash__()] = ttentry.best_value
             else:
-                move_scores[board._state.__hash__()] = OrderActions.heuristic_evaluate_action(action, board, player_color, sttable)
+                move_scores[board._state.__hash__()] = OrderActions.heuristic_evaluate_action(action, board, player_color)
             board.undo_action(mutation)
 
         def get_move_score(action: PlaceAction):
@@ -39,14 +39,13 @@ class OrderActions:
         return actions[:k]
     
     @staticmethod
-    def heuristic_evaluate_action(action: PlaceAction, board: Board, player_color: PlayerColor, sttable: StateinfoTable):
+    def heuristic_evaluate_action(action: PlaceAction, board: Board, player_color: PlayerColor):
         """
         Return the heuristic value of a node evaluated from the perspective of 
         the input player.
         """
         mutation = board.apply_action(action)
-        state_info = sttable.retrieve(board)
-        heuristic_value = state_info.diff_cells_occupied() + state_info.diff_legal_actions()
+        heuristic_value = board.diff_cells_occupied() + board.diff_legal_actions()
         board.undo_action(mutation)
         if player_color == board._turn_color:
             return heuristic_value

@@ -64,21 +64,6 @@ class StateInformation:
         """
         return self.num_player_legal_actions - self.num_opponent_legal_actions
     
-    
-    def diff_cells_occupied(self) -> int:
-        """
-        Find the difference in the number of tokens between the player and the 
-        opponent. 
-        """
-        return self.num_player_token_count - self.num_opponent_token_count
-
-    def diff_legal_actions(self) -> int: 
-        """
-        Find the difference in the number of legal actions between the player and 
-        the opponent. 
-        """
-        return len(self.player_legal_actions) - len(self.opponent_legal_actions)
-    
     def diff_reachable_valid_empty_cell(self) -> int: 
         ''' Find the difference in the number of valid empty cells reachable 
             between the player and the opponent. 

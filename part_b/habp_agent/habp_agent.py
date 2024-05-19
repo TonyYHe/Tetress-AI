@@ -29,8 +29,7 @@ class NegamaxAgent(IterativeDeepeningAgent):
                 return entry.best_value, entry.best_action, SearchExit.DEPTH
         
         if self.cutoff_test(board, depth):
-            state_info = self.stateinfo_table.retrieve(board)
-            utility_value = state_info.eval_fn(board._turn_color, ply)
+            utility_value = board.eval_fn(board._turn_color, ply)
 
             # print(board.render(use_color=True))
             # print("agent's color:", self.color)
@@ -59,10 +58,10 @@ class NegamaxAgent(IterativeDeepeningAgent):
         value = -np.inf
 
         actions = board.get_legal_actions()
-        children = OrderActions.order_actions(board, actions, self.color, self.transposition_table, self.stateinfo_table)
-        children = OrderActions.topk_actions(children)
+        actions = OrderActions.order_actions(board, actions, self.color, self.transposition_table)
+        actions = OrderActions.topk_actions(actions)
 
-        # print("depth:", ply, "total number of actions", len((children)))
+        # print("depth:", ply, "total number of actions", len((actions)))
 
         for action in actions:
             mutation = board.apply_action(action)

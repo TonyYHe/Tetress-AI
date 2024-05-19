@@ -12,7 +12,6 @@ class IterativeDeepeningAgent(ABC):
     def __init__(self, color) -> None:
         super().__init__()
         self.transposition_table = TranspositionTable()
-        self.stateinfo_table = StateinfoTable()
         self.color = color # color of THE PLAYER (YOU)
         self.full_depth = True
         self.expire_time = None
@@ -24,13 +23,13 @@ class IterativeDeepeningAgent(ABC):
         """
         # print("@ number of legal actions:", root.num_player_legal_actions)
         # print("@ number of empty coordinates:", root.num_empty_cells)
-        state_info = self.stateinfo_table.retrieve(board)
-        game_progress = len(state_info.player_legal_actions)
+        legal_actions = board.get_legal_actions()
+        game_progress = len(legal_actions)
         
         if board._turn_count == 0 or game_progress > MIDGAME_STAGE: 
             # play a safe random move
             # print("%"*DELIM_LEN, "OPENING_GAME_STAGE", "%"*DELIM_LEN)
-            best_action = state_info.get_safe_random_action(board, self.stateinfo_table)
+            best_action = random.choice(legal_actions)
         else:
             # complete principal variation search in endgame stage
             # print("%"*DELIM_LEN, "LATEGAME_STAGE", "%"*DELIM_LEN)
@@ -73,5 +72,6 @@ class IterativeDeepeningAgent(ABC):
     
     def cutoff_test(self, board: Board, depth):
         return depth == 0 or (board.winner_color is not None)
+
     
     
