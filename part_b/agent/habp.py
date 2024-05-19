@@ -63,7 +63,12 @@ class TranspositionTable:
 
 def iterative_deepening_alpha_beta_cutoff_search(board:Board, transposition_table:TranspositionTable, referee):
     """Search game to determine best action; use alpha-beta pruning.
-    This version cuts off search and uses an evaluation function."""
+    This version cuts off search and uses an evaluation function.
+
+    This algorithm contains some code from Russell And Norvig's 
+    "Artificial Intelligence - A Modern Approach".
+    See: https://github.com/aimacode/aima-python/blob/master/search.py
+    """
     deepest = 1
 
     def cutoff_test(board:Board, depth):
