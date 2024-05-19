@@ -3,7 +3,7 @@ from utils.table import *
 
 class OrderChildren:
     @staticmethod
-    def order_children(board: Board, children: list, player_color: PlayerColor, ttable: TranspositionTable, move_values):
+    def order_children(board: Board, children: list, player_color: PlayerColor, ttable: TranspositionTable):
         """
         Return a sorted list of children based on best value stored in 
         transposition table, best value from previous iteration and heuristic 
@@ -18,10 +18,7 @@ class OrderChildren:
             if ttentry is not None:
                 move_scores[board._state.__hash__()] = ttentry.best_value
             else:
-                if board._state in move_values:
-                    move_scores[board._state.__hash__()] = move_values[board._state.__hash__()]
-                else:
-                    move_scores[board._state.__hash__()] = OrderChildren.heuristic_evaluate_child(child_node, player_color)
+                move_scores[board._state.__hash__()] = OrderChildren.heuristic_evaluate_child(child_node, player_color)
             board.undo_action(mutation)
 
         def get_move_score(node: Node):
