@@ -16,17 +16,17 @@ class OrderChildren:
             mutation = board.apply_action(child_node.parent_action)
             ttentry: TTEntry = ttable.retrieve(board._state)
             if ttentry is not None:
-                move_scores[board._state] = ttentry.best_value
+                move_scores[board._state.__hash__()] = ttentry.best_value
             else:
                 if board._state in move_values:
-                    move_scores[board._state] = move_values[board._state]
+                    move_scores[board._state.__hash__()] = move_values[board._state.__hash__()]
                 else:
-                    move_scores[board._state] = OrderChildren.heuristic_evaluate_child(child_node, player_color)
+                    move_scores[board._state.__hash__()] = OrderChildren.heuristic_evaluate_child(child_node, player_color)
             board.undo_action(mutation)
 
         def get_move_score(node: Node):
             mutation = board.apply_action(child_node.parent_action)
-            value = move_scores[board._state]
+            value = move_scores[board._state.__hash__()]
             board.undo_action(mutation)
             return value
 
