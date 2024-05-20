@@ -35880,3 +35880,1350 @@ Run `python -m referee --help` for additional usage information.
 * player1 ~ agent process terminated
 * referee : game over, winner is RED
 * referee @ result: player 1 [agent:Agent]
+GAME 24: *******************************************************************************
+Welcome to Tetress referee version 2024.0.0.
+
+Conduct a game of Tetress between 2 Agent classes.
+
+Run `python -m referee --help` for additional usage information.
+*******************************************************************************
+* referee : all messages printed by referee/wrapper modules begin with *
+* referee : (any other lines of output must be from your Agent class).
+* referee : 
+* referee : wrapping player 1 [agent:Agent] as RED...
+* referee : wrapping player 2 [agentGreedy:Agent] as BLUE...
+* referee : let the game begin!
+* referee : player RED is initialising
+* player1 ~ creating agent subprocess...
+* player1 ~ subprocess 18449 started
+* player1 ~ initialising class 'agent:Agent' on subprocess 18449
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* referee : player BLUE is initialising
+* player2 ~ creating agent subprocess...
+* player2 ~ subprocess 18461 started
+* player2 ~ initialising class 'agentGreedy:Agent' on subprocess 18461
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* referee : RED to play (turn 1) ...
+* player1 ~ call 'action()'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ ⤷ PlaceAction(c1=Coord(r=4, c=5), c2=Coord(r=5, c=4), c3=Coord(r=5, c=5), c4=Coord(r=5, c=6))
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.500s  (just elapsed)       0.623s  (game total)
+* player1 ~   space:   1.039MB (current usage)      1.039MB (peak usage)
+* referee : RED plays action PLACE(4-5, 5-4, 5-5, 5-6)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . r . . . . . 
+* referee :                       . . . . r r r . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* player1 ~ call 'update(<PlayerColor.RED: 0>, PlaceAction(c1=Coord(r=4, c=5), c2=Coord(r=5, c=4), c3=Coord(r=5, c=5), c4=Coord(r=5, c=6)))'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.000s  (just elapsed)       0.623s  (game total)
+* player1 ~   space:   1.043MB (current usage)      1.043MB (peak usage)
+* player2 ~ call 'update(<PlayerColor.RED: 0>, PlaceAction(c1=Coord(r=4, c=5), c2=Coord(r=5, c=4), c3=Coord(r=5, c=5), c4=Coord(r=5, c=6)))'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ resources usage status:
+* player2 ~   time:  + 0.000s  (just elapsed)       0.579s  (game total)
+* player2 ~   space:   1.035MB (current usage)      1.035MB (peak usage)
+* referee : BLUE to play (turn 2) ...
+* player2 ~ call 'action()'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ ⤷ PlaceAction(c1=Coord(r=2, c=5), c2=Coord(r=2, c=6), c3=Coord(r=1, c=6), c4=Coord(r=0, c=6))
+* player2 ~ resources usage status:
+* player2 ~   time:  + 0.040s  (just elapsed)       0.619s  (game total)
+* player2 ~   space:   1.172MB (current usage)      1.172MB (peak usage)
+* referee : BLUE plays action PLACE(2-5, 2-6, 1-6, 0-6)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       . . . . . . b . . . . 
+* referee :                       . . . . . . b . . . . 
+* referee :                       . . . . . b b . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . r . . . . . 
+* referee :                       . . . . r r r . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* player1 ~ call 'update(<PlayerColor.BLUE: 1>, PlaceAction(c1=Coord(r=2, c=5), c2=Coord(r=2, c=6), c3=Coord(r=1, c=6), c4=Coord(r=0, c=6)))'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.000s  (just elapsed)       0.624s  (game total)
+* player1 ~   space:   1.043MB (current usage)      1.043MB (peak usage)
+* player2 ~ call 'update(<PlayerColor.BLUE: 1>, PlaceAction(c1=Coord(r=2, c=5), c2=Coord(r=2, c=6), c3=Coord(r=1, c=6), c4=Coord(r=0, c=6)))'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ resources usage status:
+* player2 ~   time:  + 0.000s  (just elapsed)       0.619s  (game total)
+* player2 ~   space:   1.172MB (current usage)      1.172MB (peak usage)
+* referee : RED to play (turn 3) ...
+* player1 ~ call 'action()'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ ⤷ PlaceAction(c1=Coord(r=2, c=4), c2=Coord(r=3, c=4), c3=Coord(r=3, c=5), c4=Coord(r=3, c=6))
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.504s  (just elapsed)       1.127s  (game total)
+* player1 ~   space:   1.043MB (current usage)      1.043MB (peak usage)
+* referee : RED plays action PLACE(2-4, 3-4, 3-5, 3-6)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       . . . . . . b . . . . 
+* referee :                       . . . . . . b . . . . 
+* referee :                       . . . . r b b . . . . 
+* referee :                       . . . . r r r . . . . 
+* referee :                       . . . . . r . . . . . 
+* referee :                       . . . . r r r . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* player1 ~ call 'update(<PlayerColor.RED: 0>, PlaceAction(c1=Coord(r=2, c=4), c2=Coord(r=3, c=4), c3=Coord(r=3, c=5), c4=Coord(r=3, c=6)))'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.000s  (just elapsed)       1.127s  (game total)
+* player1 ~   space:   1.043MB (current usage)      1.043MB (peak usage)
+* player2 ~ call 'update(<PlayerColor.RED: 0>, PlaceAction(c1=Coord(r=2, c=4), c2=Coord(r=3, c=4), c3=Coord(r=3, c=5), c4=Coord(r=3, c=6)))'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ resources usage status:
+* player2 ~   time:  + 0.000s  (just elapsed)       0.619s  (game total)
+* player2 ~   space:   1.172MB (current usage)      1.172MB (peak usage)
+* referee : BLUE to play (turn 4) ...
+* player2 ~ call 'action()'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ ⤷ PlaceAction(c1=Coord(r=0, c=7), c2=Coord(r=0, c=8), c3=Coord(r=0, c=9), c4=Coord(r=1, c=9))
+* player2 ~ resources usage status:
+* player2 ~   time:  + 4.954s  (just elapsed)       5.573s  (game total)
+* player2 ~   space:  14.793MB (current usage)     24.793MB (peak usage)
+* referee : BLUE plays action PLACE(0-7, 0-8, 0-9, 1-9)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       . . . . . . b b b b . 
+* referee :                       . . . . . . b . . b . 
+* referee :                       . . . . r b b . . . . 
+* referee :                       . . . . r r r . . . . 
+* referee :                       . . . . . r . . . . . 
+* referee :                       . . . . r r r . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* player1 ~ call 'update(<PlayerColor.BLUE: 1>, PlaceAction(c1=Coord(r=0, c=7), c2=Coord(r=0, c=8), c3=Coord(r=0, c=9), c4=Coord(r=1, c=9)))'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.000s  (just elapsed)       1.128s  (game total)
+* player1 ~   space:   1.043MB (current usage)      1.043MB (peak usage)
+* player2 ~ call 'update(<PlayerColor.BLUE: 1>, PlaceAction(c1=Coord(r=0, c=7), c2=Coord(r=0, c=8), c3=Coord(r=0, c=9), c4=Coord(r=1, c=9)))'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ resources usage status:
+* player2 ~   time:  + 0.000s  (just elapsed)       5.573s  (game total)
+* player2 ~   space:   5.793MB (current usage)     24.793MB (peak usage)
+* referee : RED to play (turn 5) ...
+* player1 ~ call 'action()'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ ⤷ PlaceAction(c1=Coord(r=6, c=5), c2=Coord(r=7, c=5), c3=Coord(r=7, c=4), c4=Coord(r=7, c=3))
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.505s  (just elapsed)       1.633s  (game total)
+* player1 ~   space:   1.043MB (current usage)      1.043MB (peak usage)
+* referee : RED plays action PLACE(6-5, 7-5, 7-4, 7-3)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       . . . . . . b b b b . 
+* referee :                       . . . . . . b . . b . 
+* referee :                       . . . . r b b . . . . 
+* referee :                       . . . . r r r . . . . 
+* referee :                       . . . . . r . . . . . 
+* referee :                       . . . . r r r . . . . 
+* referee :                       . . . . . r . . . . . 
+* referee :                       . . . r r r . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* player1 ~ call 'update(<PlayerColor.RED: 0>, PlaceAction(c1=Coord(r=6, c=5), c2=Coord(r=7, c=5), c3=Coord(r=7, c=4), c4=Coord(r=7, c=3)))'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.000s  (just elapsed)       1.633s  (game total)
+* player1 ~   space:   1.043MB (current usage)      1.043MB (peak usage)
+* player2 ~ call 'update(<PlayerColor.RED: 0>, PlaceAction(c1=Coord(r=6, c=5), c2=Coord(r=7, c=5), c3=Coord(r=7, c=4), c4=Coord(r=7, c=3)))'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ resources usage status:
+* player2 ~   time:  + 0.000s  (just elapsed)       5.573s  (game total)
+* player2 ~   space:   4.793MB (current usage)     24.793MB (peak usage)
+* referee : BLUE to play (turn 6) ...
+* player2 ~ call 'action()'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ ⤷ PlaceAction(c1=Coord(r=1, c=0), c2=Coord(r=1, c=1), c3=Coord(r=1, c=2), c4=Coord(r=1, c=10))
+* player2 ~ resources usage status:
+* player2 ~   time:  + 7.698s  (just elapsed)      13.272s  (game total)
+* player2 ~   space:  20.516MB (current usage)     53.516MB (peak usage)
+* referee : BLUE plays action PLACE(1-0, 1-1, 1-2, 1-10)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       . . . . . . b b b b . 
+* referee :                       b b b . . . b . . b b 
+* referee :                       . . . . r b b . . . . 
+* referee :                       . . . . r r r . . . . 
+* referee :                       . . . . . r . . . . . 
+* referee :                       . . . . r r r . . . . 
+* referee :                       . . . . . r . . . . . 
+* referee :                       . . . r r r . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* player1 ~ call 'update(<PlayerColor.BLUE: 1>, PlaceAction(c1=Coord(r=1, c=0), c2=Coord(r=1, c=1), c3=Coord(r=1, c=2), c4=Coord(r=1, c=10)))'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.000s  (just elapsed)       1.633s  (game total)
+* player1 ~   space:   1.043MB (current usage)      1.043MB (peak usage)
+* player2 ~ call 'update(<PlayerColor.BLUE: 1>, PlaceAction(c1=Coord(r=1, c=0), c2=Coord(r=1, c=1), c3=Coord(r=1, c=2), c4=Coord(r=1, c=10)))'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ resources usage status:
+* player2 ~   time:  + 0.000s  (just elapsed)      13.272s  (game total)
+* player2 ~   space:   7.516MB (current usage)     53.516MB (peak usage)
+* referee : RED to play (turn 7) ...
+* player1 ~ call 'action()'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ ⤷ PlaceAction(c1=Coord(r=8, c=3), c2=Coord(r=9, c=3), c3=Coord(r=10, c=3), c4=Coord(r=0, c=3))
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.506s  (just elapsed)       2.139s  (game total)
+* player1 ~   space:   1.043MB (current usage)      1.043MB (peak usage)
+* referee : RED plays action PLACE(8-3, 9-3, 10-3, 0-3)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       . . . r . . b b b b . 
+* referee :                       b b b . . . b . . b b 
+* referee :                       . . . . r b b . . . . 
+* referee :                       . . . . r r r . . . . 
+* referee :                       . . . . . r . . . . . 
+* referee :                       . . . . r r r . . . . 
+* referee :                       . . . . . r . . . . . 
+* referee :                       . . . r r r . . . . . 
+* referee :                       . . . r . . . . . . . 
+* referee :                       . . . r . . . . . . . 
+* referee :                       . . . r . . . . . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* player1 ~ call 'update(<PlayerColor.RED: 0>, PlaceAction(c1=Coord(r=8, c=3), c2=Coord(r=9, c=3), c3=Coord(r=10, c=3), c4=Coord(r=0, c=3)))'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.000s  (just elapsed)       2.140s  (game total)
+* player1 ~   space:   1.043MB (current usage)      1.043MB (peak usage)
+* player2 ~ call 'update(<PlayerColor.RED: 0>, PlaceAction(c1=Coord(r=8, c=3), c2=Coord(r=9, c=3), c3=Coord(r=10, c=3), c4=Coord(r=0, c=3)))'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ resources usage status:
+* player2 ~   time:  + 0.000s  (just elapsed)      13.272s  (game total)
+* player2 ~   space:   6.516MB (current usage)     53.516MB (peak usage)
+* referee : BLUE to play (turn 8) ...
+* player2 ~ call 'action()'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ ⤷ PlaceAction(c1=Coord(r=0, c=1), c2=Coord(r=9, c=1), c3=Coord(r=10, c=1), c4=Coord(r=10, c=2))
+* player2 ~ resources usage status:
+* player2 ~   time:  +11.902s  (just elapsed)      25.174s  (game total)
+* player2 ~   space:  20.055MB (current usage)     65.055MB (peak usage)
+* referee : BLUE plays action PLACE(0-1, 9-1, 10-1, 10-2)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       . b . r . . b b b b . 
+* referee :                       b b b . . . b . . b b 
+* referee :                       . . . . r b b . . . . 
+* referee :                       . . . . r r r . . . . 
+* referee :                       . . . . . r . . . . . 
+* referee :                       . . . . r r r . . . . 
+* referee :                       . . . . . r . . . . . 
+* referee :                       . . . r r r . . . . . 
+* referee :                       . . . r . . . . . . . 
+* referee :                       . b . r . . . . . . . 
+* referee :                       . b b r . . . . . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* player1 ~ call 'update(<PlayerColor.BLUE: 1>, PlaceAction(c1=Coord(r=0, c=1), c2=Coord(r=9, c=1), c3=Coord(r=10, c=1), c4=Coord(r=10, c=2)))'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.000s  (just elapsed)       2.140s  (game total)
+* player1 ~   space:   1.043MB (current usage)      1.043MB (peak usage)
+* player2 ~ call 'update(<PlayerColor.BLUE: 1>, PlaceAction(c1=Coord(r=0, c=1), c2=Coord(r=9, c=1), c3=Coord(r=10, c=1), c4=Coord(r=10, c=2)))'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ resources usage status:
+* player2 ~   time:  + 0.000s  (just elapsed)      25.174s  (game total)
+* player2 ~   space:   9.055MB (current usage)     65.055MB (peak usage)
+* referee : RED to play (turn 9) ...
+* player1 ~ call 'action()'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ ⤷ PlaceAction(c1=Coord(r=5, c=3), c2=Coord(r=4, c=3), c3=Coord(r=4, c=2), c4=Coord(r=3, c=2))
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.508s  (just elapsed)       2.648s  (game total)
+* player1 ~   space:   1.043MB (current usage)      1.043MB (peak usage)
+* referee : RED plays action PLACE(5-3, 4-3, 4-2, 3-2)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       . b . r . . b b b b . 
+* referee :                       b b b . . . b . . b b 
+* referee :                       . . . . r b b . . . . 
+* referee :                       . . r . r r r . . . . 
+* referee :                       . . r r . r . . . . . 
+* referee :                       . . . r r r r . . . . 
+* referee :                       . . . . . r . . . . . 
+* referee :                       . . . r r r . . . . . 
+* referee :                       . . . r . . . . . . . 
+* referee :                       . b . r . . . . . . . 
+* referee :                       . b b r . . . . . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* player1 ~ call 'update(<PlayerColor.RED: 0>, PlaceAction(c1=Coord(r=5, c=3), c2=Coord(r=4, c=3), c3=Coord(r=4, c=2), c4=Coord(r=3, c=2)))'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.000s  (just elapsed)       2.649s  (game total)
+* player1 ~   space:   1.043MB (current usage)      1.043MB (peak usage)
+* player2 ~ call 'update(<PlayerColor.RED: 0>, PlaceAction(c1=Coord(r=5, c=3), c2=Coord(r=4, c=3), c3=Coord(r=4, c=2), c4=Coord(r=3, c=2)))'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ resources usage status:
+* player2 ~   time:  + 0.000s  (just elapsed)      25.175s  (game total)
+* player2 ~   space:   8.055MB (current usage)     65.055MB (peak usage)
+* referee : BLUE to play (turn 10) ...
+* player2 ~ call 'action()'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ ⤷ PlaceAction(c1=Coord(r=6, c=2), c2=Coord(r=7, c=2), c3=Coord(r=8, c=1), c4=Coord(r=8, c=2))
+* player2 ~ resources usage status:
+* player2 ~   time:  +12.779s  (just elapsed)      37.954s  (game total)
+* player2 ~   space:  20.055MB (current usage)     65.055MB (peak usage)
+* referee : BLUE plays action PLACE(6-2, 7-2, 8-1, 8-2)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       . b . r . . b b b b . 
+* referee :                       b b b . . . b . . b b 
+* referee :                       . . . . r b b . . . . 
+* referee :                       . . r . r r r . . . . 
+* referee :                       . . r r . r . . . . . 
+* referee :                       . . . r r r r . . . . 
+* referee :                       . . b . . r . . . . . 
+* referee :                       . . b r r r . . . . . 
+* referee :                       . b b r . . . . . . . 
+* referee :                       . b . r . . . . . . . 
+* referee :                       . b b r . . . . . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* player1 ~ call 'update(<PlayerColor.BLUE: 1>, PlaceAction(c1=Coord(r=6, c=2), c2=Coord(r=7, c=2), c3=Coord(r=8, c=1), c4=Coord(r=8, c=2)))'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.000s  (just elapsed)       2.649s  (game total)
+* player1 ~   space:   1.043MB (current usage)      1.043MB (peak usage)
+* player2 ~ call 'update(<PlayerColor.BLUE: 1>, PlaceAction(c1=Coord(r=6, c=2), c2=Coord(r=7, c=2), c3=Coord(r=8, c=1), c4=Coord(r=8, c=2)))'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ resources usage status:
+* player2 ~   time:  + 0.000s  (just elapsed)      37.954s  (game total)
+* player2 ~   space:   9.055MB (current usage)     65.055MB (peak usage)
+* referee : RED to play (turn 11) ...
+* player1 ~ call 'action()'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ ⤷ PlaceAction(c1=Coord(r=1, c=4), c2=Coord(r=1, c=5), c3=Coord(r=0, c=5), c4=Coord(r=10, c=5))
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.508s  (just elapsed)       3.157s  (game total)
+* player1 ~   space:   1.043MB (current usage)      1.043MB (peak usage)
+* referee : RED plays action PLACE(1-4, 1-5, 0-5, 10-5)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       . b . r . r b b b b . 
+* referee :                       b b b . r r b . . b b 
+* referee :                       . . . . r b b . . . . 
+* referee :                       . . r . r r r . . . . 
+* referee :                       . . r r . r . . . . . 
+* referee :                       . . . r r r r . . . . 
+* referee :                       . . b . . r . . . . . 
+* referee :                       . . b r r r . . . . . 
+* referee :                       . b b r . . . . . . . 
+* referee :                       . b . r . . . . . . . 
+* referee :                       . b b r . r . . . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* player1 ~ call 'update(<PlayerColor.RED: 0>, PlaceAction(c1=Coord(r=1, c=4), c2=Coord(r=1, c=5), c3=Coord(r=0, c=5), c4=Coord(r=10, c=5)))'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.000s  (just elapsed)       3.158s  (game total)
+* player1 ~   space:   1.043MB (current usage)      1.043MB (peak usage)
+* player2 ~ call 'update(<PlayerColor.RED: 0>, PlaceAction(c1=Coord(r=1, c=4), c2=Coord(r=1, c=5), c3=Coord(r=0, c=5), c4=Coord(r=10, c=5)))'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ resources usage status:
+* player2 ~   time:  + 0.000s  (just elapsed)      37.954s  (game total)
+* player2 ~   space:   8.055MB (current usage)     65.055MB (peak usage)
+* referee : BLUE to play (turn 12) ...
+* player2 ~ call 'action()'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ ⤷ PlaceAction(c1=Coord(r=5, c=10), c2=Coord(r=6, c=0), c3=Coord(r=6, c=1), c4=Coord(r=6, c=10))
+* player2 ~ resources usage status:
+* player2 ~   time:  +10.241s  (just elapsed)      48.196s  (game total)
+* player2 ~   space:  17.055MB (current usage)     65.055MB (peak usage)
+* referee : BLUE plays action PLACE(5-10, 6-0, 6-1, 6-10)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       . b . r . r b b b b . 
+* referee :                       b b b . r r b . . b b 
+* referee :                       . . . . r b b . . . . 
+* referee :                       . . r . r r r . . . . 
+* referee :                       . . r r . r . . . . . 
+* referee :                       . . . r r r r . . . b 
+* referee :                       b b b . . r . . . . b 
+* referee :                       . . b r r r . . . . . 
+* referee :                       . b b r . . . . . . . 
+* referee :                       . b . r . . . . . . . 
+* referee :                       . b b r . r . . . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* player1 ~ call 'update(<PlayerColor.BLUE: 1>, PlaceAction(c1=Coord(r=5, c=10), c2=Coord(r=6, c=0), c3=Coord(r=6, c=1), c4=Coord(r=6, c=10)))'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.000s  (just elapsed)       3.158s  (game total)
+* player1 ~   space:   1.043MB (current usage)      1.043MB (peak usage)
+* player2 ~ call 'update(<PlayerColor.BLUE: 1>, PlaceAction(c1=Coord(r=5, c=10), c2=Coord(r=6, c=0), c3=Coord(r=6, c=1), c4=Coord(r=6, c=10)))'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ resources usage status:
+* player2 ~   time:  + 0.000s  (just elapsed)      48.196s  (game total)
+* player2 ~   space:  10.055MB (current usage)     65.055MB (peak usage)
+* referee : RED to play (turn 13) ...
+* player1 ~ call 'action()'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ ⤷ PlaceAction(c1=Coord(r=9, c=5), c2=Coord(r=8, c=5), c3=Coord(r=8, c=6), c4=Coord(r=8, c=4))
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.009s  (just elapsed)       3.167s  (game total)
+* player1 ~   space:   1.043MB (current usage)      1.043MB (peak usage)
+* referee : RED plays action PLACE(9-5, 8-5, 8-6, 8-4)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       . b . r . . b b b b . 
+* referee :                       b b b . r . b . . b b 
+* referee :                       . . . . r . b . . . . 
+* referee :                       . . r . r . r . . . . 
+* referee :                       . . r r . . . . . . . 
+* referee :                       . . . r r . r . . . b 
+* referee :                       b b b . . . . . . . b 
+* referee :                       . . b r r . . . . . . 
+* referee :                       . b b r r . r . . . . 
+* referee :                       . b . r . . . . . . . 
+* referee :                       . b b r . . . . . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* player1 ~ call 'update(<PlayerColor.RED: 0>, PlaceAction(c1=Coord(r=9, c=5), c2=Coord(r=8, c=5), c3=Coord(r=8, c=6), c4=Coord(r=8, c=4)))'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.000s  (just elapsed)       3.168s  (game total)
+* player1 ~   space:   1.043MB (current usage)      1.043MB (peak usage)
+* player2 ~ call 'update(<PlayerColor.RED: 0>, PlaceAction(c1=Coord(r=9, c=5), c2=Coord(r=8, c=5), c3=Coord(r=8, c=6), c4=Coord(r=8, c=4)))'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ resources usage status:
+* player2 ~   time:  + 0.000s  (just elapsed)      48.196s  (game total)
+* player2 ~   space:   9.055MB (current usage)     65.055MB (peak usage)
+* referee : BLUE to play (turn 14) ...
+* player2 ~ call 'action()'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ ⤷ PlaceAction(c1=Coord(r=9, c=7), c2=Coord(r=10, c=5), c3=Coord(r=10, c=6), c4=Coord(r=10, c=7))
+* player2 ~ resources usage status:
+* player2 ~   time:  + 9.445s  (just elapsed)      57.641s  (game total)
+* player2 ~   space:  30.312MB (current usage)     78.312MB (peak usage)
+* referee : BLUE plays action PLACE(9-7, 10-5, 10-6, 10-7)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       . b . r . . b b b b . 
+* referee :                       b b b . r . b . . b b 
+* referee :                       . . . . r . b . . . . 
+* referee :                       . . r . r . r . . . . 
+* referee :                       . . r r . . . . . . . 
+* referee :                       . . . r r . r . . . b 
+* referee :                       b b b . . . . . . . b 
+* referee :                       . . b r r . . . . . . 
+* referee :                       . b b r r . r . . . . 
+* referee :                       . b . r . . . b . . . 
+* referee :                       . b b r . b b b . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* player1 ~ call 'update(<PlayerColor.BLUE: 1>, PlaceAction(c1=Coord(r=9, c=7), c2=Coord(r=10, c=5), c3=Coord(r=10, c=6), c4=Coord(r=10, c=7)))'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.000s  (just elapsed)       3.168s  (game total)
+* player1 ~   space:   1.043MB (current usage)      1.043MB (peak usage)
+* player2 ~ call 'update(<PlayerColor.BLUE: 1>, PlaceAction(c1=Coord(r=9, c=7), c2=Coord(r=10, c=5), c3=Coord(r=10, c=6), c4=Coord(r=10, c=7)))'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ resources usage status:
+* player2 ~   time:  + 0.000s  (just elapsed)      57.641s  (game total)
+* player2 ~   space:  11.312MB (current usage)     78.312MB (peak usage)
+* referee : RED to play (turn 15) ...
+* player1 ~ call 'action()'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ ⤷ PlaceAction(c1=Coord(r=2, c=1), c2=Coord(r=3, c=1), c3=Coord(r=4, c=1), c4=Coord(r=5, c=1))
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.511s  (just elapsed)       3.679s  (game total)
+* player1 ~   space:   1.043MB (current usage)      1.043MB (peak usage)
+* referee : RED plays action PLACE(2-1, 3-1, 4-1, 5-1)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       . b . r . . b b b b . 
+* referee :                       b b b . r . b . . b b 
+* referee :                       . r . . r . b . . . . 
+* referee :                       . r r . r . r . . . . 
+* referee :                       . r r r . . . . . . . 
+* referee :                       . r . r r . r . . . b 
+* referee :                       b b b . . . . . . . b 
+* referee :                       . . b r r . . . . . . 
+* referee :                       . b b r r . r . . . . 
+* referee :                       . b . r . . . b . . . 
+* referee :                       . b b r . b b b . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* player1 ~ call 'update(<PlayerColor.RED: 0>, PlaceAction(c1=Coord(r=2, c=1), c2=Coord(r=3, c=1), c3=Coord(r=4, c=1), c4=Coord(r=5, c=1)))'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.000s  (just elapsed)       3.679s  (game total)
+* player1 ~   space:   1.043MB (current usage)      1.043MB (peak usage)
+* player2 ~ call 'update(<PlayerColor.RED: 0>, PlaceAction(c1=Coord(r=2, c=1), c2=Coord(r=3, c=1), c3=Coord(r=4, c=1), c4=Coord(r=5, c=1)))'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ resources usage status:
+* player2 ~   time:  + 0.000s  (just elapsed)      57.641s  (game total)
+* player2 ~   space:  10.312MB (current usage)     78.312MB (peak usage)
+* referee : BLUE to play (turn 16) ...
+* player2 ~ call 'action()'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ ⤷ PlaceAction(c1=Coord(r=7, c=5), c2=Coord(r=8, c=5), c3=Coord(r=9, c=5), c4=Coord(r=9, c=6))
+* player2 ~ resources usage status:
+* player2 ~   time:  + 6.768s  (just elapsed)      64.409s  (game total)
+* player2 ~   space:  25.312MB (current usage)     78.312MB (peak usage)
+* referee : BLUE plays action PLACE(7-5, 8-5, 9-5, 9-6)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       . b . r . . b b b b . 
+* referee :                       b b b . r . b . . b b 
+* referee :                       . r . . r . b . . . . 
+* referee :                       . r r . r . r . . . . 
+* referee :                       . r r r . . . . . . . 
+* referee :                       . r . r r . r . . . b 
+* referee :                       b b b . . . . . . . b 
+* referee :                       . . b r r b . . . . . 
+* referee :                       . b b r r b r . . . . 
+* referee :                       . b . r . b b b . . . 
+* referee :                       . b b r . b b b . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* player1 ~ call 'update(<PlayerColor.BLUE: 1>, PlaceAction(c1=Coord(r=7, c=5), c2=Coord(r=8, c=5), c3=Coord(r=9, c=5), c4=Coord(r=9, c=6)))'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.000s  (just elapsed)       3.679s  (game total)
+* player1 ~   space:   1.043MB (current usage)      1.043MB (peak usage)
+* player2 ~ call 'update(<PlayerColor.BLUE: 1>, PlaceAction(c1=Coord(r=7, c=5), c2=Coord(r=8, c=5), c3=Coord(r=9, c=5), c4=Coord(r=9, c=6)))'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ resources usage status:
+* player2 ~   time:  + 0.000s  (just elapsed)      64.409s  (game total)
+* player2 ~   space:  12.312MB (current usage)     78.312MB (peak usage)
+* referee : RED to play (turn 17) ...
+* player1 ~ call 'action()'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ ⤷ PlaceAction(c1=Coord(r=2, c=8), c2=Coord(r=2, c=9), c3=Coord(r=2, c=10), c4=Coord(r=2, c=0))
+* player1 ~ resources usage status:
+* player1 ~   time:  + 7.963s  (just elapsed)      11.642s  (game total)
+* player1 ~   space:   1.199MB (current usage)      1.199MB (peak usage)
+* referee : RED plays action PLACE(2-8, 2-9, 2-10, 2-0)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       . b . r . . b b b b . 
+* referee :                       b b b . r . b . . b b 
+* referee :                       r r . . r . b . r r r 
+* referee :                       . r r . r . r . . . . 
+* referee :                       . r r r . . . . . . . 
+* referee :                       . r . r r . r . . . b 
+* referee :                       b b b . . . . . . . b 
+* referee :                       . . b r r b . . . . . 
+* referee :                       . b b r r b r . . . . 
+* referee :                       . b . r . b b b . . . 
+* referee :                       . b b r . b b b . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* player1 ~ call 'update(<PlayerColor.RED: 0>, PlaceAction(c1=Coord(r=2, c=8), c2=Coord(r=2, c=9), c3=Coord(r=2, c=10), c4=Coord(r=2, c=0)))'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.000s  (just elapsed)      11.642s  (game total)
+* player1 ~   space:   1.199MB (current usage)      1.199MB (peak usage)
+* player2 ~ call 'update(<PlayerColor.RED: 0>, PlaceAction(c1=Coord(r=2, c=8), c2=Coord(r=2, c=9), c3=Coord(r=2, c=10), c4=Coord(r=2, c=0)))'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ resources usage status:
+* player2 ~   time:  + 0.000s  (just elapsed)      64.409s  (game total)
+* player2 ~   space:  11.312MB (current usage)     78.312MB (peak usage)
+* referee : BLUE to play (turn 18) ...
+* player2 ~ call 'action()'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ ⤷ PlaceAction(c1=Coord(r=7, c=0), c2=Coord(r=7, c=10), c3=Coord(r=8, c=10), c4=Coord(r=9, c=10))
+* player2 ~ resources usage status:
+* player2 ~   time:  + 5.385s  (just elapsed)      69.795s  (game total)
+* player2 ~   space:  21.312MB (current usage)     78.312MB (peak usage)
+* referee : BLUE plays action PLACE(7-0, 7-10, 8-10, 9-10)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       . b . r . . b b b b . 
+* referee :                       b b b . r . b . . b b 
+* referee :                       r r . . r . b . r r r 
+* referee :                       . r r . r . r . . . . 
+* referee :                       . r r r . . . . . . . 
+* referee :                       . r . r r . r . . . b 
+* referee :                       b b b . . . . . . . b 
+* referee :                       b . b r r b . . . . b 
+* referee :                       . b b r r b r . . . b 
+* referee :                       . b . r . b b b . . b 
+* referee :                       . b b r . b b b . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* player1 ~ call 'update(<PlayerColor.BLUE: 1>, PlaceAction(c1=Coord(r=7, c=0), c2=Coord(r=7, c=10), c3=Coord(r=8, c=10), c4=Coord(r=9, c=10)))'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.001s  (just elapsed)      11.643s  (game total)
+* player1 ~   space:   1.199MB (current usage)      1.199MB (peak usage)
+* player2 ~ call 'update(<PlayerColor.BLUE: 1>, PlaceAction(c1=Coord(r=7, c=0), c2=Coord(r=7, c=10), c3=Coord(r=8, c=10), c4=Coord(r=9, c=10)))'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ resources usage status:
+* player2 ~   time:  + 0.000s  (just elapsed)      69.795s  (game total)
+* player2 ~   space:  12.312MB (current usage)     78.312MB (peak usage)
+* referee : RED to play (turn 19) ...
+* player1 ~ call 'action()'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ ⤷ PlaceAction(c1=Coord(r=7, c=7), c2=Coord(r=6, c=7), c3=Coord(r=6, c=8), c4=Coord(r=6, c=6))
+* player1 ~ resources usage status:
+* player1 ~   time:  + 5.160s  (just elapsed)      16.803s  (game total)
+* player1 ~   space:   1.199MB (current usage)      1.199MB (peak usage)
+* referee : RED plays action PLACE(7-7, 6-7, 6-8, 6-6)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       . b . r . . b b b b . 
+* referee :                       b b b . r . b . . b b 
+* referee :                       r r . . r . b . r r r 
+* referee :                       . r r . r . r . . . . 
+* referee :                       . r r r . . . . . . . 
+* referee :                       . r . r r . r . . . b 
+* referee :                       b b b . . . r r r . b 
+* referee :                       b . b r r b . r . . b 
+* referee :                       . b b r r b r . . . b 
+* referee :                       . b . r . b b b . . b 
+* referee :                       . b b r . b b b . . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* player1 ~ call 'update(<PlayerColor.RED: 0>, PlaceAction(c1=Coord(r=7, c=7), c2=Coord(r=6, c=7), c3=Coord(r=6, c=8), c4=Coord(r=6, c=6)))'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.000s  (just elapsed)      16.803s  (game total)
+* player1 ~   space:   1.199MB (current usage)      1.199MB (peak usage)
+* player2 ~ call 'update(<PlayerColor.RED: 0>, PlaceAction(c1=Coord(r=7, c=7), c2=Coord(r=6, c=7), c3=Coord(r=6, c=8), c4=Coord(r=6, c=6)))'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ resources usage status:
+* player2 ~   time:  + 0.000s  (just elapsed)      69.795s  (game total)
+* player2 ~   space:  11.312MB (current usage)     78.312MB (peak usage)
+* referee : BLUE to play (turn 20) ...
+* player2 ~ call 'action()'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ ⤷ PlaceAction(c1=Coord(r=8, c=9), c2=Coord(r=9, c=8), c3=Coord(r=9, c=9), c4=Coord(r=10, c=8))
+* player2 ~ resources usage status:
+* player2 ~   time:  + 1.973s  (just elapsed)      71.768s  (game total)
+* player2 ~   space:  11.312MB (current usage)     78.312MB (peak usage)
+* referee : BLUE plays action PLACE(8-9, 9-8, 9-9, 10-8)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       . b . r . . b b b b . 
+* referee :                       b b b . r . b . . b b 
+* referee :                       r r . . r . b . r r r 
+* referee :                       . r r . r . r . . . . 
+* referee :                       . r r r . . . . . . . 
+* referee :                       . r . r r . r . . . b 
+* referee :                       b b b . . . r r r . b 
+* referee :                       b . b r r b . r . . b 
+* referee :                       . b b r r b r . . b b 
+* referee :                       . b . r . b b b b b b 
+* referee :                       . b b r . b b b b . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* player1 ~ call 'update(<PlayerColor.BLUE: 1>, PlaceAction(c1=Coord(r=8, c=9), c2=Coord(r=9, c=8), c3=Coord(r=9, c=9), c4=Coord(r=10, c=8)))'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.000s  (just elapsed)      16.804s  (game total)
+* player1 ~   space:   1.199MB (current usage)      1.199MB (peak usage)
+* player2 ~ call 'update(<PlayerColor.BLUE: 1>, PlaceAction(c1=Coord(r=8, c=9), c2=Coord(r=9, c=8), c3=Coord(r=9, c=9), c4=Coord(r=10, c=8)))'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ resources usage status:
+* player2 ~   time:  + 0.000s  (just elapsed)      71.769s  (game total)
+* player2 ~   space:  11.312MB (current usage)     78.312MB (peak usage)
+* referee : RED to play (turn 21) ...
+* player1 ~ call 'action()'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ ⤷ PlaceAction(c1=Coord(r=5, c=5), c2=Coord(r=6, c=5), c3=Coord(r=6, c=4), c4=Coord(r=6, c=3))
+* player1 ~ resources usage status:
+* player1 ~   time:  + 4.305s  (just elapsed)      21.108s  (game total)
+* player1 ~   space:   1.328MB (current usage)      1.328MB (peak usage)
+* referee : RED plays action PLACE(5-5, 6-5, 6-4, 6-3)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       . b . r . . b b b b . 
+* referee :                       b b b . r . b . . b b 
+* referee :                       r r . . r . b . r r r 
+* referee :                       . r r . r . r . . . . 
+* referee :                       . r r r . . . . . . . 
+* referee :                       . r . r r r r . . . b 
+* referee :                       b b b r r r r r r . b 
+* referee :                       b . b r r b . r . . b 
+* referee :                       . b b r r b r . . b b 
+* referee :                       . b . r . b b b b b b 
+* referee :                       . b b r . b b b b . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* player1 ~ call 'update(<PlayerColor.RED: 0>, PlaceAction(c1=Coord(r=5, c=5), c2=Coord(r=6, c=5), c3=Coord(r=6, c=4), c4=Coord(r=6, c=3)))'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.000s  (just elapsed)      21.109s  (game total)
+* player1 ~   space:   1.328MB (current usage)      1.328MB (peak usage)
+* player2 ~ call 'update(<PlayerColor.RED: 0>, PlaceAction(c1=Coord(r=5, c=5), c2=Coord(r=6, c=5), c3=Coord(r=6, c=4), c4=Coord(r=6, c=3)))'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ resources usage status:
+* player2 ~   time:  + 0.000s  (just elapsed)      71.769s  (game total)
+* player2 ~   space:  11.312MB (current usage)     78.312MB (peak usage)
+* referee : BLUE to play (turn 22) ...
+* player2 ~ call 'action()'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ ⤷ PlaceAction(c1=Coord(r=3, c=0), c2=Coord(r=4, c=0), c3=Coord(r=4, c=9), c4=Coord(r=4, c=10))
+* player2 ~ resources usage status:
+* player2 ~   time:  + 1.047s  (just elapsed)      72.816s  (game total)
+* player2 ~   space:  11.312MB (current usage)     78.312MB (peak usage)
+* referee : BLUE plays action PLACE(3-0, 4-0, 4-9, 4-10)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       . b . r . . b b b b . 
+* referee :                       b b b . r . b . . b b 
+* referee :                       r r . . r . b . r r r 
+* referee :                       b r r . r . r . . . . 
+* referee :                       b r r r . . . . . b b 
+* referee :                       . r . r r r r . . . b 
+* referee :                       b b b r r r r r r . b 
+* referee :                       b . b r r b . r . . b 
+* referee :                       . b b r r b r . . b b 
+* referee :                       . b . r . b b b b b b 
+* referee :                       . b b r . b b b b . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* player1 ~ call 'update(<PlayerColor.BLUE: 1>, PlaceAction(c1=Coord(r=3, c=0), c2=Coord(r=4, c=0), c3=Coord(r=4, c=9), c4=Coord(r=4, c=10)))'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.000s  (just elapsed)      21.109s  (game total)
+* player1 ~   space:   1.328MB (current usage)      1.328MB (peak usage)
+* player2 ~ call 'update(<PlayerColor.BLUE: 1>, PlaceAction(c1=Coord(r=3, c=0), c2=Coord(r=4, c=0), c3=Coord(r=4, c=9), c4=Coord(r=4, c=10)))'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ resources usage status:
+* player2 ~   time:  + 0.000s  (just elapsed)      72.816s  (game total)
+* player2 ~   space:  11.312MB (current usage)     78.312MB (peak usage)
+* referee : RED to play (turn 23) ...
+* player1 ~ call 'action()'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ ⤷ PlaceAction(c1=Coord(r=4, c=7), c2=Coord(r=4, c=8), c3=Coord(r=5, c=8), c4=Coord(r=3, c=8))
+* player1 ~ resources usage status:
+* player1 ~   time:  + 2.453s  (just elapsed)      23.562s  (game total)
+* player1 ~   space:   1.328MB (current usage)      1.328MB (peak usage)
+* referee : RED plays action PLACE(4-7, 4-8, 5-8, 3-8)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       . b . r . . b b b b . 
+* referee :                       b b b . r . b . . b b 
+* referee :                       r r . . r . b . r r r 
+* referee :                       b r r . r . r . r . . 
+* referee :                       b r r r . . . r r b b 
+* referee :                       . r . r r r r . r . b 
+* referee :                       b b b r r r r r r . b 
+* referee :                       b . b r r b . r . . b 
+* referee :                       . b b r r b r . . b b 
+* referee :                       . b . r . b b b b b b 
+* referee :                       . b b r . b b b b . . 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* player1 ~ call 'update(<PlayerColor.RED: 0>, PlaceAction(c1=Coord(r=4, c=7), c2=Coord(r=4, c=8), c3=Coord(r=5, c=8), c4=Coord(r=3, c=8)))'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.000s  (just elapsed)      23.563s  (game total)
+* player1 ~   space:   1.328MB (current usage)      1.328MB (peak usage)
+* player2 ~ call 'update(<PlayerColor.RED: 0>, PlaceAction(c1=Coord(r=4, c=7), c2=Coord(r=4, c=8), c3=Coord(r=5, c=8), c4=Coord(r=3, c=8)))'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ resources usage status:
+* player2 ~   time:  + 0.000s  (just elapsed)      72.816s  (game total)
+* player2 ~   space:  11.312MB (current usage)     78.312MB (peak usage)
+* referee : BLUE to play (turn 24) ...
+* player2 ~ call 'action()'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ ⤷ PlaceAction(c1=Coord(r=0, c=0), c2=Coord(r=0, c=10), c3=Coord(r=10, c=9), c4=Coord(r=10, c=10))
+* player2 ~ resources usage status:
+* player2 ~   time:  + 0.268s  (just elapsed)      73.085s  (game total)
+* player2 ~   space:  11.312MB (current usage)     78.312MB (peak usage)
+* referee : BLUE plays action PLACE(0-0, 0-10, 10-9, 10-10)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b b . r . . b b b b b 
+* referee :                       b b b . r . b . . b b 
+* referee :                       r r . . r . b . r r r 
+* referee :                       b r r . r . r . r . . 
+* referee :                       b r r r . . . r r b b 
+* referee :                       . r . r r r r . r . b 
+* referee :                       b b b r r r r r r . b 
+* referee :                       b . b r r b . r . . b 
+* referee :                       . b b r r b r . . b b 
+* referee :                       . b . r . b b b b b b 
+* referee :                       . b b r . b b b b b b 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* player1 ~ call 'update(<PlayerColor.BLUE: 1>, PlaceAction(c1=Coord(r=0, c=0), c2=Coord(r=0, c=10), c3=Coord(r=10, c=9), c4=Coord(r=10, c=10)))'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.000s  (just elapsed)      23.563s  (game total)
+* player1 ~   space:   1.328MB (current usage)      1.328MB (peak usage)
+* player2 ~ call 'update(<PlayerColor.BLUE: 1>, PlaceAction(c1=Coord(r=0, c=0), c2=Coord(r=0, c=10), c3=Coord(r=10, c=9), c4=Coord(r=10, c=10)))'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ resources usage status:
+* player2 ~   time:  + 0.000s  (just elapsed)      73.085s  (game total)
+* player2 ~   space:  11.312MB (current usage)     78.312MB (peak usage)
+* referee : RED to play (turn 25) ...
+* player1 ~ call 'action()'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ ⤷ PlaceAction(c1=Coord(r=0, c=4), c2=Coord(r=0, c=5), c3=Coord(r=1, c=5), c4=Coord(r=2, c=5))
+* player1 ~ resources usage status:
+* player1 ~   time:  +14.731s  (just elapsed)      38.294s  (game total)
+* player1 ~   space:   2.977MB (current usage)      2.977MB (peak usage)
+* referee : RED plays action PLACE(0-4, 0-5, 1-5, 2-5)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b b . r r r b b b b b 
+* referee :                       b b b . r r b . . b b 
+* referee :                       r r . . r r b . r r r 
+* referee :                       b r r . r . r . r . . 
+* referee :                       b r r r . . . r r b b 
+* referee :                       . r . r r r r . r . b 
+* referee :                       b b b r r r r r r . b 
+* referee :                       b . b r r b . r . . b 
+* referee :                       . b b r r b r . . b b 
+* referee :                       . b . r . b b b b b b 
+* referee :                       . b b r . b b b b b b 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* player1 ~ call 'update(<PlayerColor.RED: 0>, PlaceAction(c1=Coord(r=0, c=4), c2=Coord(r=0, c=5), c3=Coord(r=1, c=5), c4=Coord(r=2, c=5)))'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.000s  (just elapsed)      38.294s  (game total)
+* player1 ~   space:   2.977MB (current usage)      2.977MB (peak usage)
+* player2 ~ call 'update(<PlayerColor.RED: 0>, PlaceAction(c1=Coord(r=0, c=4), c2=Coord(r=0, c=5), c3=Coord(r=1, c=5), c4=Coord(r=2, c=5)))'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ resources usage status:
+* player2 ~   time:  + 0.000s  (just elapsed)      73.085s  (game total)
+* player2 ~   space:  11.312MB (current usage)     78.312MB (peak usage)
+* referee : BLUE to play (turn 26) ...
+* player2 ~ call 'action()'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ ⤷ PlaceAction(c1=Coord(r=5, c=9), c2=Coord(r=6, c=9), c3=Coord(r=7, c=8), c4=Coord(r=7, c=9))
+* player2 ~ resources usage status:
+* player2 ~   time:  + 0.067s  (just elapsed)      73.152s  (game total)
+* player2 ~   space:  11.312MB (current usage)     78.312MB (peak usage)
+* referee : BLUE plays action PLACE(5-9, 6-9, 7-8, 7-9)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b b . r r r b b b b b 
+* referee :                       b b b . r r b . . b b 
+* referee :                       r r . . r r b . r r r 
+* referee :                       b r r . r . r . r . . 
+* referee :                       b r r r . . . r r b b 
+* referee :                       . r . r r r r . r b b 
+* referee :                       . . . . . . . . . . . 
+* referee :                       b . b r r b . r b b b 
+* referee :                       . b b r r b r . . b b 
+* referee :                       . b . r . b b b b b b 
+* referee :                       . b b r . b b b b b b 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* player1 ~ call 'update(<PlayerColor.BLUE: 1>, PlaceAction(c1=Coord(r=5, c=9), c2=Coord(r=6, c=9), c3=Coord(r=7, c=8), c4=Coord(r=7, c=9)))'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.000s  (just elapsed)      38.294s  (game total)
+* player1 ~   space:   2.977MB (current usage)      2.977MB (peak usage)
+* player2 ~ call 'update(<PlayerColor.BLUE: 1>, PlaceAction(c1=Coord(r=5, c=9), c2=Coord(r=6, c=9), c3=Coord(r=7, c=8), c4=Coord(r=7, c=9)))'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ resources usage status:
+* player2 ~   time:  + 0.000s  (just elapsed)      73.153s  (game total)
+* player2 ~   space:  11.312MB (current usage)     78.312MB (peak usage)
+* referee : RED to play (turn 27) ...
+* player1 ~ call 'action()'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ ⤷ PlaceAction(c1=Coord(r=6, c=0), c2=Coord(r=6, c=1), c3=Coord(r=6, c=2), c4=Coord(r=6, c=3))
+* player1 ~ resources usage status:
+* player1 ~   time:  +17.336s  (just elapsed)      55.631s  (game total)
+* player1 ~   space:   4.621MB (current usage)      4.621MB (peak usage)
+* referee : RED plays action PLACE(6-0, 6-1, 6-2, 6-3)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b b . r r r b b b b b 
+* referee :                       b b b . r r b . . b b 
+* referee :                       r r . . r r b . r r r 
+* referee :                       b r r . r . r . r . . 
+* referee :                       b r r r . . . r r b b 
+* referee :                       . r . r r r r . r b b 
+* referee :                       r r r r . . . . . . . 
+* referee :                       b . b r r b . r b b b 
+* referee :                       . b b r r b r . . b b 
+* referee :                       . b . r . b b b b b b 
+* referee :                       . b b r . b b b b b b 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* player1 ~ call 'update(<PlayerColor.RED: 0>, PlaceAction(c1=Coord(r=6, c=0), c2=Coord(r=6, c=1), c3=Coord(r=6, c=2), c4=Coord(r=6, c=3)))'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.000s  (just elapsed)      55.631s  (game total)
+* player1 ~   space:   4.621MB (current usage)      4.621MB (peak usage)
+* player2 ~ call 'update(<PlayerColor.RED: 0>, PlaceAction(c1=Coord(r=6, c=0), c2=Coord(r=6, c=1), c3=Coord(r=6, c=2), c4=Coord(r=6, c=3)))'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ resources usage status:
+* player2 ~   time:  + 0.000s  (just elapsed)      73.153s  (game total)
+* player2 ~   space:  11.312MB (current usage)     78.312MB (peak usage)
+* referee : BLUE to play (turn 28) ...
+* player2 ~ call 'action()'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ ⤷ PlaceAction(c1=Coord(r=6, c=5), c2=Coord(r=6, c=6), c3=Coord(r=6, c=7), c4=Coord(r=7, c=6))
+* player2 ~ resources usage status:
+* player2 ~   time:  + 0.130s  (just elapsed)      73.283s  (game total)
+* player2 ~   space:  11.312MB (current usage)     78.312MB (peak usage)
+* referee : BLUE plays action PLACE(6-5, 6-6, 6-7, 7-6)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b b . r r r b b b b b 
+* referee :                       b b b . r r b . . b b 
+* referee :                       r r . . r r b . r r r 
+* referee :                       b r r . r . r . r . . 
+* referee :                       b r r r . . . r r b b 
+* referee :                       . r . r r r r . r b b 
+* referee :                       r r r r . b b b . . . 
+* referee :                       b . b r r b b r b b b 
+* referee :                       . b b r r b r . . b b 
+* referee :                       . b . r . b b b b b b 
+* referee :                       . b b r . b b b b b b 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* player1 ~ call 'update(<PlayerColor.BLUE: 1>, PlaceAction(c1=Coord(r=6, c=5), c2=Coord(r=6, c=6), c3=Coord(r=6, c=7), c4=Coord(r=7, c=6)))'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.000s  (just elapsed)      55.631s  (game total)
+* player1 ~   space:   4.621MB (current usage)      4.621MB (peak usage)
+* player2 ~ call 'update(<PlayerColor.BLUE: 1>, PlaceAction(c1=Coord(r=6, c=5), c2=Coord(r=6, c=6), c3=Coord(r=6, c=7), c4=Coord(r=7, c=6)))'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ resources usage status:
+* player2 ~   time:  + 0.000s  (just elapsed)      73.283s  (game total)
+* player2 ~   space:  11.312MB (current usage)     78.312MB (peak usage)
+* referee : RED to play (turn 29) ...
+* player1 ~ call 'action()'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ ⤷ PlaceAction(c1=Coord(r=1, c=8), c2=Coord(r=1, c=7), c3=Coord(r=2, c=7), c4=Coord(r=3, c=7))
+* player1 ~ resources usage status:
+* player1 ~   time:  + 1.978s  (just elapsed)      57.609s  (game total)
+* player1 ~   space:   4.621MB (current usage)      4.621MB (peak usage)
+* referee : RED plays action PLACE(1-8, 1-7, 2-7, 3-7)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b b . r r r b b b b b 
+* referee :                       b b b . r r b r r b b 
+* referee :                       r r . . r r b r r r r 
+* referee :                       b r r . r . r r r . . 
+* referee :                       b r r r . . . r r b b 
+* referee :                       . r . r r r r . r b b 
+* referee :                       r r r r . b b b . . . 
+* referee :                       b . b r r b b r b b b 
+* referee :                       . b b r r b r . . b b 
+* referee :                       . b . r . b b b b b b 
+* referee :                       . b b r . b b b b b b 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* player1 ~ call 'update(<PlayerColor.RED: 0>, PlaceAction(c1=Coord(r=1, c=8), c2=Coord(r=1, c=7), c3=Coord(r=2, c=7), c4=Coord(r=3, c=7)))'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.000s  (just elapsed)      57.610s  (game total)
+* player1 ~   space:   4.621MB (current usage)      4.621MB (peak usage)
+* player2 ~ call 'update(<PlayerColor.RED: 0>, PlaceAction(c1=Coord(r=1, c=8), c2=Coord(r=1, c=7), c3=Coord(r=2, c=7), c4=Coord(r=3, c=7)))'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ resources usage status:
+* player2 ~   time:  + 0.000s  (just elapsed)      73.283s  (game total)
+* player2 ~   space:  11.312MB (current usage)     78.312MB (peak usage)
+* referee : BLUE to play (turn 30) ...
+* player2 ~ call 'action()'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ ⤷ PlaceAction(c1=Coord(r=1, c=3), c2=Coord(r=2, c=2), c3=Coord(r=2, c=3), c4=Coord(r=3, c=3))
+* player2 ~ resources usage status:
+* player2 ~   time:  + 0.024s  (just elapsed)      73.308s  (game total)
+* player2 ~   space:  11.312MB (current usage)     78.312MB (peak usage)
+* referee : BLUE plays action PLACE(1-3, 2-2, 2-3, 3-3)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b b . . r r b b b b b 
+* referee :                       . . . . . . . . . . . 
+* referee :                       . . . . . . . . . . . 
+* referee :                       b r r . r . r r r . . 
+* referee :                       b r r . . . . r r b b 
+* referee :                       . r . . r r r . r b b 
+* referee :                       r r r . . b b b . . . 
+* referee :                       b . b . r b b r b b b 
+* referee :                       . b b . r b r . . b b 
+* referee :                       . b . . . b b b b b b 
+* referee :                       . b b . . b b b b b b 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* player1 ~ call 'update(<PlayerColor.BLUE: 1>, PlaceAction(c1=Coord(r=1, c=3), c2=Coord(r=2, c=2), c3=Coord(r=2, c=3), c4=Coord(r=3, c=3)))'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.000s  (just elapsed)      57.610s  (game total)
+* player1 ~   space:   4.621MB (current usage)      4.621MB (peak usage)
+* player2 ~ call 'update(<PlayerColor.BLUE: 1>, PlaceAction(c1=Coord(r=1, c=3), c2=Coord(r=2, c=2), c3=Coord(r=2, c=3), c4=Coord(r=3, c=3)))'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ resources usage status:
+* player2 ~   time:  + 0.000s  (just elapsed)      73.308s  (game total)
+* player2 ~   space:  11.312MB (current usage)     78.312MB (peak usage)
+* referee : RED to play (turn 31) ...
+* player1 ~ call 'action()'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ ⤷ PlaceAction(c1=Coord(r=10, c=3), c2=Coord(r=0, c=3), c3=Coord(r=1, c=3), c4=Coord(r=2, c=3))
+* player1 ~ resources usage status:
+* player1 ~   time:  + 6.179s  (just elapsed)      63.789s  (game total)
+* player1 ~   space:   4.750MB (current usage)      4.750MB (peak usage)
+* referee : RED plays action PLACE(10-3, 0-3, 1-3, 2-3)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b b . r r r b b b b b 
+* referee :                       . . . r . . . . . . . 
+* referee :                       . . . r . . . . . . . 
+* referee :                       b r r . r . r r r . . 
+* referee :                       b r r . . . . r r b b 
+* referee :                       . r . . r r r . r b b 
+* referee :                       r r r . . b b b . . . 
+* referee :                       b . b . r b b r b b b 
+* referee :                       . b b . r b r . . b b 
+* referee :                       . b . . . b b b b b b 
+* referee :                       . b b r . b b b b b b 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* player1 ~ call 'update(<PlayerColor.RED: 0>, PlaceAction(c1=Coord(r=10, c=3), c2=Coord(r=0, c=3), c3=Coord(r=1, c=3), c4=Coord(r=2, c=3)))'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.000s  (just elapsed)      63.789s  (game total)
+* player1 ~   space:   4.750MB (current usage)      4.750MB (peak usage)
+* player2 ~ call 'update(<PlayerColor.RED: 0>, PlaceAction(c1=Coord(r=10, c=3), c2=Coord(r=0, c=3), c3=Coord(r=1, c=3), c4=Coord(r=2, c=3)))'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ resources usage status:
+* player2 ~   time:  + 0.000s  (just elapsed)      73.308s  (game total)
+* player2 ~   space:  11.312MB (current usage)     78.312MB (peak usage)
+* referee : BLUE to play (turn 32) ...
+* player2 ~ call 'action()'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ ⤷ PlaceAction(c1=Coord(r=2, c=0), c2=Coord(r=2, c=1), c3=Coord(r=2, c=9), c4=Coord(r=2, c=10))
+* player2 ~ resources usage status:
+* player2 ~   time:  + 1.773s  (just elapsed)      75.081s  (game total)
+* player2 ~   space:  11.312MB (current usage)     78.312MB (peak usage)
+* referee : BLUE plays action PLACE(2-0, 2-1, 2-9, 2-10)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b b . r r r b b b b b 
+* referee :                       . . . r . . . . . . . 
+* referee :                       b b . r . . . . . b b 
+* referee :                       b r r . r . r r r . . 
+* referee :                       b r r . . . . r r b b 
+* referee :                       . r . . r r r . r b b 
+* referee :                       r r r . . b b b . . . 
+* referee :                       b . b . r b b r b b b 
+* referee :                       . b b . r b r . . b b 
+* referee :                       . b . . . b b b b b b 
+* referee :                       . b b r . b b b b b b 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* player1 ~ call 'update(<PlayerColor.BLUE: 1>, PlaceAction(c1=Coord(r=2, c=0), c2=Coord(r=2, c=1), c3=Coord(r=2, c=9), c4=Coord(r=2, c=10)))'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.000s  (just elapsed)      63.790s  (game total)
+* player1 ~   space:   4.750MB (current usage)      4.750MB (peak usage)
+* player2 ~ call 'update(<PlayerColor.BLUE: 1>, PlaceAction(c1=Coord(r=2, c=0), c2=Coord(r=2, c=1), c3=Coord(r=2, c=9), c4=Coord(r=2, c=10)))'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ resources usage status:
+* player2 ~   time:  + 0.000s  (just elapsed)      75.082s  (game total)
+* player2 ~   space:  11.312MB (current usage)     78.312MB (peak usage)
+* referee : RED to play (turn 33) ...
+* player1 ~ call 'action()'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ ⤷ PlaceAction(c1=Coord(r=6, c=3), c2=Coord(r=7, c=3), c3=Coord(r=8, c=3), c4=Coord(r=9, c=3))
+* player1 ~ resources usage status:
+* player1 ~   time:  +13.258s  (just elapsed)      77.048s  (game total)
+* player1 ~   space:   5.266MB (current usage)      5.266MB (peak usage)
+* referee : RED plays action PLACE(6-3, 7-3, 8-3, 9-3)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b b . r r r b b b b b 
+* referee :                       . . . r . . . . . . . 
+* referee :                       b b . r . . . . . b b 
+* referee :                       b r r . r . r r r . . 
+* referee :                       b r r . . . . r r b b 
+* referee :                       . r . . r r r . r b b 
+* referee :                       r r r r . b b b . . . 
+* referee :                       b . b r r b b r b b b 
+* referee :                       . b b r r b r . . b b 
+* referee :                       . b . r . b b b b b b 
+* referee :                       . b b r . b b b b b b 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* player1 ~ call 'update(<PlayerColor.RED: 0>, PlaceAction(c1=Coord(r=6, c=3), c2=Coord(r=7, c=3), c3=Coord(r=8, c=3), c4=Coord(r=9, c=3)))'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.000s  (just elapsed)      77.048s  (game total)
+* player1 ~   space:   5.266MB (current usage)      5.266MB (peak usage)
+* player2 ~ call 'update(<PlayerColor.RED: 0>, PlaceAction(c1=Coord(r=6, c=3), c2=Coord(r=7, c=3), c3=Coord(r=8, c=3), c4=Coord(r=9, c=3)))'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ resources usage status:
+* player2 ~   time:  + 0.000s  (just elapsed)      75.082s  (game total)
+* player2 ~   space:  11.312MB (current usage)     78.312MB (peak usage)
+* referee : BLUE to play (turn 34) ...
+* player2 ~ call 'action()'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ ⤷ PlaceAction(c1=Coord(r=1, c=0), c2=Coord(r=1, c=1), c3=Coord(r=1, c=2), c4=Coord(r=1, c=10))
+* player2 ~ resources usage status:
+* player2 ~   time:  + 0.447s  (just elapsed)      75.529s  (game total)
+* player2 ~   space:  11.312MB (current usage)     78.312MB (peak usage)
+* referee : BLUE plays action PLACE(1-0, 1-1, 1-2, 1-10)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b b . r r r b b b b b 
+* referee :                       b b b r . . . . . . b 
+* referee :                       b b . r . . . . . b b 
+* referee :                       b r r . r . r r r . . 
+* referee :                       b r r . . . . r r b b 
+* referee :                       . r . . r r r . r b b 
+* referee :                       r r r r . b b b . . . 
+* referee :                       b . b r r b b r b b b 
+* referee :                       . b b r r b r . . b b 
+* referee :                       . b . r . b b b b b b 
+* referee :                       . b b r . b b b b b b 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* player1 ~ call 'update(<PlayerColor.BLUE: 1>, PlaceAction(c1=Coord(r=1, c=0), c2=Coord(r=1, c=1), c3=Coord(r=1, c=2), c4=Coord(r=1, c=10)))'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ resources usage status:
+* player1 ~   time:  + 0.000s  (just elapsed)      77.048s  (game total)
+* player1 ~   space:   5.266MB (current usage)      5.266MB (peak usage)
+* player2 ~ call 'update(<PlayerColor.BLUE: 1>, PlaceAction(c1=Coord(r=1, c=0), c2=Coord(r=1, c=1), c3=Coord(r=1, c=2), c4=Coord(r=1, c=10)))'...
+* player2 ~ send method call request to subprocess 18461 (stdin)
+* player2 ~ waiting for reply from subprocess 18461 (stdout)
+* player2 ~ resources usage status:
+* player2 ~   time:  + 0.000s  (just elapsed)      75.529s  (game total)
+* player2 ~   space:  11.312MB (current usage)     78.312MB (peak usage)
+* referee : RED to play (turn 35) ...
+* player1 ~ call 'action()'...
+* player1 ~ send method call request to subprocess 18449 (stdin)
+* player1 ~ waiting for reply from subprocess 18449 (stdout)
+* player1 ~ ⤷ PlaceAction(c1=Coord(r=2, c=8), c2=Coord(r=1, c=8), c3=Coord(r=1, c=7), c4=Coord(r=1, c=6))
+* player1 ~ resources usage status:
+* player1 ~   time:  + 2.727s  (just elapsed)      79.775s  (game total)
+* player1 ~   space:   5.395MB (current usage)      5.395MB (peak usage)
+* referee : RED plays action PLACE(2-8, 1-8, 1-7, 1-6)
+* referee : 
+* referee : =========================== game board ===========================
+* referee : 
+* referee :                       b b . r r r b b b b b 
+* referee :                       b b b r . . r r r . b 
+* referee :                       b b . r . . . . r b b 
+* referee :                       b r r . r . r r r . . 
+* referee :                       b r r . . . . r r b b 
+* referee :                       . r . . r r r . r b b 
+* referee :                       r r r r . b b b . . . 
+* referee :                       b . b r r b b r b b b 
+* referee :                       . b b r r b r . . b b 
+* referee :                       . b . r . b b b b b b 
+* referee :                       . b b r . b b b b b b 
+* referee : 
+* referee : ==================================================================
+* referee : 
+* player2 ~ gracefully ending subprocess 18461...
+* player2 ~ agent process terminated
+* player1 ~ gracefully ending subprocess 18449...
+* player1 ~ agent process terminated
+* referee : game over, winner is RED
+* referee @ result: player 1 [agent:Agent]

@@ -124,7 +124,7 @@ def iterative_deepening_alpha_beta_cutoff_search(board:Board, transposition_tabl
     start_time = time.time()
     base_time = referee["time_remaining"] / (MAX_TURN - board.turn_count)
     end_time = start_time + base_time + board.turn_count/TIME_OUT_FACTOR
-    while (time.time() < end_time and deepest < 30):
+    while (time.time() < end_time and deepest < 20):
         for action in top_actions: 
             # Apply the action, evaluate alpha and beta, then undo the action 
             board.apply_action(action)     
