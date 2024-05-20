@@ -83,3 +83,18 @@ GAME 51: * referee @ result: player 1 [agent:Agent]
 GAME 52: * referee @ result: player 2 [agentGreedy:Agent]
 
 -------- after changing safety check to num_row_col --------- 
+GAME 1: * referee @ result: player 1 [agent:Agent]
+GAME 2: * referee @ result: player 2 [agentGreedy:Agent]
+GAME 3: * referee @ result: player 1 [agent:Agent]
+GAME 4: * referee @ result: player 1 [agent:Agent]
+GAME 5: * referee @ result: player 1 [agent:Agent]
+GAME 6: * referee @ result: player 1 [agent:Agent]
+GAME 7: * referee @ result: player 1 [agent:Agent]
+GAME 8: * referee @ result: player 1 [agent:Agent]
+GAME 9: * referee @ result: player 1 [agent:Agent]
+GAME 10: * referee @ result: player 2 [agentGreedy:Agent]
+GAME 11: * referee @ result: player 2 [agentGreedy:Agent]
+GAME 12: * referee @ result: player 1 [agent:Agent]
+GAME 13: * referee @ result: player 1 [agent:Agent]
+
+-- try to see time and space usage -----
