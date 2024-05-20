@@ -1,25 +1,11 @@
 """Games or Adversarial Search (Chapter 5)"""
 
-import copy
-import itertools
-import random
-from collections import namedtuple
-
 import numpy as np
 import time
 
-from .board import Board, BOARD_N, Direction, Coord, CellState
+from .board import Board, Direction, Coord, CellState
 from referee.game import PlaceAction, PlayerColor
-from referee.agent.resources import CountdownTimer
 from . import _testing
-from referee.run import game_delay
-
-# ______________________________________________________________________________
-
-# For testing  
-def _print(*values): 
-    ''' Change this function name to `_print` if want to print out debug messages '''
-    pass 
 
 # ______________________________________________________________________________
 
@@ -33,7 +19,6 @@ class Entry:
     def __init__(self, utility:float|None=None, actions:list[PlaceAction]=[]): 
         ''' Initialize a node; `player` should be the colour of the agent
         '''
-        #self.board: Board = board 
         self.utility: float = utility
         self.topK_actions:list[PlaceAction] = actions
     
@@ -60,9 +45,6 @@ class TranspositionTable:
 
 
     def get_utility(self, board:Board): 
-        state_key:tuple[tuple[tuple[CellState], PlayerColor], int] = (board.hash(), max(TURN_THRESHOLD, board.turn_count))
-        if self.transposition_table.get(state_key): 
-            print(_testing.prefix(10), "------ revisiting utility")
         entry = self.get_entry(board)
         return entry.utility
     
@@ -76,15 +58,17 @@ class TranspositionTable:
                 board.undo_action()
                 return utility
             entry.topK_actions = sorted(board.get_legal_actions(), key=lambda action: eval(action), reverse=(board.turn_color==self.player))[:K]
-        else: 
-            print(f"----- revisit the top k children")
         return entry.topK_actions
         
 
-def alpha_beta_cutoff_search(board:Board, transposition_table:TranspositionTable, referee):
+def iterative_deepening_alpha_beta_cutoff_search(board:Board, transposition_table:TranspositionTable, referee):
     """Search game to determine best action; use alpha-beta pruning.
-    This version cuts off search and uses an evaluation function."""
-    player = board.turn_color
+    This version cuts off search and uses an evaluation function.
+
+    This algorithm contains some code from Russell And Norvig's 
+    "Artificial Intelligence - A Modern Approach".
+    See: https://github.com/aimacode/aima-python/blob/master/search.py
+    """
     deepest = 1
 
     def cutoff_test(board:Board, depth):
@@ -92,15 +76,6 @@ def alpha_beta_cutoff_search(board:Board, transposition_table:TranspositionTable
         if board.game_over: 
             return True
         
-        # if len(board._empty_coords()) > BOARD_N * BOARD_N / 3: 
-        #     return depth > 2
-        # if len(board._empty_coords()) > BOARD_N * BOARD_N / 4:
-        #     return depth > 3
-
-        # TODO - if the state of the game is unstable, go deeper? 
-        # if not board.is_stable(): 
-        #     return depth > 5
-        # else: 
         return depth > deepest
 
     # Functions used by alpha_beta
@@ -111,13 +86,13 @@ def alpha_beta_cutoff_search(board:Board, transposition_table:TranspositionTable
         top_actions = transposition_table.get_topK_actions(board)
         _search = 0
         for action in top_actions: 
-            print(_testing.prefix(27), f"max-val apply action {action} in max_value() with depth {depth}")
+            #print(_testing.prefix(27), f"max-val apply action {action} in max_value() with depth {depth}")
             board.apply_action(action)
             v = max(v, min_value(board, alpha, beta, depth + 1))
             board.undo_action()
             _search += 1
             if v >= beta:
-                print(_testing.prefix(10), f"pruned {15-_search} nodes at depth {depth}, exceed the maximum")
+                #print(_testing.prefix(10), f"pruned {15-_search} nodes at depth {depth}, exceed the maximum")
                 return v
             alpha = max(alpha, v)
         return v
@@ -129,13 +104,13 @@ def alpha_beta_cutoff_search(board:Board, transposition_table:TranspositionTable
         top_actions = transposition_table.get_topK_actions(board)
         _search = 0
         for action in top_actions:
-            print(_testing.prefix(27), f"min-val apply action {action} in max_value() with depth {depth}")
+            #print(_testing.prefix(27), f"min-val apply action {action} in max_value() with depth {depth}")
             board.apply_action(action)
             v = min(v, max_value(board, alpha, beta, depth + 1))
             board.undo_action()
             _search += 1
             if v <= alpha:
-                print(_testing.prefix(10), f"pruned {15-_search} nodes at depth {depth}, exceed the minimum")
+                #print(_testing.prefix(10), f"pruned {15-_search} nodes at depth {depth}, exceed the minimum")
                 return v
             beta = min(beta, v)
         return v
@@ -145,24 +120,12 @@ def alpha_beta_cutoff_search(board:Board, transposition_table:TranspositionTable
     beta = np.inf
     best_action = None
 
-    legal_actions = board.get_legal_actions()
-    print(_testing.prefix(17), f"number of legal actions = {len(legal_actions)}")
-
-    # if len(legal_actions) < MIN_ACTIONS_TEST: 
-    #     random_index = range(len(legal_actions))
-    # else: 
-    #     random_index:set[int] = set([random.randint(0, len(legal_actions)-1) for _ in range(MIN_ACTIONS_TEST)])
-    # print(_testing.prefix(17), random_index) 
-
     top_actions = transposition_table.get_topK_actions(board)
     start_time = time.time()
     base_time = referee["time_remaining"] / (MAX_TURN - board.turn_count)
     end_time = start_time + base_time + board.turn_count/TIME_OUT_FACTOR
-    while (time.time() < end_time):
-        for action in top_actions: #[legal_actions[i] for i in random_index]
-            # timer = CountdownTimer(time_limit=1,tolerance=10)
-            # timer.__enter__()
-
+    while (time.time() < end_time and deepest < 30):
+        for action in top_actions: 
             # Apply the action, evaluate alpha and beta, then undo the action 
             board.apply_action(action)     
             v = min_value(board, best_score, beta, 1)
@@ -170,9 +133,8 @@ def alpha_beta_cutoff_search(board:Board, transposition_table:TranspositionTable
                 best_score = v
                 best_action = action
             board.undo_action()
-            # timer.__exit__(None, None, None)
         deepest += 1
-    print(_testing.prefix(5), f"reach deepest at {deepest} at a testing turn count {board.turn_count}")
+    #print(_testing.prefix(5), f"reach deepest at {deepest} at a testing turn count {board.turn_count}")
     return best_action
 
 
@@ -181,11 +143,16 @@ def eval_fn_ordering(board:Board, player:PlayerColor) -> int:
     '''
 
     # Calculate the weighted sum of the utility components for `player` (i.e. the agent using the habp) 
-    utility = (
-        diff_row_col_occupied(board, player) * 0.8 +    \
-        #diff_cells_occupied(new_board, player) * 0.5 +      \
-        diff_reachable_valid_empty_cell(board, player)
-    )
+    if (board.turn_count < 20):
+        utility = (
+            diff_row_col_occupied(board, player) +    \
+            diff_reachable_valid_empty_cell(board, player) 
+        )
+    else: 
+        utility = (
+            diff_row_col_occupied(board, player) * 0.5 +    \
+            diff_reachable_valid_empty_cell(board, player)
+        )
 
     return utility
 
@@ -193,7 +160,7 @@ def eval_fn_ordering(board:Board, player:PlayerColor) -> int:
 def eval_fn(board:Board, player:PlayerColor) -> float: 
     ''' Find the utility of terminal state. 
     '''
-    print(_testing.prefix(), f"evaluate start for player {player}")
+    #print(_testing.prefix(), f"evaluate start for player {player}")
     # If there is a winner, give the result straight away 
     if board.winner_color == player.opponent: 
         return -1000
@@ -227,11 +194,11 @@ def eval_fn(board:Board, player:PlayerColor) -> float:
             extra_num_occupied * turns_exceed_threshold * 0.5 
         )
     
-    print(_testing.prefix(), f"evaluate end, utility={utility}")
+    #print(_testing.prefix(), f"evaluate end, utility={utility}")
     return utility
 
 
-# =============== Utility Evaluation Fundctions ==================== 
+# =============== Utility Evaluation Functions ==================== 
 
 def diff_cells_occupied(board:Board, player:PlayerColor) -> int:
     num_player_occupied = board._player_token_count(player)
@@ -274,8 +241,6 @@ def diff_reachable_valid_empty_cell(board:Board, player:PlayerColor) -> int:
             for adjacent in [cell.__add__(direction) for direction in Direction]: 
                 if board._cell_empty(adjacent) and adjacent not in visited: 
                     connected = empty_connected(board, adjacent)
-                    # _testing.show(connected, description="new empty region connected")
-                    # _testing.show(visited, description="previously visited empty region")
                     assert(len(visited.intersection(connected)) == 0)  # `connected` should be a new region that has not been visited 
                     visited.update(connected)
                     
@@ -325,11 +290,16 @@ def query_player(game, state):
 
 
 def alpha_beta_player(game, state):
-    return alpha_beta_cutoff_search(state, game)
+    return iterative_deepening_alpha_beta_cutoff_search(state, game)
 
 
 
+# ______________________________________________________________________________
 
+# For testing  
+def _print(*values): 
+    ''' Change this function name to `_print` if want to print out debug messages '''
+    pass 
 
 
 

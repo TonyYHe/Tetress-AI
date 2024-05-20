@@ -1,5 +1,5 @@
 from utils.node import *
-from utils.table import *
+from utils.ttable import *
 
 class OrderActions:
     @staticmethod
@@ -14,12 +14,12 @@ class OrderActions:
 
         for action in actions:
             mutation = board.apply_action(action)
-            ttentry: TTEntry = ttable.retrieve(board._state)
-            if ttentry is not None:
-                move_scores[board._state.__hash__()] = -ttentry.best_value
+            if board._state in move_values:
+                move_scores[board._state.__hash__()] = -move_values[board._state.__hash__()]
             else:
-                if board._state in move_values:
-                    move_scores[board._state.__hash__()] = -move_values[board._state.__hash__()]
+                ttentry: TTEntry = ttable.retrieve(board._state)
+                if ttentry is not None:
+                    move_scores[board._state.__hash__()] = -ttentry.best_value
                 else:
                     move_scores[board._state.__hash__()] = OrderActions.heuristic_evaluate_action(action, board)
             board.undo_action(mutation)
@@ -38,9 +38,9 @@ class OrderActions:
         """
         Return the top k actions of the input list of action.
         """
-        k = min(len(actions), 20)
+        k = min(len(actions), TOPK)
         return actions[:k]
-    
+
     @staticmethod
     def heuristic_evaluate_action(action: PlaceAction, board: Board):
         """

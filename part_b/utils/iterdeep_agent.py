@@ -8,11 +8,15 @@ import time
 from utils.searchexit import *
 import numpy as np
 from utils.orderactions import *
+from utils.ttable import *
+from utils.stable import *
+
 
 class IterativeDeepeningAgent(ABC):
     def __init__(self, color) -> None:
         super().__init__()
         self.transposition_table = TranspositionTable()
+        self.stateinfo_table = StateinfoTable()
         self.color = color # color of THE PLAYER (YOU)
         self.full_depth = True
         self.expire_time = None
@@ -121,10 +125,7 @@ class IterativeDeepeningAgent(ABC):
         best_action = None
         value = -np.inf
 
-        actions = board.get_legal_actions()
-        actions = OrderActions.order_actions(board, actions, self.transposition_table, move_values)
-        actions = OrderActions.topk_actions(actions)
-        pv_action = actions[0]
+        actions = self.stateinfo_table.retrieve(board, depth, self.transposition_table, move_values)[board._turn_color]
 
         # print("depth:", ply, "total number of actions", len((actions)))
 
