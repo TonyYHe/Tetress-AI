@@ -255,18 +255,16 @@ def diff_reachable_valid_empty_cell(board:Board, player:PlayerColor) -> int:
 
 
 def diff_row_col_occupied(board:Board, player:PlayerColor) -> int: 
-    ''' Find the difference in the sum of the number of rows and columns occupied
+    ''' Find the difference in the sum of the number of rows and columns occupied`
         between the player and the opponent. 
     '''
-    player_occupied = (board._player_occupied_coords(player)) 
-    opponent_occupied = (board._player_occupied_coords(player.opponent)) 
-    player_occupied_row = set(map(lambda coord: coord.r, player_occupied))
-    player_occupied_col = set(map(lambda coord: coord.c, player_occupied))
-    opponent_occupied_row = set(map(lambda coord: coord.r, opponent_occupied))
-    opponent_occupied_col = set(map(lambda coord: coord.c, opponent_occupied))
-    return len(player_occupied_row) + len(player_occupied_col) \
-        - len(opponent_occupied_row) - len(opponent_occupied_col)
+    return row_col_occupied(board, player) - row_col_occupied(board, player.opponent)
 
+def row_col_occupied(board:Board, player:PlayerColor): 
+    occupied = board._player_occupied_coords(player)
+    occupied_row = set(map(lambda coord: coord.r, occupied))
+    occupied_col = set(map(lambda coord: coord.c, occupied))
+    return len(occupied_row) + len(occupied_col) 
 
 # ______________________________________________________________________________
 # Players for Games

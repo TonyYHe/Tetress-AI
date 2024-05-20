@@ -4,7 +4,7 @@ import random
 
 from referee.game import PlayerColor, Action, PlaceAction, Coord
 from .board import Board, BOARD_N
-from .habp import iterative_deepening_alpha_beta_cutoff_search, TranspositionTable
+from .habp import iterative_deepening_alpha_beta_cutoff_search, TranspositionTable, row_col_occupied
 import time
 
 class Agent:
@@ -39,14 +39,16 @@ class Agent:
             # Generate a random action 
             legal_actions = self._board.get_legal_actions()
             action = random.choice(legal_actions)
+            num_row_col_occupied = row_col_occupied(self._board, self._color)
 
             # Check for safety
             cutoff_time = time.time() + 0.5
             while (time.time() < cutoff_time): 
                 self._board.apply_action(action)
-                new_legal_actions = self._board.get_legal_actions()
+                #new_legal_actions = self._board.get_legal_actions()
+                new_num_row_col_occupied = row_col_occupied(self._board, self._color)
                 self._board.undo_action()
-                if (len(new_legal_actions) > len(legal_actions)): 
+                if (num_row_col_occupied > new_num_row_col_occupied): 
                     return action
                 action = random.choice(legal_actions)
 
