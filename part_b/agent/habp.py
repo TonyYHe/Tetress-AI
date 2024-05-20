@@ -13,7 +13,7 @@ from . import _testing
 MAX_TURN = 150 
 TURN_THRESHOLD = MAX_TURN * 0.8 
 MIN_ACTIONS_TEST = 20
-TIME_OUT_FACTOR = 30
+TIME_OUT_FACTOR = 50
 
 class Entry: 
     def __init__(self, utility:float|None=None, actions:list[PlaceAction]=[]): 

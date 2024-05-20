@@ -2,7 +2,7 @@
 # Project Part B: Game Playing Agent
 import random
 
-from referee.game import PlayerColor, Action, PlaceAction, Coord
+from referee.game import PlayerColor, Action, PlaceAction
 from .board import Board, BOARD_N
 from .habp import iterative_deepening_alpha_beta_cutoff_search, TranspositionTable, row_col_occupied
 import time
