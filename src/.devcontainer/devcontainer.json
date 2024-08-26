@@ -1,0 +1,20 @@
+{
+	"name": "COMP30024",
+	"image": "registry.gitlab.unimelb.edu.au:5005/comp30024/envs/main:latest",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-azuretools.vscode-docker",
+				"ms-python.python"
+			],
+			"settings": {
+				"python.defaultInterpreterPath": "/.venv/bin/python",
+				"extensions.verifySignature": false // Temp fix for macOS: https://github.com/1995parham/dotfiles/issues/57
+			}
+		}
+	},
+	"remoteUser": "dev",
+	"remoteEnv": {
+		"PYTHONPATH": "/.venv/bin/python"
+	}
+}

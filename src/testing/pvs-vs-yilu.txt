@@ -1,0 +1,2 @@
+GAME 1: * referee @ result: player 2 [yilu_agent:Agent]
+GAME 2: * referee @ result: player 2 [yilu_agent:Agent]
