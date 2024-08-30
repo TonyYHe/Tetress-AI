@@ -21,7 +21,7 @@ with highest number of associated tokens.
     'n' and value 'f'. Still being optimised.
 - **pvs_agent**: Experiental AI using Principal Variation Search.
 *****************************************************************************
-THe Non-agent files
+The Non-agent files
 - **disposed**: Disposed files, though some may still see usage in the future
 - **referee**: The referee program for running the game of Tetress
 - **utils**: Other components of an AI implementation. Some are optimisation 
